@@ -37,6 +37,8 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     arel (6.0.3)
+    auto_migrations (1.1.0)
+      rails (>= 3.0.1)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bower-rails (0.10.0)
@@ -158,6 +160,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  auto_migrations
   bower-rails (~> 0.10.0)
   byebug
   coffee-rails (~> 4.1.0)
