@@ -1,0 +1,9 @@
+{
+  "name": "dsl-generated dependencies",
+  "dependencies": {
+    "bootstrap-sass": "~> 3.3.5",
+    "angular": "latest",
+    "angular-route": "latest",
+    "angular-local-storage": "latest"
+  }
+}

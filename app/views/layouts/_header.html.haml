@@ -1,0 +1,11 @@
+%nav.navbar.navbar-default.navbar-fixed-top{:role => :navigation}
+  .container
+    .col-md-8.col-md-offset-2
+      #navbar
+        .navbar-header
+          %a{  :"ng-href" => "/", class: 'navbar-brand' }
+            root
+        %ul.nav.navbar-nav.pull-left
+          %li
+            %a{ :"ng-href" => "/tournaments" }
+              Tournaments

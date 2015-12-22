@@ -13,3 +13,10 @@
  *= require_tree .
  *= require_self
  */
+ $icon-font-path: "bootstrap-sass/assets/fonts/bootstrap/";
+ @import "bootstrap-sass/assets/stylesheets/bootstrap-sprockets";
+ @import "bootstrap-sass/assets/stylesheets/bootstrap";
+ @import "bootstrap-custom";
+ body {
+   padding: 55px;
+ }
