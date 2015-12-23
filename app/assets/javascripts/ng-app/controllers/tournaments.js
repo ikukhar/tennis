@@ -1,9 +1,9 @@
 (function() {'use strict';
 
-  function Tournaments() {
-    var vm = this;
-    vm.test = 'hello'
+  function TournamentsController($scope, Tournaments) {
+    $scope.tournaments = Tournaments.query()
   };
 
-  angular.module('app').controller('Tournaments', Tournaments);
+  TournamentsController.$inject = ['$scope', 'Tournaments'];
+  angular.module('app').controller('TournamentsController', TournamentsController);
 })();

@@ -1,6 +1,7 @@
 angular.module('app', [
   'ngRoute',
-  'LocalStorageModule'
+  'LocalStorageModule',
+  'ngResource'
 ]);
 
 angular.module('app').config(function($routeProvider, $locationProvider, $httpProvider) {

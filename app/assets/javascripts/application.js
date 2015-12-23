@@ -18,6 +18,7 @@
 //= require angular
 //= require angular-route
 //= require angular-local-storage
+//= require angular-resource
 //= require ng-app/init
 
 //= require_tree .

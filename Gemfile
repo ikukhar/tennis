@@ -49,3 +49,4 @@ end
 
 gem 'haml-rails', "~> 0.9"
 gem "bower-rails", "~> 0.10.0"
+gem "responders"

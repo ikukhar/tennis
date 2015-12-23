@@ -4,8 +4,7 @@
     $routeProvider
         .when('/tournaments', {
             templateUrl: 'templates/tournaments.html',
-            controller: 'Tournaments',
-            controllerAs: 'vm'
+            controller: 'TournamentsController'
         });
   };
 
