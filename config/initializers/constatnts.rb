@@ -9,7 +9,7 @@ module TOURNAMENT_STATUSES
   FINISHED = :finished
 end
 
-module ROUND_TYPES
+module ROUND_FORMS
   CHAMPIONSHIP = :championship
   PLAY_OFF = :play_off
 end

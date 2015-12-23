@@ -11,7 +11,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151223075835) do
+ActiveRecord::Schema.define(version: 20151223115852) do
+
+  create_table "matches", force: :cascade do |t|
+    t.integer  "rounds_id"
+    t.integer  "team1_id"
+    t.integer  "team2_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "matches", ["rounds_id"], name: "index_matches_on_rounds_id"
+
+  create_table "members", force: :cascade do |t|
+    t.integer  "rounds_id"
+    t.integer  "team_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "members", ["rounds_id"], name: "index_members_on_rounds_id"
+
+  create_table "players", force: :cascade do |t|
+    t.integer  "rating"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rounds", force: :cascade do |t|
+    t.integer  "tournament_id"
+    t.string   "form"
+    t.integer  "match_sets"
+    t.integer  "points_per_win"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "rounds", ["tournament_id"], name: "index_rounds_on_tournament_id"
+
+  create_table "teams", force: :cascade do |t|
+    t.integer  "tournament_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "teams", ["tournament_id"], name: "index_teams_on_tournament_id"
 
   create_table "tournaments", force: :cascade do |t|
     t.string   "name"

@@ -3,8 +3,9 @@
   "dependencies": {
     "bootstrap-sass": "~> 3.3.5",
     "angular": "latest",
-    "angular-route": "latest",
+    "angular-ui-router": "latest",
     "angular-local-storage": "latest",
-    "angular-resource": "latest"
+    "angular-resource": "latest",
+    "angular-breadcrumb": "latest"
   }
 }

@@ -16,9 +16,10 @@
 //= require bootstrap-sass/assets/javascripts/bootstrap-sprockets
 
 //= require angular
-//= require angular-route
+//= require angular-ui-router
 //= require angular-local-storage
 //= require angular-resource
+//= require angular-breadcrumb
 //= require ng-app/init
 
 //= require_tree .

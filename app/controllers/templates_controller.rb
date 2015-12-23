@@ -5,7 +5,11 @@ class TemplatesController < ApplicationController
   end
 
   def tournaments
-    render :tournaments, layout: nil
+    render 'tournaments', layout: nil
+  end
+
+  def new_tournament
+    render 'tournaments.new', layout: nil
   end
 
 end

@@ -1,9 +1,10 @@
 angular.module('app', [
-  'ngRoute',
+  'ui.router',
   'LocalStorageModule',
-  'ngResource'
+  'ngResource',
+  'ncy-angular-breadcrumb'
 ]);
 
-angular.module('app').config(function($routeProvider, $locationProvider, $httpProvider) {
+angular.module('app').config(function($locationProvider) {
   $locationProvider.html5Mode(true);
 });

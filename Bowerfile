@@ -3,6 +3,7 @@
 
 asset 'bootstrap-sass', '~> 3.3.5'
 asset 'angular'
-asset 'angular-route'
+asset 'angular-ui-router'
 asset 'angular-local-storage'
 asset 'angular-resource'
+asset 'angular-breadcrumb'
