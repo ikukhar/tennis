@@ -6,6 +6,9 @@
     "angular-ui-router": "latest",
     "angular-local-storage": "latest",
     "angular-resource": "latest",
-    "angular-breadcrumb": "latest"
+    "angular-breadcrumb": "latest",
+    "angular-isolate-form": "latest"
+  },
+  "resolutions": {
   }
 }

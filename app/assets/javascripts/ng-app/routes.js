@@ -22,26 +22,29 @@
   var tournaments = {
     parent: 'home',
     url: 'tournaments',
+    controller: "TournamentsController",
     ncyBreadcrumb: {
       label: 'Tournaments'
     },
     views: {
       '@': {
-        controller: "TournamentsController",
-        templateUrl: "templates/tournaments.html",
+        templateUrl: "templates/tournaments.html"
       }
     }
   };
 
   var tournaments_new = {
     url: '/new',
+    controller: "TournamentsController",
     ncyBreadcrumb: {
       label: 'New'
     },
     views: {
       '@': {
-        controller: "TournamentsController",
-        templateUrl: "templates/tournaments_new.html",
+        templateUrl: "templates/tournaments_new.html"
+      },
+      'rounds@tournaments.new': {
+        templateUrl: "templates/tournaments_new_rounds.html"
       }
     }
   };

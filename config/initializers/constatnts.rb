@@ -4,12 +4,12 @@ module TOURNAMENT_FORMS
 end
 
 module TOURNAMENT_STATUSES
-  NOT_STARTED = :not_started
-  STARTED = :started
-  FINISHED = :finished
+  NOT_STARTED = 'Not started'
+  STARTED = 'Started'
+  FINISHED = 'Finished'
 end
 
 module ROUND_FORMS
-  CHAMPIONSHIP = :championship
-  PLAY_OFF = :play_off
+  CHAMPIONSHIP = 'Сhampionship'
+  PLAY_OFF = 'Play off'
 end
