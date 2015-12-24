@@ -8,3 +8,9 @@ angular.module('app', [
 angular.module('app').config(function($locationProvider) {
   $locationProvider.html5Mode(true);
 });
+
+var run = function($document) {
+}
+
+run.$inject = ['$document'];
+angular.module('app').run(run);

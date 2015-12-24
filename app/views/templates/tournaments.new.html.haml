@@ -1,1 +1,36 @@
 %h3 New tournament
+%hr
+  %form{ :"ng-submit" => "create()",
+         :class => 'form-horizontal',
+         :role => "form",
+         :name => 'newTournamentForm',
+         :novalidate => true }
+
+    .form-group.required{ :"ng-class" => "{ 'has-error': newTournamentForm.name.$touched && newTournamentForm.name.$invalid }" }
+      %label{ :for => "name", class: 'control-label col-md-3' } Name:
+      .col-md-9
+        %input#name.form-control{ :name => "name",
+                                  :'ng-model' => 'data.name',
+                                  :required => true,
+                                  :type => "text"}
+    .form-group.required{ :"ng-class" => "{ 'has-error': newTournamentForm.form.$touched && newTournamentForm.form.$invalid }" }
+      %label{ :for => "form", class: 'control-label col-md-3' } Type:
+      .col-md-9
+        %select.form-control{:'ng-model' => 'data.form', :required => true}
+          %option
+          %option
+            =TOURNAMENT_FORMS::SINGLES
+          %option
+            =TOURNAMENT_FORMS::DOUBLES
+    .form-group.required{ :"ng-class" => "{ 'has-error': newTournamentForm.start.$touched && newTournamentForm.start.$invalid }" }
+      %label{ :for => "start", class: 'control-label col-md-3' } Start date:
+      .col-md-9
+        %input#name.form-control{ :name => "start",
+                                  :'ng-model' => 'data.start',
+                                  :required => true,
+                                  :type => "date"}
+    .form-group.required
+      %label{ class: 'control-label col-md-3' } Rounds:
+    .form-group
+      .col-md-offset-3.col-md-9
+        %button.btn.btn-success{ :type => "submit", :"ng-disabled" => "newTournamentForm.$invalid" } Create

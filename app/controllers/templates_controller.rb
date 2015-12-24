@@ -1,7 +1,10 @@
 class TemplatesController < ApplicationController
-
   def angular
-    render "layouts/application"
+    render 'layouts/application'
+  end
+
+  def home
+    render 'home', layout: nil
   end
 
   def tournaments
@@ -11,5 +14,4 @@ class TemplatesController < ApplicationController
   def new_tournament
     render 'tournaments.new', layout: nil
   end
-
 end

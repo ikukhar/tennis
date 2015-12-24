@@ -6,38 +6,44 @@
     $urlRouterProvider.otherwise("/");
 
     $stateProvider
-      .state('home', {
-        url: '/',
-        ncyBreadcrumb: {
-          label: 'Home'
-        }
-      })
-      .state('tournaments', {
-        parent: 'home',
-        url: 'tournaments',
-        ncyBreadcrumb: {
-          label: 'Tournaments'
-        },
-        views: {
-          '@': {
-            controller: "TournamentsController",
-            templateUrl: "templates/tournaments.html",
-          }
-        }
+      .state('home', home)
+      .state('tournaments', tournaments)
+      .state('tournaments.new', tournaments_new);
+  };
 
-      })
-      .state('tournaments.new', {
-        url: '/new',
-        ncyBreadcrumb: {
-          label: 'New'
-        },
-        views: {
-          '@': {
-            controller: "TournamentsController",
-            templateUrl: "templates/tournaments_new.html",
-          }
-        }
-      });
+  var home = {
+    url: '/',
+    templateUrl: "templates/home.html",
+    ncyBreadcrumb: {
+      label: 'Home'
+    }
+  };
+
+  var tournaments = {
+    parent: 'home',
+    url: 'tournaments',
+    ncyBreadcrumb: {
+      label: 'Tournaments'
+    },
+    views: {
+      '@': {
+        controller: "TournamentsController",
+        templateUrl: "templates/tournaments.html",
+      }
+    }
+  };
+
+  var tournaments_new = {
+    url: '/new',
+    ncyBreadcrumb: {
+      label: 'New'
+    },
+    views: {
+      '@': {
+        controller: "TournamentsController",
+        templateUrl: "templates/tournaments_new.html",
+      }
+    }
   };
 
   angular.module('app').config(config);

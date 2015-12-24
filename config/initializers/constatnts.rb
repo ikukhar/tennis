@@ -1,6 +1,6 @@
 module TOURNAMENT_FORMS
-  SINGLES = :singles
-  COUPLES = :couples
+  SINGLES = 'Singles'
+  DOUBLES = 'Doubles'
 end
 
 module TOURNAMENT_STATUSES
