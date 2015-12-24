@@ -13,7 +13,8 @@
 
   .well-sm
     %button.btn.btn-default{ :'ng-click' => 'showAddingRound = true; tmp_rounds.push({})',
-                             :'ng-show' => '!showAddingRound'} Add
+                             :'ng-show' => '!showAddingRound',
+                             :type => 'button'} Add
   -# -----------------------------------------------------------------------------------------------------
   %div{:'ng-if' => 'showAddingRound'}
 
@@ -29,10 +30,8 @@
                                :name => 'form',
                                :required => true}
             %option
-            %option
-              =ROUND_FORMS::CHAMPIONSHIP
-            %option
-              =ROUND_FORMS::PLAY_OFF
+            %option=ROUND_FORMS::CHAMPIONSHIP
+            %option=ROUND_FORMS::PLAY_OFF
       .form-group.required{ :'ng-class' => "{ 'has-error': newTournamentRoundsForm.match_sets.$touched && newTournamentRoundsForm.match_sets.$invalid }" }
         %label{ class: 'control-label col-md-3' } Match sets:
         .col-md-8

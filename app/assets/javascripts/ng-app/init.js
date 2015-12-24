@@ -2,7 +2,8 @@ angular.module('app', [
   'ui.router',
   'LocalStorageModule',
   'ngResource',
-  'ncy-angular-breadcrumb'
+  'ncy-angular-breadcrumb',
+  'rails'
 ]);
 
 angular.module('app').config(function($locationProvider) {

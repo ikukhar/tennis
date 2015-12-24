@@ -22,12 +22,12 @@
   var tournaments = {
     parent: 'home',
     url: 'tournaments',
-    controller: "TournamentsController",
     ncyBreadcrumb: {
       label: 'Tournaments'
     },
     views: {
       '@': {
+        controller: "TournamentsController",
         templateUrl: "templates/tournaments.html"
       }
     }
@@ -35,12 +35,12 @@
 
   var tournaments_new = {
     url: '/new',
-    controller: "TournamentsController",
     ncyBreadcrumb: {
       label: 'New'
     },
     views: {
       '@': {
+        controller: "TournamentsController",
         templateUrl: "templates/tournaments_new.html"
       },
       'rounds@tournaments.new': {

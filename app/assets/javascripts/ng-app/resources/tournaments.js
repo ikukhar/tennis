@@ -1,12 +1,15 @@
 (function(){'use strict';
 
-  var Tournaments = function($resource) {
-    return $resource('/api/tournaments/:id.json', { id: '@id' },
-        {
-            'update': { method:'PUT' }
-        });
+  var Tournaments = function(railsResourceFactory, railsSerializer) {
+    return railsResourceFactory({
+        url: '/api/tournaments',
+        name: 'tournament',
+        serializer: railsSerializer(function () {
+            this.nestedAttribute('rounds');
+        })
+      });
   };
 
-  Tournaments.$inject = ['$resource'];
+  Tournaments.$inject = ['railsResourceFactory', 'railsSerializer'];
   angular.module('app').factory('Tournaments', Tournaments);
 })();

@@ -1,4 +1,5 @@
-class TemplatesController < ApplicationController
+class Templates::TemplatesController < ApplicationController
+  # TODO: Разбросать на несколько контроллеров??
   def angular
     render 'layouts/application'
   end

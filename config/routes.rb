@@ -1,13 +1,19 @@
 Rails.application.routes.draw do
-  root 'templates#angular'
-# TODO: Улучшить роутинг!
-  get 'templates/home', to: 'templates#home'
-  get 'templates/tournaments', to: 'templates#tournaments'
-  get 'templates/tournaments_new', to: 'templates#tournaments_new'
-  get 'templates/tournaments_new_rounds', to: 'templates#tournaments_new_rounds'
+  root 'templates/templates#angular'
+  # TODO: Улучшить роутинг!
+  namespace :templates do
+    get 'home', to: 'templates#home'
+    get 'tournaments', to: 'templates#tournaments'
+    get 'tournaments_new', to: 'templates#tournaments_new'
+    get 'tournaments_new_rounds', to: 'templates#tournaments_new_rounds'
+  end
 
-  get 'api/tournaments', to: 'tournaments#index'
-  get 'api/rounds', to: 'rounds#index'
+  namespace :api do
+    get 'tournaments', to: 'tournaments#index'
+    get 'tournaments/:id', to: 'tournaments#show', as: 'tournament'
+    post 'tournaments', to: 'tournaments#create'
+    get 'rounds', to: 'rounds#index'
+  end
 
-  get '*path', to: 'templates#angular'
+  get '*path', to: 'templates/templates#angular'
 end

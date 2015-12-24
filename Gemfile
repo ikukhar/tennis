@@ -50,3 +50,4 @@ end
 gem 'haml-rails', "~> 0.9"
 gem "bower-rails", "~> 0.10.0"
 gem "responders"
+gem 'angularjs-rails-resource', '~> 2.0.0'

@@ -20,6 +20,7 @@
 //= require angular-local-storage
 //= require angular-resource
 //= require angular-breadcrumb
+//= require angularjs/rails/resource
 //= require ng-app/init
 
 //= require_tree .

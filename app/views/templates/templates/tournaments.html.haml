@@ -1,0 +1,10 @@
+%h3
+  Tournaments
+%hr
+.panel
+  .btn-group
+    %button.btn.btn-default{ :"ui-sref" => 'tournaments.new' }
+      New
+%ul
+  %li{ :"ng-repeat" => "t in tournaments" }
+    %p {{t.name}}

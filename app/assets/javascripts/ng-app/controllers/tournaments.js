@@ -1,11 +1,25 @@
-(function() {'use strict';
+(function() {
+  'use strict';
 
   function TournamentsController($scope, $state, Tournaments) {
-    $scope.tournaments = Tournaments.query();
+    $scope.tournaments = [];
+    Tournaments.query().then(function(results) {
+      $scope.tournaments = results;
+    });
+
     $scope.create = create;
 
     function create() {
-      console.log('TournamentsController:create');
+      new Tournaments($scope.data)
+        .create()
+        .then(function(results) {
+          console.log(results)
+          $scope.tournaments.push(results);
+          $state.go('^');
+        })
+        .catch(function(results) {
+          console.log("error saving tournament");
+        });
     }
   };
 

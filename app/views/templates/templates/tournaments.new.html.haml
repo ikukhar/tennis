@@ -18,12 +18,11 @@
       .col-md-9
         %select.form-control{:'ng-model' => 'data.form',
                              :name => 'form',
-                             :required => true}
+                             :required => true,
+                             :'ng-trim' => 'true'}
           %option
-          %option
-            =TOURNAMENT_FORMS::SINGLES
-          %option
-            =TOURNAMENT_FORMS::DOUBLES
+          %option=TOURNAMENT_FORMS::SINGLES
+          %option=TOURNAMENT_FORMS::DOUBLES
     .form-group.required{ :'ng-class' => "{ 'has-error': newTournamentForm.start.$touched && newTournamentForm.start.$invalid }" }
       %label{ class: 'control-label col-md-3' } Start:
       .col-md-9
@@ -37,4 +36,7 @@
         %div{:'ui-view' => 'rounds'}
     .form-group
       .col-md-offset-3.col-md-9
-        %button.btn.btn-success{ :type => 'submit', :'ng-disabled' => 'newTournamentForm.$invalid' } Create
+        %button.btn.btn-success{ :type => 'submit',
+                                 :'ng-disabled' => 'newTournamentForm.$invalid' } Create
+        %button.btn.btn-default{ :type => 'button',
+                                 :'ui-sref' => "^" } Cancel
