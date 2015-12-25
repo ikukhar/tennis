@@ -21,6 +21,8 @@
 //= require angular-resource
 //= require angular-breadcrumb
 //= require angularjs/rails/resource
+//= require angular-ui-notification
+
 //= require ng-app/init
 
 //= require_tree .

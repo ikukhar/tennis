@@ -1,9 +1,9 @@
-.panel.panel-default{:'ng-init' => '$parent.data.rounds = []; tmp_rounds = []'}
+.panel.panel-default{:'ng-init' => '$parent.current.rounds = []; tmp_rounds = []'}
   -# -----------------------------------------------------------------------------------------------------
-  %div{:'ng-if' => '$parent.data.rounds'}
+  %div{:'ng-if' => '$parent.current.rounds'}
     %h5
       %ol
-        %li{:'ng-repeat' => 'round in $parent.data.rounds'}
+        %li{:'ng-repeat' => 'round in $parent.current.rounds'}
           %p
             {{round.form}}: {{round.match_sets}} sets
             %span{:'ng-show' => "round.form.trim()=='#{ROUND_FORMS::CHAMPIONSHIP}'"}
@@ -20,10 +20,10 @@
 
     %ng-form{ :class => 'form-horizontal',
            :role => 'form',
-           :name => 'newTournamentRoundsForm',
+           :name => 'form',
            :novalidate => true}
 
-      .form-group.required{ :'ng-class' => "{ 'has-error': newTournamentRoundsForm.form.$touched && newTournamentRoundsForm.form.$invalid }" }
+      .form-group.required{ :'ng-class' => "{ 'has-error': form.form.$touched && form.form.$invalid }" }
         %label{ class: 'control-label col-md-3' } Type:
         .col-md-8
           %select.form-control{:'ng-model' => 'tmp_rounds[tmp_rounds.length-1].form',
@@ -32,14 +32,14 @@
             %option
             %option=ROUND_FORMS::CHAMPIONSHIP
             %option=ROUND_FORMS::PLAY_OFF
-      .form-group.required{ :'ng-class' => "{ 'has-error': newTournamentRoundsForm.match_sets.$touched && newTournamentRoundsForm.match_sets.$invalid }" }
+      .form-group.required{ :'ng-class' => "{ 'has-error': form.match_sets.$touched && form.match_sets.$invalid }" }
         %label{ class: 'control-label col-md-3' } Match sets:
         .col-md-8
           %input#name.form-control{ :'ng-model' => 'tmp_rounds[tmp_rounds.length-1].match_sets',
                                     :name => 'match_sets',
                                     :required => true,
                                     :type => "number"}
-      .form-group.required{ :'ng-class' => "{ 'has-error': newTournamentRoundsForm.points_per_win.$touched && newTournamentRoundsForm.points_per_win.$invalid }",
+      .form-group.required{ :'ng-class' => "{ 'has-error': form.points_per_win.$touched && form.points_per_win.$invalid }",
                             :'ng-if' => "tmp_rounds[tmp_rounds.length-1].form.trim()=='#{ROUND_FORMS::CHAMPIONSHIP}'"}
 
         %label{ class: 'control-label col-md-4' } Points per win:
@@ -50,6 +50,6 @@
                                     :type => "number"}
       .form-group
         .col-md-offset-3.col-md-8
-          %button.btn.btn-success{ :'ng-click' => '$parent.showAddingRound = false; $parent.data.rounds.push(tmp_rounds.pop())',
-                                   :'ng-disabled' => 'newTournamentRoundsForm.$invalid' } OK
+          %button.btn.btn-success{ :'ng-click' => '$parent.showAddingRound = false; $parent.current.rounds.push(tmp_rounds.pop())',
+                                   :'ng-disabled' => 'form.$invalid' } OK
           %button.btn.btn-default{ :'ng-click' => '$parent.showAddingRound = false; tmp_rounds.pop()' } Cancel

@@ -5,14 +5,39 @@ class Api::TournamentsController < ApplicationController
   end
 
   def create
-    puts '------------------------------'
-    puts tournament_params
-    puts '------------------------------'
     @tournament = Tournament.new(tournament_params)
     if @tournament.save
+      # TODO: Не отдавать объекты, а один только статус???
       respond_with :api, @tournament
     else
-      respond_with @project.errors, status: :unprocessable_entity
+      respond_with @tournament.errors, status: :unprocessable_entity
+    end
+  end
+
+  def show
+    @tournament = Tournament.find(params[:id])
+    if @tournament
+      respond_with :api, @tournament
+    else
+      respond_with 'Not found', status: :unprocessable_entity
+    end
+  end
+
+  def update
+    @tournament = Tournament.find(params[:id])
+    if @tournament.update_attributes(tournament_params)
+      respond_with :api, @tournament
+    else
+      respond_with 'Not found', status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @tournament = Tournament.find(params[:id])
+    if @tournament.destroy
+      head :no_content
+    else
+      respond_with @tournament.errors, status: :unprocessable_entity
     end
   end
 

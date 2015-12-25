@@ -7,8 +7,6 @@
     "angular-local-storage": "latest",
     "angular-resource": "latest",
     "angular-breadcrumb": "latest",
-    "angular-isolate-form": "latest"
-  },
-  "resolutions": {
+    "angular-ui-notification": "latest"
   }
 }
