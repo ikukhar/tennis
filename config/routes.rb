@@ -4,8 +4,11 @@ Rails.application.routes.draw do
   namespace :templates do
     get 'home', to: 'templates#home'
     get 'tournaments', to: 'templates#tournaments'
-    get 'tournaments_editing', to: 'templates#tournaments_editing'
-    get 'tournaments_editing_rounds', to: 'templates#tournaments_editing_rounds'
+    get 'tournament-add', to: 'templates#tournament_add'
+    get 'tournament-edit', to: 'templates#tournament_edit'
+    get 'tournament-show', to: 'templates#tournament_show'
+    get 'tournament-form', to: 'templates#tournament_form'
+    get 'tournament-rounds', to: 'templates#tournament_rounds'
   end
 
   namespace :api do

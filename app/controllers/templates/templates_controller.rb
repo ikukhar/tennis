@@ -12,12 +12,23 @@ class Templates::TemplatesController < ApplicationController
     render 'tournaments', layout: nil
   end
 
-  def tournaments_editing
-    render 'tournaments.editing', layout: nil
+  def tournament_add
+    render 'tournament-add', layout: nil
   end
 
-  def tournaments_editing_rounds
-    render 'tournaments.editing.rounds', layout: nil
+  def tournament_edit
+    render 'tournament-edit', layout: nil
   end
 
+  def tournament_show
+    render 'tournament-show', layout: nil
+  end
+
+  def tournament_form
+    render 'tournament-form', layout: nil
+  end
+
+  def tournament_rounds
+    render 'tournament-rounds', layout: nil
+  end
 end

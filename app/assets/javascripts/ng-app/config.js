@@ -4,7 +4,8 @@ angular.module('app', [
   'ngResource',
   'ncy-angular-breadcrumb',
   'rails',
-  'ui-notification'
+  'ui-notification',
+  'angularSpinner'
 ]);
 
 angular.module('app').config(function($locationProvider, $httpProvider, NotificationProvider) {

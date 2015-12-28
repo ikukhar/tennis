@@ -9,7 +9,10 @@
     %base{href: "/"}
 
   %body{ :"ng-class" => "ng-cloak" }
+
+    %span{ :'us-spinner' => true, :'spinner-key' => "spinner" }
     =render partial: 'layouts/header'
+
     .container
       .col-md-8.col-md-offset-2
         %ncy-breadcrumb

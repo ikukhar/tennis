@@ -22,7 +22,9 @@
 //= require angular-breadcrumb
 //= require angularjs/rails/resource
 //= require angular-ui-notification
+//= require spin.js/spin.js
+//= require angular-spinner
 
-//= require ng-app/init
+//= require ng-app/config
 
 //= require_tree .

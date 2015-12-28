@@ -1,13 +1,15 @@
 class Api::TournamentsController < ApplicationController
 
   def index
-    respond_with Tournament.all
+    respond_with Tournament
+                  .includes(:rounds)
+                  .all
+                  .to_json(:include => [:rounds])
   end
 
   def create
     @tournament = Tournament.new(tournament_params)
     if @tournament.save
-      # TODO: Не отдавать объекты, а один только статус???
       respond_with :api, @tournament
     else
       respond_with @tournament.errors, status: :unprocessable_entity
@@ -15,7 +17,10 @@ class Api::TournamentsController < ApplicationController
   end
 
   def show
-    @tournament = Tournament.find(params[:id])
+    @tournament = Tournament
+                    .includes(:rounds)
+                    .find(params[:id])
+                    .to_json(:include => [:rounds])
     if @tournament
       respond_with :api, @tournament
     else

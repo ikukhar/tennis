@@ -8,8 +8,9 @@
     $stateProvider
       .state('home', home)
       .state('tournaments', tournaments)
-      .state('tournaments.new', tournaments_new)
-      .state('tournaments.edit', tournaments_edit);
+      .state('addTournament', addTournament)
+      .state('editTournament', editTournament)
+      .state('showTournament', showTournament);
   };
 
 
@@ -30,62 +31,49 @@
     views: {
       '@': {
         controller: "TournamentsController",
-        controllerAs: 'vm',
         templateUrl: "templates/tournaments.html"
       }
-    },
-    resolve: {
-      list: function(Tournaments) {
-        return Tournaments.query()
-          .then(function(results) {
-            return results;
-          })
-      },
-      current: function() { return {} }
     }
   };
 
-  var tournaments_new = {
+  var addTournament = {
+    parent: 'tournaments',
     url: '/new',
     ncyBreadcrumb: {
       label: 'New'
     },
     views: {
-      '@tournaments': {
-        controller: "TournamentsController",
-        controllerAs: 'vm',
-        templateUrl: "templates/tournaments_editing.html"
-      },
-      'rounds@tournaments.new': {
-        templateUrl: "templates/tournaments_editing_rounds.html"
+      '@': {
+        controller: "TournamentAddController",
+        templateUrl: "templates/tournament-add.html"
       }
-    },
-    resolve: {
-      current: function(Tournaments) { return new Tournaments }
     }
   };
 
-  var tournaments_edit = {
+  var editTournament = {
+    parent: 'tournaments',
     url: '/edit/:id',
     ncyBreadcrumb: {
       label: 'Edit'
     },
     views: {
-      '@tournaments': {
-        controller: "TournamentsController",
-        controllerAs: 'vm',
-        templateUrl: "templates/tournaments_editing.html"
-      },
-      'rounds@tournaments.edit': {
-        templateUrl: "templates/tournaments_editing_rounds.html"
+      '@': {
+        controller: "TournamentEditController",
+        templateUrl: "templates/tournament-edit.html"
       }
+    }
+  };
+
+  var showTournament = {
+    parent: 'tournaments',
+    url: '/show/:id',
+    ncyBreadcrumb: {
+      label: 'Show'
     },
-    resolve: {
-      current: function(Tournaments, $stateParams) {
-        return Tournaments.get(parseInt($stateParams['id']))
-          .then(function(results) {
-            return results;
-          })
+    views: {
+      '@': {
+        controller: "TournamentShowController",
+        templateUrl: "templates/tournament-show.html"
       }
     }
   };

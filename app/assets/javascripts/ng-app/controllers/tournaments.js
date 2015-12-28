@@ -1,57 +1,36 @@
 (function() {
   'use strict';
 
-  function TournamentsController($state, list, current) {
+  TournamentsController.$inject = ['$scope', 'usSpinnerService', 'Tournament'];
 
-    var vm = this;
-    vm.current = current;
-    vm.list = list;
-    vm.destroy = destroy;
-    vm.state = $state;
+  function TournamentsController($scope, usSpinnerService, Tournament) {
 
-    if ($state.is('tournaments.new')) {
-      vm.submit = create
-      vm.formName = "New tournament"
-      vm.submitBtnName = "Create"
-    } else if ($state.is('tournaments.edit')) {
-      vm.submit = edit
-      vm.formName = "Edit tournament"
-      vm.submitBtnName = "Update"
-    };
+    $scope.tournaments = [];
+    $scope.destroy = destroy;
 
-    function create() {
-      vm.current
-        .create()
-        .then(function(results) {
-          vm.list.push(vm.current)
-          $state.go('^');
-        });
-    };
+    activate();
 
-    function edit() {
-      vm.current
-        .update()
-        .then(function(results) {
-          var index = vm.list.findIndex(function(obj) {
-            return obj.id == vm.current.id;
-          });
-          if (index != -1) {
-            vm.list[index] = vm.current
-          }
-          $state.go('^');
-        });
-    };
+    function activate() {
+      usSpinnerService.spin('spinner');
+      Tournament.query()
+        .then(function(result) {
+          $scope.tournaments = result;
+          usSpinnerService.stop('spinner');
+        })
+    }
 
     function destroy(tournament) {
       //TODO: Answer!
+      usSpinnerService.spin('spinner');
       tournament
         .delete()
         .then(function() {
-          vm.list.splice(vm.list.indexOf(tournament), 1)
+          $scope.tournaments.splice($scope.tournaments.indexOf(tournament), 1)
+          usSpinnerService.stop('spinner');
         })
     };
+
   };
 
-  TournamentsController.$inject = ['$state', 'list', 'current'];
   angular.module('app').controller('TournamentsController', TournamentsController);
 })();

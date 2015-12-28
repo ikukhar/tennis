@@ -1,9 +1,9 @@
-.panel.panel-default{:'ng-init' => '$parent.current.rounds = []; tmp_rounds = []'}
+.panel.panel-default{:'ng-init' => 'tournament.rounds = []; tmp_rounds = []'}
   -# -----------------------------------------------------------------------------------------------------
-  %div{:'ng-if' => '$parent.current.rounds'}
+  %div{:'ng-if' => 'tournament.rounds'}
     %h5
       %ol
-        %li{:'ng-repeat' => 'round in $parent.current.rounds'}
+        %li{:'ng-repeat' => 'round in tournament.rounds'}
           %p
             {{round.form}}: {{round.match_sets}} sets
             %span{:'ng-show' => "round.form.trim()=='#{ROUND_FORMS::CHAMPIONSHIP}'"}
@@ -12,11 +12,11 @@
   -# -----------------------------------------------------------------------------------------------------
 
   .well-sm
-    %button.btn.btn-default{ :'ng-click' => 'showAddingRound = true; tmp_rounds.push({})',
-                             :'ng-show' => '!showAddingRound',
+    %button.btn.btn-default{ :'ng-click' => '$scope.showAddingRound = true; tmp_rounds.push({})',
+                             :'ng-show' => '!$scope.showAddingRound',
                              :type => 'button'} Add
   -# -----------------------------------------------------------------------------------------------------
-  %div{:'ng-if' => 'showAddingRound'}
+  %div{:'ng-if' => '$scope.showAddingRound'}
 
     %ng-form{ :class => 'form-horizontal',
            :role => 'form',
@@ -50,6 +50,6 @@
                                     :type => "number"}
       .form-group
         .col-md-offset-3.col-md-8
-          %button.btn.btn-success{ :'ng-click' => '$parent.showAddingRound = false; $parent.current.rounds.push(tmp_rounds.pop())',
+          %button.btn.btn-success{ :'ng-click' => '$scope.showAddingRound = false; tournament.rounds.push(tmp_rounds.pop())',
                                    :'ng-disabled' => 'form.$invalid' } OK
-          %button.btn.btn-default{ :'ng-click' => '$parent.showAddingRound = false; tmp_rounds.pop()' } Cancel
+          %button.btn.btn-default{ :'ng-click' => '$scope.showAddingRound = false; tmp_rounds.pop()' } Cancel

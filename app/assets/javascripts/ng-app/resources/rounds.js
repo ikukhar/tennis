@@ -1,12 +1,16 @@
 (function(){'use strict';
 
-  var Rounds = function($resource) {
-    return $resource('/api/rounds/:id.json', { id: '@id' , tournament_id: '@tournament_id'},
-        {
-            'update': { method:'PUT' }
-        });
+  var Rounds = function(railsResourceFactory, railsSerializer) {
+    return railsResourceFactory({
+        url: '/api/rounds',
+        name: 'round',
+        serializer: railsSerializer(function () {
+          //  this.nestedAttribute('rounds');
+          //  this.rename('rounds', 'rounds_attributes');
+        })
+      });
   };
 
-  Rounds.$inject = ['$resource'];
+  Rounds.$inject = ['railsResourceFactory', 'railsSerializer'];
   angular.module('app').factory('Rounds', Rounds);
 })();

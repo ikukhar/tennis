@@ -1,17 +1,16 @@
-%div{ :'ng-hide' => "vm.state.is('tournaments.new') || vm.state.is('tournaments.edit')" }
-  %h3
-    Tournaments
-  %hr
-  .panel
-    .btn-group
-      %button.btn.btn-default{ :'ui-sref' => 'tournaments.new' }
-        New
-  %table.table.table-hover
-    %tbody
-      %tr{ :"ng-repeat" => "tournament in vm.list" }
-        %td{ :style => "width:80%"} {{tournament.name}}
-        %td
-          %button.btn.btn-mini{ :'ui-sref' => "tournaments.edit(tournament)" } Edit
-          %button.btn.btn-mini{ :'ng-click' => 'vm.destroy(tournament)'} Destroy
-
-.ui-view
+%h3
+  Tournaments
+%hr
+.panel
+  .btn-group
+    %button.btn.btn-default{ :'ui-sref' => 'addTournament' }
+      New
+%table.table.table-hover
+  %tbody
+    %tr{ :"ng-repeat" => "tournament in tournaments" }
+      %td{ :style => "width:80%"}
+        %a{ :'ui-sref' => "showTournament(tournament)" }
+          {{tournament.name}}
+      %td
+        %button.btn.btn-mini{ :'ui-sref' => "editTournament(tournament)" } Edit
+        %button.btn.btn-mini{ :'ng-click' => 'destroy(tournament)'} Destroy
