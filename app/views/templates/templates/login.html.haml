@@ -1,0 +1,42 @@
+.center-form.panel
+  .panel-body
+    %h2.text-center Log in
+    %form{ :'ng-submit' => 'login(user)',
+           :role => 'form',
+           :name => 'form',
+           :novalidate => true }
+
+      .form-group.has-feedback{ :'ng-class' => "{ 'has-error': form.email.$touched && form.email.$invalid }" }
+        %span.ion-at.form-control-feedback
+        %input.form-control.input-lg{ :'ng-model' => 'user.email',
+                                     :name => 'email',
+                                     :required => true,
+                                     :type => 'email',
+                                     :placeholder => "Email" }
+
+      .form-group.has-feedback{ :'ng-class' => "{ 'has-error': form.password.$touched && form.password.$invalid }" }
+        %span.ion-key.form-control-feedback
+        %input.form-control.input-lg{ :'ng-model' => 'user.password',
+                                      :name => 'password',
+                                      :required => true,
+                                      :type => 'password',
+                                      :placeholder => "Password" }
+      .form-group
+        %button.btn.btn-lg.btn-block.btn-success{ :type => 'submit', :'ng-disabled' => 'form.$invalid' } Log in
+
+      %br
+      .text-center.text-muted
+        %small Don't have an account yet?
+        %a{ :'ui-sref' => 'signup'} Sign up
+      .signup-or-separator
+        %h6.text
+          or
+        %hr
+
+      %button.btn.btn-block.btn-facebook{ :'ng-click' => "authenticate('facebook')"}
+        %span.ion-social-facebook
+          Sign in with Facebook
+
+      %button.btn.btn-block.btn-github{ :'ng-click' => "authenticate('github')"}
+        %span.ion-social-github
+          Sign in with Github

@@ -31,4 +31,13 @@ class Templates::TemplatesController < ApplicationController
   def tournament_rounds
     render 'tournament-rounds', layout: nil
   end
+
+  def login
+    render 'login', layout: nil
+  end
+
+  def signup
+    render 'signup', layout: nil
+  end
+
 end

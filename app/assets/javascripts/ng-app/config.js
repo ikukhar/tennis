@@ -5,23 +5,30 @@ angular.module('app', [
   'ncy-angular-breadcrumb',
   'rails',
   'ui-notification',
-  'angularSpinner'
+  'angularSpinner',
+  'satellizer'
 ]);
 
-angular.module('app').config(function($locationProvider, $httpProvider, NotificationProvider) {
-  $locationProvider.html5Mode(true);
-  $httpProvider.interceptors.push('ErrorHandlerInterceptor');
+angular.module('app').config(
+  function($locationProvider, $httpProvider, NotificationProvider, $authProvider) {
+    $locationProvider.html5Mode(true);
+    $httpProvider.interceptors.push('ErrorHandlerInterceptor');
 
-  NotificationProvider.setOptions({
+    NotificationProvider.setOptions({
       startTop: 55
     });
-});
+  });
 
 var run = function($rootScope, Notification) {
   $rootScope.$on('responseError', function(event, responce) {
     console.log(responce);
     Notification.error(responce.statusText);
   });
+
+  $rootScope.current_user = {
+    signedIn: false,
+    email: 'test@test.com'
+  }
 }
 
 run.$inject = ['$rootScope', 'Notification'];

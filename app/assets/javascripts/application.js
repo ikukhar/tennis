@@ -24,6 +24,7 @@
 //= require angular-ui-notification
 //= require spin.js/spin.js
 //= require angular-spinner
+//= require satellizer
 
 //= require ng-app/config
 

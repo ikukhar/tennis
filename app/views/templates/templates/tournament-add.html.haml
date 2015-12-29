@@ -1,20 +1,22 @@
-.command-panel
-  .pull-left
-    %h3
-      New tournament
-  .clearfix
-%hr
-%form{ :'ng-submit' => 'create()',
-       :class => 'form-horizontal',
-       :role => 'form',
-       :name => 'form',
-       :novalidate => true }
+.panel.panel-default
+  .panel-body
+    .command-panel
+      .pull-left
+        %h3
+          New tournament
+      .clearfix
+    %hr
+    %form{ :'ng-submit' => 'create()',
+           :class => 'form-horizontal',
+           :role => 'form',
+           :name => 'form',
+           :novalidate => true }
 
-  %div{ :'ng-include' => "'templates/tournament-form.html'" }
+      %div{ :'ng-include' => "'templates/tournament-form.html'" }
 
-  .form-group
-    .col-md-offset-3.col-md-9
-      %button.btn.btn-success{ :type => 'submit',
-                               :'ng-disabled' => 'form.$invalid' } Create
-      %button.btn.btn-default{ :type => 'button',
-                               :'ui-sref' => "tournaments" } Cancel
+      .form-group
+        .col-md-offset-3.col-md-9
+          %button.btn.btn-success{ :type => 'submit',
+                                   :'ng-disabled' => 'form.$invalid' } Create
+          %button.btn.btn-default{ :type => 'button',
+                                   :'ui-sref' => "tournaments" } Cancel

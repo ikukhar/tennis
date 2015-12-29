@@ -1,0 +1,45 @@
+.center-form.panel
+  .panel-body
+    %h2.text-center Sign up
+    %form{ :'ng-submit' => 'signup(user)',
+           :role => 'form',
+           :name => 'form',
+           :novalidate => true }
+      .form-group.has-feedback{ :'ng-class' => "{ 'has-error': form.name.$touched && form.name.$invalid }" }
+        %span.ion-person.form-control-feedback
+        %input.form-control.input-lg{ :'ng-model' => 'user.name',
+                                     :name => 'name',
+                                     :required => true,
+                                     :type => 'text',
+                                     :placeholder => "Name" }
+
+      .form-group.has-feedback{ :'ng-class' => "{ 'has-error': form.email.$touched && form.email.$invalid }" }
+        %span.ion-at.form-control-feedback
+        %input.form-control.input-lg{ :'ng-model' => 'user.email',
+                                     :name => 'email',
+                                     :required => true,
+                                     :type => 'email',
+                                     :placeholder => "Email" }
+
+      .form-group.has-feedback{ :'ng-class' => "{ 'has-error': form.password.$touched && form.password.$invalid }" }
+        %span.ion-key.form-control-feedback
+        %input.form-control.input-lg{ :'ng-model' => 'user.password',
+                                      :name => 'password',
+                                      :required => true,
+                                      :type => 'password',
+                                      :placeholder => "Password" }
+
+      .form-group.has-feedback{ :'ng-class' => "{ 'has-error': form.confirmPassword.$touched && form.confirmPassword.$invalid }" }
+        %span.ion-key.form-control-feedback
+        %input.form-control.input-lg{ :'ng-model' => 'user.confirmPassword',
+                                      :name => 'confirmPassword',
+                                      :required => true,
+                                      :type => 'password',
+                                      :placeholder => "Confirm password" }
+
+      .form-group
+        %button.btn.btn-lg.btn-block.btn-primary{ :type => 'submit', :'ng-disabled' => 'form.$invalid' } Sign up
+
+      .text-center.text-muted
+        %small Already have an account?
+        %a{ :'ui-sref' => 'login'} Log in

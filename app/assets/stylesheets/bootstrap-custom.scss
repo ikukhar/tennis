@@ -16,3 +16,14 @@
   border-radius: 2px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .26);
 }
+.has-feedback .form-control-feedback {
+  top: 0;
+  left: 0;
+  width: 46px;
+  height: 46px;
+  line-height: 46px;
+  color: #555;
+}
+.has-feedback .form-control {
+    padding-left: 42.5px;
+}

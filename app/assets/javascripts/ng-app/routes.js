@@ -3,14 +3,17 @@
 
   function config($stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.otherwise("/");
+  //  $urlRouterProvider.otherwise("/");
 
     $stateProvider
       .state('home', home)
       .state('tournaments', tournaments)
       .state('addTournament', addTournament)
       .state('editTournament', editTournament)
-      .state('showTournament', showTournament);
+      .state('showTournament', showTournament)
+      .state('login', login)
+      .state('signup', signup)
+      ;
   };
 
 
@@ -76,6 +79,24 @@
         templateUrl: "templates/tournament-show.html"
       }
     }
+  };
+
+  var login = {
+    url: '/login',
+    ncyBreadcrumb: {
+      label: 'Login'
+    },
+    controller: "LoginController",
+    templateUrl: "templates/login.html"
+  };
+
+  var signup = {
+    url: '/signup',
+    ncyBreadcrumb: {
+      label: 'Sign Up'
+    },
+    controller: "SignupController",
+    templateUrl: "templates/signup.html"
   };
 
   angular.module('app').config(config);

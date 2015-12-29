@@ -8,6 +8,8 @@
     "angular-resource": "latest",
     "angular-breadcrumb": "latest",
     "angular-ui-notification": "latest",
-    "angular-spinner": "latest"
+    "angular-spinner": "latest",
+    "satellizer": "latest",
+    "ionicons": "latest"
   }
 }

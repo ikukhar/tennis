@@ -1,17 +1,19 @@
-.command-panel
-  .pull-left
-    %h3
-      Tournaments
-  .pull-right
-    .btn-group
-      %button.btn.btn-default{ :'ui-sref' => 'addTournament' }
-        New
-  .clearfix
-%hr
-%table.table.table-hover
-  %tbody
-    %tr{ :"ng-repeat" => "tournament in tournaments" }
-      %td{ :style => "width:100%"}
-        %a{ :'ui-sref' => "showTournament(tournament)" }
-          {{tournament.name}}
-      %t
+.panel.panel-default
+  .panel-body
+    //%ncy-breadcrumb
+    .command-panel
+      .pull-left
+        %h3
+          Tournaments
+      .pull-right
+        .btn-group
+          %button.btn.btn-default{ :'ui-sref' => 'addTournament' }
+            New
+      .clearfix
+    %hr
+    %table.table.table-hover
+      %tbody
+        %tr{ :"ng-repeat" => "tournament in tournaments" }
+          %td{ :style => "width:100%"}
+            %a{ :'ui-sref' => "showTournament(tournament)" }
+              {{tournament.name}}
