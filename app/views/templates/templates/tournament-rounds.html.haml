@@ -1,4 +1,13 @@
 .panel.panel-default{:'ng-init' => 'tournament.rounds = []; tmp_rounds = []'}
+  .command-panel.well-sm
+    .pull-left
+      %h5 Rounds
+    .pull-right
+      .btn-group
+        %button.btn.btn-default{ :'ng-click' => '$scope.showAddingRound = true; tmp_rounds.push({})',
+                                 :'ng-show' => '!$scope.showAddingRound',
+                                 :type => 'button'} Add
+    .clearfix
   -# -----------------------------------------------------------------------------------------------------
   %div{:'ng-if' => 'tournament.rounds'}
     %h5
@@ -9,12 +18,14 @@
             %span{:'ng-show' => "round.form.trim()=='#{ROUND_FORMS::CHAMPIONSHIP}'"}
               {{round.points_per_win}} points per win
 
-  -# -----------------------------------------------------------------------------------------------------
+              -# TODO views + controllers as like tournament
 
-  .well-sm
-    %button.btn.btn-default{ :'ng-click' => '$scope.showAddingRound = true; tmp_rounds.push({})',
-                             :'ng-show' => '!$scope.showAddingRound',
-                             :type => 'button'} Add
+  -# -----------------------------------------------------------------------------------------------------
+  -#
+  -# .well-sm
+  -#   %button.btn.btn-default{ :'ng-click' => '$scope.showAddingRound = true; tmp_rounds.push({})',
+  -#                            :'ng-show' => '!$scope.showAddingRound',
+  -#                            :type => 'button'} Add
   -# -----------------------------------------------------------------------------------------------------
   %div{:'ng-if' => '$scope.showAddingRound'}
 

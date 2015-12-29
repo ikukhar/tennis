@@ -4,6 +4,7 @@
   %head
     %title Tennis
     = stylesheet_link_tag    'application', media: 'all'
+    = stylesheet_link_tag    "//fonts.googleapis.com/css?family=Roboto|Montserrat:400,700|Open+Sans:400,300,600"
     = javascript_include_tag 'application'
     = csrf_meta_tags
     %base{href: "/"}
@@ -14,6 +15,9 @@
     =render partial: 'layouts/header'
 
     .container
-      .col-md-8.col-md-offset-2
-        %ncy-breadcrumb
-        .ui-view
+      .col-md-10.col-md-offset-1
+        .panel.panel-default
+          .panel-body
+            %ncy-breadcrumb
+
+            .ui-view

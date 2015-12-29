@@ -20,4 +20,13 @@ $icon-font-path: "bootstrap-sass/assets/fonts/bootstrap/";
 @import "bootstrap-custom";
 body {
   padding: 55px;
+  font-size: 14px;
+  background: #e4e7ec;
+  font-family: 'Open Sans', sans-serif;
+}
+.command-panel h3 {
+  margin: 5px 0 0;
+}
+.clearfix {
+  clear: both;
 }

@@ -1,28 +1,28 @@
-%h3 Show tournament
+.command-panel
+  .pull-left
+    %h3 {{tournament.name}}
+  .pull-right
+    .btn-group
+      %button.btn.btn-default{ :'ui-sref' => "editTournament(tournament)" } Edit
+      %button.btn.btn-default{ :'ng-click' => 'destroy(tournament)'} Destroy
+  .clearfix
 %hr
-  %form{ :class => 'form-horizontal',
-         :role => 'form',
-         :name => 'form',
-         :novalidate => true }
+%form{ :class => 'form-horizontal',
+       :role => 'form',
+       :name => 'form',
+       :novalidate => true }
 
-    .form-group
-      %label{ class: 'control-label col-md-3' } Name:
-      .col-md-9
-        %h5 {{tournament.name}}
+  .form-group
+    %label{ class: 'control-label col-md-3' } Type:
+    .col-md-9
+      %h5 {{tournament.form}}
 
-    .form-group
-      %label{ class: 'control-label col-md-3' } Type:
-      .col-md-9
-        %h5 {{tournament.form}}
+  .form-group
+    %label{ class: 'control-label col-md-3' } Rounds:
+    .col-md-9
+      %div{ :'ng-include' => "'templates/tournament-rounds.html'" }
 
-    .form-group
-      %label{ class: 'control-label col-md-3' } Rounds:
-      .col-md-9
-        %div{ :'ng-include' => "'templates/tournament-rounds.html'" }
-
-    .form-group
-      .col-md-offset-3.col-md-9
-        %button.btn.btn-success{ :type => 'button',
-                                 :'ui-sref' => "editTournament(tournament)" } Edit
-        %button.btn.btn-default{ :type => 'button',
-                                 :'ui-sref' => "tournaments" } Cancel
+  .form-group
+    .col-md-offset-3.col-md-9
+      %button.btn.btn-default{ :type => 'button',
+                               :'ui-sref' => "tournaments" } Cancel
