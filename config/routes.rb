@@ -11,8 +11,8 @@ Rails.application.routes.draw do
     get 'tournament-form', to: 'templates#tournament_form'
     get 'tournament-rounds', to: 'templates#tournament_rounds'
 
-    get 'login', to: 'templates#login'
     get 'signup', to: 'templates#signup'
+    get 'login',  to: 'templates#login'
   end
 
   namespace :api do
@@ -21,7 +21,8 @@ Rails.application.routes.draw do
   end
 
   namespace :auth do
-    
+    post 'signup', to: 'session#signup'
+    post 'login',  to: 'session#login'
   end
 
   mount Ryakuzu::Engine => '/ryakuzu'

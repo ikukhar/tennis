@@ -1,18 +1,18 @@
 (function() {
   'use strict';
 
-  LoginController.$inject = ['$scope', '$auth'];
+  LoginController.$inject = ['$scope', '$auth', '$state', '$timeout', '$rootScope'];
 
-  function LoginController($scope, $auth) {
+  function LoginController($scope, $auth, $state, $timeout, $rootScope) {
 
     $scope.login = function(user) {
       $auth.login(user)
         .then(function(response) {
-          // Redirect user here after a successful log in.
+          console.log($auth.getPayload())
+          $state.go('home')
         })
         .catch(function(response) {
-          // Handle errors here, such as displaying a notification
-          // for invalid email and/or password.
+          $rootScope.$emit('error', response.data);
         });
     }
 

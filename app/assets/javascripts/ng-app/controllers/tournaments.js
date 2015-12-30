@@ -17,6 +17,9 @@
           $scope.tournaments = result;
           usSpinnerService.stop('spinner');
         })
+        .catch(function(){
+          usSpinnerService.stop('spinner');
+        })
     }
 
     function destroy(tournament) {

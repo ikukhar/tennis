@@ -1,30 +1,31 @@
-%nav.navbar.navbar-default.navbar-fixed-top{:role => :navigation}
-  .container
-    .row
-      #navbar
-        .navbar-header
-          %a{  :"ui-sref" => "home", class: 'navbar-brand' }
-            Home
-        %ul.nav.navbar-nav.pull-left
-          %li
-            %a{ :"ui-sref" => "tournaments" }
-              Tournaments
-        %ul.nav.navbar-nav.pull-right
-          %li.dropdown{ :"ng-show" => "current_user.signedIn" }
-            %a.dropdown-toggle{ :"data-toggle" => "dropdown", id: "dropdown-menu", :"ng-href" => '#' }
-              {{current_user.email}}
-              %span.caret
-            %ul.dropdown-menu{ role: "menu" }
-              %li
-                %a{ :"ui-sref" => 'current_user'}
-                  My account
-              %li
-                %a{ :"ng-href" => '#', :"ng-click" => 'logout()', id: 'sign-out' }
-                  Sign out
+%div{ :'ng-controller' => 'HeaderController' }
+  %nav.navbar.navbar-default.navbar-fixed-top{:role => :navigation}
+    .container
+      .row
+        #navbar
+          .navbar-header
+            %a{  :"ui-sref" => "home", class: 'navbar-brand' }
+              Home
+          %ul.nav.navbar-nav.pull-left
+            %li
+              %a{ :"ui-sref" => "tournaments" }
+                Tournaments
+          %ul.nav.navbar-nav.pull-right
+            %li.dropdown{ :"ng-show" => "isAuthenticated()" }
+              %a.dropdown-toggle{ :"data-toggle" => "dropdown", id: "dropdown-menu", :"ng-href" => '#' }
+                {{payload().email}}
+                %span.caret
+              %ul.dropdown-menu{ role: "menu" }
+                %li
+                  %a{ :"ui-sref" => 'account'}
+                    My account
+                %li
+                  %a{ :"ng-href" => '#', :"ng-click" => 'logout()', id: 'logout' }
+                    Logout
 
-          %li{ :"ng-show" => "!current_user.signedIn" }
-            %a{ :"ui-sref" => "login" }
-              Log In
-          %li{ :"ng-show" => "!current_user.signedIn" }
-            %a{ :"ui-sref" => "signup" }
-              Sign Up
+            %li{ :"ng-show" => "!isAuthenticated()" }
+              %a{ :"ui-sref" => "login" }
+                Log In
+            %li{ :"ng-show" => "!isAuthenticated()" }
+              %a{ :"ui-sref" => "signup" }
+                Sign Up

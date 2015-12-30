@@ -1,4 +1,7 @@
 class Templates::TemplatesController < ApplicationController
+
+  skip_before_action :authenticate_by_token
+
   # TODO: Разбросать на несколько контроллеров??
   def angular
     render 'layouts/application'

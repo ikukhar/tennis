@@ -1,19 +1,20 @@
 (function() {
   'use strict';
 
-  SignupController.$inject = ['$scope', '$auth'];
+  SignupController.$inject = ['$scope', '$auth', '$state', '$timeout', '$rootScope'];
 
-  function SignupController($scope, $auth) {
+  function SignupController($scope, $auth, $state, $timeout, $rootScope) {
 
     $scope.signup = function(user) {
       $auth.signup(user)
         .then(function(response) {
-          // Redirect user here to login page or perhaps some other intermediate page
-          // that requires email address verification before any other part of the site
-          // can be accessed.
+          $auth.setToken(response.data.token)
+            .then(function() {
+              $state.go('home')
+            });
         })
         .catch(function(response) {
-          // Handle errors here.
+          $rootScope.$emit('error', response.data);
         });
     };
   };

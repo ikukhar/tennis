@@ -13,6 +13,14 @@
                                      :type => 'text',
                                      :placeholder => "Name" }
 
+      .form-group.has-feedback{ :'ng-class' => "{ 'has-error': form.name.$touched && form.name.$invalid }" }
+        %span.ion-person.form-control-feedback
+        %input.form-control.input-lg{ :'ng-model' => 'user.surname',
+                                     :name => 'name',
+                                     :required => true,
+                                     :type => 'text',
+                                     :placeholder => "Surname" }
+
       .form-group.has-feedback{ :'ng-class' => "{ 'has-error': form.email.$touched && form.email.$invalid }" }
         %span.ion-at.form-control-feedback
         %input.form-control.input-lg{ :'ng-model' => 'user.email',
@@ -29,10 +37,10 @@
                                       :type => 'password',
                                       :placeholder => "Password" }
 
-      .form-group.has-feedback{ :'ng-class' => "{ 'has-error': form.confirmPassword.$touched && form.confirmPassword.$invalid }" }
+      .form-group.has-feedback{ :'ng-class' => "{ 'has-error': form.password_confirmation.$touched && form.password_confirmation.$invalid }" }
         %span.ion-key.form-control-feedback
-        %input.form-control.input-lg{ :'ng-model' => 'user.confirmPassword',
-                                      :name => 'confirmPassword',
+        %input.form-control.input-lg{ :'ng-model' => 'user.password_confirmation',
+                                      :name => 'password_confirmation',
                                       :required => true,
                                       :type => 'password',
                                       :placeholder => "Confirm password" }
