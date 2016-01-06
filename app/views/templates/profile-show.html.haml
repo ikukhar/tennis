@@ -1,0 +1,33 @@
+.panel.panel-default
+  .panel-body
+    .command-panel
+      .pull-left
+        %h3
+          Profile
+      .pull-right
+        .btn-group
+          %button.btn.btn-default{ :'ui-sref' => "editProfile(user)" } Edit
+      .clearfix
+    %hr
+
+    %form{ :role => 'form',
+           :name => 'form',
+           :novalidate => true }
+
+      .form-group
+        %label.control-label
+          %i.ion-person
+          Name
+        %h5 {{user.name}}
+
+      .form-group
+        %label.control-label
+          %i.ion-person
+          Surname
+        %h5 {{user.surname}}
+
+      .form-group
+        %label.control-label
+          %i.ion-at
+          Email
+        %h5 {{user.email}}

@@ -19,30 +19,28 @@
       NotificationProvider.setOptions({
         startTop: 55
       });
-
-      //  TODO: clientId from ENV[]
-
-      // // GitHub
+      // GitHub
       $authProvider.github({
         url: '/auth/github/callback',
-        clientId: '6b3c76daf7f90ecddf66',
+        clientId: <%= "'#{ENV['GITHUB_KEY']}'" %>,
         redirectUri: window.location.origin + '/',
         scope: ['user:name, user:email'],
       });
-      //
+
       // Facebook
       $authProvider.facebook({
         url: '/auth/facebook/callback',
-        clientId: '542938712538069',
+        clientId: <%= "'#{ENV['FACEBOOK_KEY']}'" %>,
         redirectUri: window.location.origin + '/',
         scope: 'email'
       });
 
+      // Vkontakte
       $authProvider.oauth2({
         name: 'vkontakte',
         url: '/auth/vkontakte/callback',
         authorizationEndpoint: 'https://oauth.vk.com/authorize',
-        clientId: '5215259',
+        clientId: <%= "'#{ENV['VKONTAKTE_KEY']}'" %>,
         redirectUri: window.location.origin + '/',
         scope: 'email',
         display: 'popup',
@@ -57,9 +55,12 @@
     });
 
 
-  run.$inject = ['$rootScope', 'Notification', '$state'];
+  run.$inject = ['$rootScope', 'Notification', '$state', '$auth', 'User'];
+  function run($rootScope, Notification, $state, $auth, User) {
 
-  function run($rootScope, Notification, $state) {
+    $rootScope.setUser = setUser;
+    setUser();
+
     $rootScope.$on('responseError', function(event, responce) {
       console.log(responce);
       Notification.error(responce.statusText);
@@ -74,7 +75,31 @@
       Notification.error(message);
     });
 
+    $rootScope.$on('auth', function(event) {
+      setUser();
+    });
 
+    $rootScope.$on('logout', function(event, message) {
+      $rootScope.current_user = {}
+    });
+
+    $rootScope.$on('$stateChangeSuccess', function(event){
+      //setUser();
+    })
+
+    function setUser(new_user) {
+      if (new_user) {
+        $rootScope.current_user = new_user
+      } else {
+        if ($auth.isAuthenticated()) {
+          User.get($auth.getPayload()['user_id']).then(function(response){
+            $rootScope.current_user = response;
+          })
+        } else {
+          $rootScope.current_user = {}
+        }
+      };
+    }
   }
 
   angular.module('app').run(run);

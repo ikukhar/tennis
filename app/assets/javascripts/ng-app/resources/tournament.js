@@ -6,9 +6,7 @@
       url: '/api/tournaments',
       name: 'tournament',
       serializer: railsSerializer(function() {
-        // this.resource('round', 'Rounds')
         this.nestedAttribute('rounds');
-        // this.rename('rounds', 'rounds_attributes');
       })
     });
   };

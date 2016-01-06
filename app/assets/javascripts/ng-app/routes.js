@@ -13,6 +13,8 @@
       .state('showTournament', showTournament)
       .state('login', login)
       .state('signup', signup)
+      .state('profile', profile)
+      .state('editProfile', editProfile)
       ;
   };
 
@@ -97,6 +99,29 @@
     },
     controller: "SignupController",
     templateUrl: "templates/signup.html"
+  };
+
+  var profile = {
+    url: '/profile',
+    ncyBreadcrumb: {
+      label: 'Profile'
+    },
+    controller: "ProfileShowController",
+    templateUrl: "templates/profile-show.html"
+  };
+
+  var editProfile = {
+    parent: 'profile',
+    url: '/edit/:id',
+    ncyBreadcrumb: {
+      label: 'Edit'
+    },
+    views: {
+      '@': {
+        controller: "ProfileEditController",
+        templateUrl: "templates/profile-edit.html"
+      }
+    }
   };
 
   angular.module('app').config(config);

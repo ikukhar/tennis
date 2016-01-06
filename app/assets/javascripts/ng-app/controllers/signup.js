@@ -9,6 +9,7 @@
       $auth.signup(user)
         .then(function(response) {
           $auth.setToken(response.data.token)
+          $rootScope.$emit('auth')
           $state.go('home')
         })
         .catch(function(response) {

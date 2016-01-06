@@ -13,8 +13,8 @@
     function activate() {
       usSpinnerService.spin('spinner');
       Tournament.query()
-        .then(function(result) {
-          $scope.tournaments = result;
+        .then(function(response) {
+          $scope.tournaments = response;
           usSpinnerService.stop('spinner');
         })
         .catch(function(){

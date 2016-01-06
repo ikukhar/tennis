@@ -10,7 +10,7 @@ class Auth::SessionController < ApplicationController
     if @user = auth.user
       render json: token, status: :created
     else
-      render json: error('Auth error!'), status: 422
+      render_error 'Auth error!'
     end
   end
 
@@ -19,16 +19,16 @@ class Auth::SessionController < ApplicationController
     if @user.save
       render json: token, status: :created
     else
-      render json: error, status: 422
+      render_error @user.errors.messages.to_a.join(': ')
     end
   end
 
   def login
-    @user = User.find_by(login_params)
-    if @user && @user.authenticate(params[:password])
+    @user = User.find_by_email(params[:email])
+    if @user && !@user.password.nil? && @user.authenticate(params[:password])
       render json: token, status: :created
     else
-      render json: error('User not found!'), status: 422
+      render_error 'User not found!'
     end
   end
 
@@ -99,15 +99,8 @@ class Auth::SessionController < ApplicationController
     params.require(:session).permit(:name, :surname, :email, :password, :password_confirmation)
   end
 
-  def login_params
-    params.require(:session).permit(:email)
-  end
-
   def token
-    { token: JsonWebToken.encode({ id: @user.id, email: @user.email }, 7.day.from_now) }
+    { token: JsonWebToken.encode({ user_id: @user.id, user_email: @user.email }, 7.day.from_now) }
   end
 
-  def error(message = @user.errors.messages.to_a.join(': '))
-    { token: nil, message: message }
-  end
 end

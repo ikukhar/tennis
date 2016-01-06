@@ -15,16 +15,24 @@ class ApplicationController < ActionController::Base
 
   def authenticate_by_token
     payload, header = JWT.decode(token, Rails.application.secrets.secret_key_base)
-    @current_user = User.find_by(id: payload['id'])
+    @current_user = User.find_by(id: payload['user_id'])
   rescue
-    render json: error('Unauthorized!'), status: :unauthorized
+    render_error 'Unauthorized!'
   end
 
   def token
     request.headers['Authorization'].split(' ').last if request.headers['Authorization']
   end
 
-  def error(message)
-    { token: nil, message: message }
+  protected
+
+  def render_error(obj)
+    if obj.is_a?(ActiveRecord::Base)
+      message = obj.errors.messages.to_a.join(': ')
+    else
+      message = obj
+    end
+    render json: { token: nil, message: message }, status: 422
   end
+
 end

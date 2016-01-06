@@ -1,4 +1,4 @@
-%div{ :'ng-controller' => 'HeaderController' }
+%div{ :'ng-controller' => 'NavbarController' }
   %nav.navbar.navbar-default.navbar-fixed-top{:role => :navigation}
     .container
       .row
@@ -13,12 +13,12 @@
           %ul.nav.navbar-nav.pull-right
             %li.dropdown{ :"ng-show" => "isAuthenticated()" }
               %a.dropdown-toggle{ :"data-toggle" => "dropdown", id: "dropdown-menu", :"ng-href" => '#' }
-                {{payload().email}}
+                {{current_user.email}}
                 %span.caret
               %ul.dropdown-menu{ role: "menu" }
                 %li
-                  %a{ :"ui-sref" => 'account'}
-                    My account
+                  %a{ :"ui-sref" => 'profile'}
+                    My profile
                 %li
                   %a{ :"ng-href" => '#', :"ng-click" => 'logout()', id: 'logout' }
                     Logout

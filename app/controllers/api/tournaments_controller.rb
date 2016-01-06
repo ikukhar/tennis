@@ -12,7 +12,7 @@ class Api::TournamentsController < ApplicationController
     if @tournament.save
       respond_with :api, @tournament
     else
-      respond_with @tournament.errors, status: :unprocessable_entity
+      render_error @tournament
     end
   end
 
@@ -24,7 +24,7 @@ class Api::TournamentsController < ApplicationController
     if @tournament
       respond_with :api, @tournament
     else
-      respond_with 'Not found', status: :unprocessable_entity
+      render_error 'Tournament not found'
     end
   end
 
@@ -33,7 +33,7 @@ class Api::TournamentsController < ApplicationController
     if @tournament.update_attributes(tournament_params)
       respond_with :api, @tournament
     else
-      respond_with 'Not found', status: :unprocessable_entity
+      render_error @tournament
     end
   end
 
@@ -42,15 +42,15 @@ class Api::TournamentsController < ApplicationController
     if @tournament.destroy
       head :no_content
     else
-      respond_with @tournament.errors, status: :unprocessable_entity
+      render_error @tournament
     end
   end
 
   private
 
   def tournament_params
-    params.require(:tournament).permit(:name, :form, :start, :rounds_attributes => [:form, :match_sets, :point_per_win])
-      # .merge(:rounds_attributes => params.require(:rounds))
+    params.require(:tournament).permit(:name, :form, :start,
+        :rounds_attributes => [:form, :match_sets, :point_per_win])
   end
 
   def rounds_params
