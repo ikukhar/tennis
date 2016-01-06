@@ -33,10 +33,17 @@
           or
         %hr
 
-      %button.btn.btn-block.btn-facebook{ :'ng-click' => "authenticate('facebook')"}
+      %button.btn.btn-block.btn-facebook{ :'ng-click' => "authenticate('facebook')",
+                                        :type => 'button' }
         %span.ion-social-facebook
           Sign in with Facebook
 
-      %button.btn.btn-block.btn-github{ :'ng-click' => "authenticate('github')"}
+      %button.btn.btn-block.btn-vkontakte{ :'ng-click' => "authenticate('vkontakte')",
+                                           :type => 'button' }
+        %span.ion-social-vkontakte
+          Sign in with Vkontakte
+
+      %button.btn.btn-block.btn-github{ :'ng-click' => "authenticate('github')",
+                                        :type => 'button' }
         %span.ion-social-github
           Sign in with Github

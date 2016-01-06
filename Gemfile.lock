@@ -63,6 +63,12 @@ GEM
     debug_inspector (0.0.2)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
+    domain_name (0.5.25)
+      unf (>= 0.0.5, < 1.0.0)
+    dotenv (2.0.2)
+    dotenv-rails (2.0.2)
+      dotenv (= 2.0.2)
+      railties (~> 4.0)
     equalizer (0.0.11)
     erubis (2.7.0)
     execjs (2.6.0)
@@ -81,6 +87,8 @@ GEM
       haml (~> 4.0.0)
       nokogiri (~> 1.6.0)
       ruby_parser (~> 3.5)
+    http-cookie (1.0.2)
+      domain_name (~> 0.5)
     i18n (0.7.0)
     ice_nine (0.11.1)
     jbuilder (2.3.2)
@@ -100,6 +108,7 @@ GEM
     mini_portile2 (2.0.0)
     minitest (5.8.3)
     multi_json (1.11.2)
+    netrc (0.11.0)
     nokogiri (1.6.7.1)
       mini_portile2 (~> 2.0.0.rc2)
     rack (1.6.4)
@@ -133,6 +142,10 @@ GEM
     rdoc (4.2.0)
     responders (2.1.1)
       railties (>= 4.2.0, < 5.1)
+    rest-client (1.8.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 3.0)
+      netrc (~> 0.7)
     ruby_parser (3.7.2)
       sexp_processor (~> 4.1)
     ryakuzu (0.2.6)
@@ -181,6 +194,9 @@ GEM
     uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.1)
     virtus (1.0.5)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
@@ -204,12 +220,14 @@ DEPENDENCIES
   bower-rails (~> 0.10.0)
   byebug
   coffee-rails (~> 4.1.0)
+  dotenv-rails
   haml-rails (~> 0.9)
   jbuilder (~> 2.0)
   jquery-rails
   jwt
   rails (= 4.2.5)
   responders
+  rest-client
   ryakuzu
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)

@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   namespace :auth do
     post 'signup', to: 'session#signup'
     post 'login',  to: 'session#login'
+    post '/:provider/callback', to: 'session#omniauth_callback'
   end
 
   mount Ryakuzu::Engine => '/ryakuzu'

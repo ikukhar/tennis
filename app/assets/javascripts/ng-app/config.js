@@ -15,26 +15,45 @@
   angular.module('app').config(
     function($locationProvider, $httpProvider, NotificationProvider, $authProvider) {
       $locationProvider.html5Mode(true);
-      $httpProvider.interceptors.push('ErrorHandlerInterceptor');
 
       NotificationProvider.setOptions({
         startTop: 55
       });
 
-      // GitHub
+      //  TODO: clientId from ENV[]
+
+      // // GitHub
       $authProvider.github({
-        url: '/auth/github',
-        authorizationEndpoint: 'https://github.com/login/oauth/authorize',
-        redirectUri: window.location.origin,
-        optionalUrlParams: ['scope'],
-        scope: ['user:email'],
-        scopeDelimiter: ' ',
-        type: '2.0',
-        popupOptions: {
-          width: 1020,
-          height: 618
-        }
+        url: '/auth/github/callback',
+        clientId: '6b3c76daf7f90ecddf66',
+        redirectUri: window.location.origin + '/',
+        scope: ['user:name, user:email'],
       });
+      //
+      // Facebook
+      $authProvider.facebook({
+        url: '/auth/facebook/callback',
+        clientId: '542938712538069',
+        redirectUri: window.location.origin + '/',
+        scope: 'email'
+      });
+
+      $authProvider.oauth2({
+        name: 'vkontakte',
+        url: '/auth/vkontakte/callback',
+        authorizationEndpoint: 'https://oauth.vk.com/authorize',
+        clientId: '5215259',
+        redirectUri: window.location.origin + '/',
+        scope: 'email',
+        display: 'popup',
+        responseType: 'code',
+        requiredUrlParams: ['response_type', 'client_id', 'redirect_uri', 'display', 'scope'],
+        scopeDelimiter: ',',
+      });
+
+
+      $httpProvider.interceptors.push('ErrorHandlerInterceptor');
+
     });
 
 
@@ -54,6 +73,8 @@
       $state.go('login')
       Notification.error(message);
     });
+
+
   }
 
   angular.module('app').run(run);

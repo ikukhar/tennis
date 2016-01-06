@@ -15,6 +15,8 @@ require 'sprockets/railtie'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+Dotenv::Railtie.load
+
 module Tennis
   class Application < Rails::Application
     # Use the responders controller from the responders gem
@@ -45,5 +47,6 @@ module Tennis
     # Minimum Sass number precision required by bootstrap-sass
     ::Sass::Script::Value::Number.precision = [8, ::Sass::Script::Value::Number.precision].max
     config.autoload_paths += %W(#{config.root}/lib/tools)
+
   end
 end

@@ -1,4 +1,4 @@
-require "application_responder"
+require 'application_responder'
 
 class ApplicationController < ActionController::Base
   self.responder = ApplicationResponder
@@ -10,15 +10,14 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_by_token
 
+  # TODO: DRY common methods
   private
 
   def authenticate_by_token
-    begin
-      payload, header = JWT.decode(token, Rails.application.secrets.secret_key_base)
-      @current_user = User.find_by(id: payload['id'])
-    rescue
-      render json: error('Unauthorized!'), status: :unauthorized
-    end
+    payload, header = JWT.decode(token, Rails.application.secrets.secret_key_base)
+    @current_user = User.find_by(id: payload['id'])
+  rescue
+    render json: error('Unauthorized!'), status: :unauthorized
   end
 
   def token
