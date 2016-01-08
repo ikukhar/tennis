@@ -1,23 +1,19 @@
 .form-group.required{ :'ng-class' => "{ 'has-error': form.name.$touched && form.name.$invalid }" }
-  %label{ class: 'control-label col-md-3' } Name:
-  .col-md-9
-    %input#name.form-control{ :'ng-model' => 'tournament.name',
-                              :name => 'name',
-                              :required => true,
-                              :type => 'text'}
+  %label.control-label Name:
+  %input#name.form-control{ :'ng-model' => 'tournament.name',
+                            :name => 'name',
+                            :required => true,
+                            :type => 'text'}
 
 .form-group.required{ :'ng-class' => "{ 'has-error': form.form.$touched && form.form.$invalid }" }
-  %label{ class: 'control-label col-md-3' } Type:
-  .col-md-9
-    %select.form-control{:'ng-model' => 'tournament.form',
-                         :name => 'form',
-                         :required => true,
-                         :'ng-trim' => 'true'}
-      %option
-      %option=TOURNAMENT_FORMS::SINGLES
-      %option=TOURNAMENT_FORMS::DOUBLES
+  %label.control-label Type:
+  %select.form-control{:'ng-model' => 'tournament.form',
+                       :name => 'form',
+                       :required => true,
+                       :'ng-trim' => 'true'}
+    %option
+    %option=TOURNAMENT_FORMS::SINGLES
+    %option=TOURNAMENT_FORMS::DOUBLES
 
-.form-group.required
-  %label{ class: 'control-label col-md-3' } Rounds:
-  .col-md-9
-    %div{ :'ng-include' => "'templates/tournament-rounds.html'" }
+.form-group
+  %div{ :'ng-include' => "'templates/tournament-rounds.html'" }

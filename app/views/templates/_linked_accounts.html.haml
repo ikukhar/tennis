@@ -1,0 +1,30 @@
+.panel.panel-default
+  .panel-body
+    .command-panel
+      .pull-left
+        %h3
+          Linked accounts
+      .clearfix
+    %hr
+
+    .btn-group-vertical
+      %button.btn.btn-sm.btn-primary{ :'ng-if' => "!have_auth('facebook')", :'ng-click' => "link('facebook')"}
+        %span.ion-social-facebook
+          Link Facebook Account
+      %button.btn.btn-sm.btn-danger{ :'ng-if' => "have_auth('facebook')", :'ng-click' => "unlink('facebook')"}
+        %span.ion-social-facebook
+          Unlink Facebook Account
+
+      %button.btn.btn-sm.btn-primary{ :'ng-if' => "!have_auth('vkontakte')", :'ng-click' => "link('vkontakte')"}
+        %span.fa.fa-vk
+          Link Vkontakte Account
+      %button.btn.btn-sm.btn-danger{ :'ng-if' => "have_auth('vkontakte')", :'ng-click' => "unlink('vkontakte')"}
+        %span.fa.fa-vk
+          Unlink Vkontakte Account
+
+      %button.btn.btn-sm.btn-primary{ :'ng-if' => "!have_auth('github')", :'ng-click' => "link('github')"}
+        %span.ion-social-github
+          Link Github Account
+      %button.btn.btn-sm.btn-danger{ :'ng-if' => "have_auth('github')", :'ng-click' => "unlink('github')"}
+        %span.ion-social-github
+          Unlink GitHub Account

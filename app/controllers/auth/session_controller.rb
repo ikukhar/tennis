@@ -1,34 +1,69 @@
 class Auth::SessionController < ApplicationController
   skip_before_action :authenticate_by_token
 
-  def omniauth_callback
-    provider = params[:provider]
-    auth_hash = send("#{provider}_callback")
-    auth_hash['provider'] = provider
 
-    auth = Authorization.find_or_create(auth_hash)
-    if @user = auth.user
+  def omniauth_callback
+
+    provider_hash = auth_by_provider
+
+    if params[:isLinking]
+      authenticate_by_token
+    else
+      unless @current_user = User.find_by_email(provider_hash[:email])
+        @current_user = User.new(
+          email: provider_hash[:email],
+          first_name: provider_hash[:first_name],
+          last_name: provider_hash[:last_name]
+        )
+      end
+    end
+
+    auth = Authorization.find_or_create_by(user: @current_user,
+                                           provider: provider_hash[:provider],
+                                           uid: provider_hash[:uid])
+    if auth
       render json: token, status: :created
     else
       render_error 'Auth error!'
     end
   end
 
+  def auth_by_provider
+    provider = params[:provider]
+
+    provider_hash = send("#{provider}_callback")
+    provider_hash[:provider] = provider
+
+    validate_auth_hash(provider_hash)
+
+    provider_hash
+  end
+
   def signup
-    @user = User.new(signup_params)
-    if @user.save
+    @current_user = User.new(signup_params)
+    if @current_user.save
       render json: token, status: :created
     else
-      render_error @user.errors.messages.to_a.join(': ')
+      render_error @current_user
     end
   end
 
   def login
-    @user = User.find_by_email(params[:email])
-    if @user && !@user.password.nil? && @user.authenticate(params[:password])
+    @current_user = User.find_by_email(params[:email])
+    if @current_user && !@current_user.password_digest.nil? && @current_user.authenticate(params[:password])
       render json: token, status: :created
     else
       render_error 'User not found!'
+    end
+  end
+
+  def unlink
+    authenticate_by_token
+    auth = Authorization.find_by_user_id_and_provider(@current_user, params[:provider])
+    if auth.destroy
+      render json: token, status: :created
+    else
+      render_error auth
     end
   end
 
@@ -46,11 +81,12 @@ class Auth::SessionController < ApplicationController
 
     auth_result = RestClient.get('https://graph.facebook.com/me',
                                  params: { access_token: access_token,
-                                           fields: 'email,name'
+                                           fields: 'email,first_name, last_name'
                                  }, accept: :json)
 
-    auth_hash = JSON.parse(auth_result)
-
+    auth_hash = JSON.parse(auth_result).deep_symbolize_keys
+    auth_hash[:uid] = auth_hash[:id]
+    puts auth_hash
     auth_hash
   end
 
@@ -67,8 +103,11 @@ class Auth::SessionController < ApplicationController
     auth_result = RestClient.get('https://api.github.com/user',
                                  params: { access_token: access_token },
                                  accept: :json)
-    auth_hash = JSON.parse(auth_result)
+    auth_hash = JSON.parse(auth_result).deep_symbolize_keys
 
+    auth_hash[:first_name], auth_hash[:last_name] = auth_hash[:name].slice(' ')
+    auth_hash[:uid] = auth_hash[:id]
+    puts auth_hash
     auth_hash
   end
 
@@ -87,20 +126,21 @@ class Auth::SessionController < ApplicationController
                                  params: { access_token: access_token, fields: 'photo_id' },
                                  accept: :json)
 
-    auth_hash = JSON.parse(auth_result)
-
-    auth_hash['email'] = result['email']
-    auth_hash['name'] = "#{auth_hash['first_name']} #{auth_hash['last_name']}"
+    auth_hash = JSON.parse(auth_result).deep_symbolize_keys
+    auth_hash = auth_hash[:response][0]
+    auth_hash[:email] = result['email']
 
     auth_hash
   end
 
   def signup_params
-    params.require(:session).permit(:name, :surname, :email, :password, :password_confirmation)
+    params.require(:session).permit(:first_name, :last_name, :email, :password, :password_confirmation)
   end
 
-  def token
-    { token: JsonWebToken.encode({ user_id: @user.id, user_email: @user.email }, 7.day.from_now) }
+  def validate_auth_hash(auth_hash)
+    unless [:provider, :uid, :first_name, :last_name, :email].all? { |key| auth_hash.key? key }
+      fail 'Authentification hash must have all of these keys:
+      [:provider, :uid, :first_name, :last_name, :email]'
+    end
   end
-
 end

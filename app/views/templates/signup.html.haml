@@ -1,25 +1,25 @@
-.center-form.panel
+.center-form.panel.panel-shadow
   .panel-body
     %h2.text-center Sign up
     %form{ :'ng-submit' => 'signup(user)',
            :role => 'form',
            :name => 'form',
            :novalidate => true }
-      .form-group.has-feedback{ :'ng-class' => "{ 'has-error': form.name.$touched && form.name.$invalid }" }
+      .form-group.has-feedback{ :'ng-class' => "{ 'has-error': form.first_name.$touched && form.first_name.$invalid }" }
         %span.ion-person.form-control-feedback
-        %input.form-control.input-lg{ :'ng-model' => 'user.name',
-                                     :name => 'name',
+        %input.form-control.input-lg{ :'ng-model' => 'user.first_name',
+                                     :name => 'first_name',
                                      :required => true,
                                      :type => 'text',
-                                     :placeholder => "Name" }
+                                     :placeholder => "First name" }
 
-      .form-group.has-feedback{ :'ng-class' => "{ 'has-error': form.name.$touched && form.name.$invalid }" }
+      .form-group.has-feedback{ :'ng-class' => "{ 'has-error': form.last_name.$touched && form.last_name.$invalid }" }
         %span.ion-person.form-control-feedback
-        %input.form-control.input-lg{ :'ng-model' => 'user.surname',
-                                     :name => 'name',
+        %input.form-control.input-lg{ :'ng-model' => 'user.last_name',
+                                     :name => 'last_name',
                                      :required => true,
                                      :type => 'text',
-                                     :placeholder => "Surname" }
+                                     :placeholder => "Last name" }
 
       .form-group.has-feedback{ :'ng-class' => "{ 'has-error': form.email.$touched && form.email.$invalid }" }
         %span.ion-at.form-control-feedback

@@ -21,8 +21,11 @@ $icon-font-path: "bootstrap-sass/assets/fonts/bootstrap/";
 @import "ionicons/scss/ionicons";
 @font-face {
   font-family: "Ionicons";
-  src: url(ionicons/fonts/ionicons.eot?) format("eot"), url(ionicons/fonts/ionicons.woff) format("woff"), url(ionicons/fonts/ionicons.ttf) format("truetype");
+  src: url(ionicons/fonts/ionicons.eot?) format("eot"),
+       url(ionicons/fonts/ionicons.woff) format("woff"),
+       url(ionicons/fonts/ionicons.ttf) format("truetype");
 }
+
 body {
   padding: 55px;
   font-size: 14px;
@@ -32,12 +35,9 @@ body {
 .command-panel h3 {
   margin: 5px 0 0;
 }
-.clearfix {
-  clear: both;
-}
 .center-form {
   width: 330px;
-  margin: 12% auto;
+  margin: 6% auto;
 }
 .signup-or-separator {
   position: relative;
@@ -55,9 +55,6 @@ body {
   width: 90%;
   margin: -16px auto 10px;
   border-top: 1px solid #dce0e0;
-}
-.ion-social-facebook:before {
-  content: "\f231";
 }
 .btn-facebook {
   color: #fff;
@@ -78,4 +75,29 @@ body {
 .btn-github:focus {
   color: #fff;
   background-color: #303030;
+}
+.btn-vkontakte {
+  color: #fff;
+  background-color: #007bb6;
+  border: 1px solid #0073ae;
+}
+.btn-vkontakte:hover,
+.btn-vkontakte:focus {
+  color: #fff;
+  background-color: #0069a4;
+}
+.btn-group-vertical {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+.btn-group-vertical .btn {
+  margin-bottom: 10px;
+}
+.breadcrumb {
+  margin-bottom: 0px;
+  background-color: #f6f6f6;
+}
+.form-text-under-icon {
+  padding-left: 15px;
 }

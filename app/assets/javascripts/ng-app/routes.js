@@ -84,30 +84,45 @@
   };
 
   var login = {
-    url: '/login',
+    parent: 'home',
+    url: 'login',
     ncyBreadcrumb: {
       label: 'Login'
     },
-    controller: "LoginController",
-    templateUrl: "templates/login.html"
+    views: {
+      '@': {
+        controller: "LoginController",
+        templateUrl: "templates/login.html"
+      }
+    }
   };
 
   var signup = {
-    url: '/signup',
+    parent: 'home',
+    url: 'signup',
     ncyBreadcrumb: {
       label: 'Sign Up'
     },
-    controller: "SignupController",
-    templateUrl: "templates/signup.html"
+    views: {
+      '@': {
+        controller: "SignupController",
+        templateUrl: "templates/signup.html"
+      }
+    }
   };
 
   var profile = {
-    url: '/profile',
+    parent: 'home',
+    url: 'profile',
     ncyBreadcrumb: {
       label: 'Profile'
     },
-    controller: "ProfileShowController",
-    templateUrl: "templates/profile-show.html"
+    views: {
+      '@': {
+        controller: "ProfileController",
+        templateUrl: "templates/profile-show.html"
+      }
+    }
   };
 
   var editProfile = {
@@ -118,7 +133,7 @@
     },
     views: {
       '@': {
-        controller: "ProfileEditController",
+        controller: "ProfileController",
         templateUrl: "templates/profile-edit.html"
       }
     }

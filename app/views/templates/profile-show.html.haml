@@ -1,4 +1,4 @@
-.panel.panel-default
+.panel.panel-default.panel-shadow
   .panel-body
     .command-panel
       .pull-left
@@ -9,6 +9,7 @@
           %button.btn.btn-default{ :'ui-sref' => "editProfile(user)" } Edit
       .clearfix
     %hr
+    -# TODO: -Destroy profile and -change password
 
     %form{ :role => 'form',
            :name => 'form',
@@ -18,16 +19,17 @@
         %label.control-label
           %i.ion-person
           Name
-        %h5 {{user.name}}
+        %h5.form-text-under-icon {{user.firstName}}
 
       .form-group
         %label.control-label
           %i.ion-person
           Surname
-        %h5 {{user.surname}}
+        %h5.form-text-under-icon {{user.lastName}}
 
       .form-group
         %label.control-label
           %i.ion-at
           Email
-        %h5 {{user.email}}
+        %h5.form-text-under-icon {{user.email}}
+=render 'linked_accounts'

@@ -1,4 +1,4 @@
-.panel.panel-default
+.panel.panel-default.panel-shadow
   .panel-body
     .command-panel
       .pull-left
@@ -6,7 +6,6 @@
       .clearfix
     %hr
       %form{ :'ng-submit' => 'update()',
-             :class => 'form-horizontal',
              :role => 'form',
              :name => 'form',
              :novalidate => true }
@@ -14,8 +13,7 @@
         %div{ :'ng-include' => "'templates/tournament-form.html'" }
 
         .form-group
-          .col-md-offset-3.col-md-9
-            %button.btn.btn-success{ :type => 'submit',
+          %button.btn.btn-success{ :type => 'submit',
                                      :'ng-disabled' => 'form.$invalid' } Update
-            %button.btn.btn-default{ :type => 'button',
-                                     :'ui-sref' => "tournaments" } Cancel
+          %button.btn.btn-default{ :type => 'button',
+                                     :'ui-sref' => "showTournament(tournament)" } Cancel

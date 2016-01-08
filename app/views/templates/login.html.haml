@@ -1,4 +1,4 @@
-.center-form.panel
+.center-form.panel.panel-shadow
   .panel-body
     %h2.text-center Log in
     %form{ :'ng-submit' => 'login(user)',
@@ -40,7 +40,7 @@
 
       %button.btn.btn-block.btn-vkontakte{ :'ng-click' => "authenticate('vkontakte')",
                                            :type => 'button' }
-        %span.ion-social-vkontakte
+        %span.fa.fa-vk
           Sign in with Vkontakte
 
       %button.btn.btn-block.btn-github{ :'ng-click' => "authenticate('github')",

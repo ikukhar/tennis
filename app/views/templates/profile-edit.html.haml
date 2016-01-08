@@ -1,4 +1,4 @@
-.panel.panel-default
+.panel.panel-default.panel-shadow
   .panel-body
     .command-panel
       .pull-left
@@ -12,20 +12,20 @@
            :name => 'form',
            :novalidate => true }
 
-      .form-group{ :'ng-class' => "{ 'has-error': form.name.$touched && form.name.$invalid }" }
+      .form-group{ :'ng-class' => "{ 'has-error': form.firstName.$touched && form.firstName.$invalid }" }
         %label.control-label
           %i.ion-person
           Name
-        %input.form-control{ :'ng-model' => 'user.name',
-                                     :name => 'name',
+        %input.form-control{ :'ng-model' => 'user.firstName',
+                                     :name => 'firstName',
                                      :required => true,
                                      :type => 'text' }
-      .form-group{ :'ng-class' => "{ 'has-error': form.surname.$touched && form.surname.$invalid }" }
+      .form-group{ :'ng-class' => "{ 'has-error': form.lastName.$touched && form.lastName.$invalid }" }
         %label.control-label
           %i.ion-person
           Surname
-        %input.form-control{ :'ng-model' => 'user.surname',
-                                     :name => 'name',
+        %input.form-control{ :'ng-model' => 'user.lastName',
+                                     :name => 'lastName',
                                      :required => true,
                                      :type => 'text' }
 
@@ -43,3 +43,4 @@
 
         %button.btn.btn-default{ :type => 'button',
                                  :'ui-sref' => "^" } Cancel
+=render 'linked_accounts'

@@ -3,7 +3,7 @@ class Api::UsersController < ApplicationController
   def show
     # TODO: Ограничить поля (password_digest)
     if @user = User.find(params[:id])
-      respond_with :api, @user
+      respond_with :api, @user.to_json(:include => :authorizations)
     else
       render_error 'User not found'
     end
@@ -21,7 +21,7 @@ class Api::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :surname, :email)
+    params.require(:user).permit(:first_name, :last_name, :email)
   end
 
 end
