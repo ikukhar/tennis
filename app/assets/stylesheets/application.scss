@@ -21,11 +21,8 @@ $icon-font-path: "bootstrap-sass/assets/fonts/bootstrap/";
 @import "ionicons/scss/ionicons";
 @font-face {
   font-family: "Ionicons";
-  src: url(ionicons/fonts/ionicons.eot?) format("eot"),
-       url(ionicons/fonts/ionicons.woff) format("woff"),
-       url(ionicons/fonts/ionicons.ttf) format("truetype");
+  src: url(ionicons/fonts/ionicons.eot?) format("eot"), url(ionicons/fonts/ionicons.woff) format("woff"), url(ionicons/fonts/ionicons.ttf) format("truetype");
 }
-
 body {
   padding: 55px;
   font-size: 14px;
@@ -95,9 +92,48 @@ body {
   margin-bottom: 10px;
 }
 .breadcrumb {
-  margin-bottom: 0px;
+  margin-bottom: 0;
   background-color: #f6f6f6;
 }
 .form-text-under-icon {
   padding-left: 15px;
+}
+.list-container {
+  height: 200px;
+  overflow: auto;
+}
+/* numbered buttons */
+#status-buttons {}
+#status-buttons a {
+  display: inline-block;
+  font-size: 12px;
+  margin-right: 10px;
+  margin-bottom: 15px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 100px;
+}
+#status-buttons a:hover {
+  text-decoration: none;
+}
+#status-buttons a:focus {
+  text-decoration: none;
+}
+/* we will style the span as the circled number */
+#status-buttons span {
+  background: #080808;
+  display: block;
+  height: 30px;
+  margin: 0 auto 10px;
+  padding-top: 5px;
+  width: 30px;
+  border-radius: 50%;
+  color: #fff;
+}
+/* active buttons turn light green-blue*/
+#status-buttons a.active span {
+  background: #00BC8C;
+}
+#status-buttons div {
+  display: inline;
 }

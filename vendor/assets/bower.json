@@ -10,6 +10,8 @@
     "angular-ui-notification": "latest",
     "angular-spinner": "latest",
     "satellizer": "latest",
-    "ionicons": "latest"
+    "ionicons": "latest",
+    "angular-animate": "latest",
+    "checklist-model": "latest"
   }
 }

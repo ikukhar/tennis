@@ -1,0 +1,19 @@
+.panel.panel-default
+  .panel-heading
+    .pull-left
+      %h5 Select players
+    .clearfix
+  .panel-body
+    %form{ :'ng-submit' => 'update()',
+           :role => 'form',
+           :name => 'form',
+           :novalidate => true }
+
+      =render 'templates/tournaments/select_players'
+
+
+      .form-group
+        %button.btn.btn-success{ :type => 'submit',
+                                   :'ng-disabled' => 'form.$invalid' } Select
+        %button.btn.btn-default{ :type => 'button',
+                                   :'ui-sref' => "^" } Cancel

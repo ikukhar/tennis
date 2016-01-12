@@ -1,5 +1,5 @@
 class Tournament < ActiveRecord::Base
   has_many :rounds, :dependent => :destroy
-  has_many :teams
-  accepts_nested_attributes_for :rounds
+  has_many :players, :dependent => :destroy
+  has_many :teams, :dependent => :destroy
 end

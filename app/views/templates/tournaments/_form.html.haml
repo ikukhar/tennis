@@ -1,0 +1,28 @@
+.form-group.required{ :'ng-class' => "{ 'has-error': form.name.$touched && form.name.$invalid }" }
+  %label.control-label Name:
+  %input#name.form-control{ :'ng-model' => 'tournament.name',
+                            :name => 'name',
+                            :required => true,
+                            :type => 'text'}
+
+.form-group.required{ :'ng-class' => "{ 'has-error': form.form.$touched && form.form.$invalid }" }
+  %label.control-label Type:
+  %select.form-control{:'ng-model' => 'tournament.form',
+                       :name => 'form',
+                       :required => true,
+                       :'ng-trim' => 'true',
+                       :'ng-change' => "onSelectTournamentForm()"}
+    %option
+    %option=TOURNAMENT_FORMS::SINGLES
+    %option=TOURNAMENT_FORMS::DOUBLES
+
+.form-group.required{ :'ng-class' => "{ 'has-error': form.status.$touched && form.status.$invalid }" }
+  %label.control-label Status:
+  %select.form-control{:'ng-model' => 'tournament.status',
+                       :name => 'status',
+                       :required => true,
+                       :'ng-trim' => 'true'}
+    %option
+    %option=TOURNAMENT_STATUSES::NOT_STARTED
+    %option=TOURNAMENT_STATUSES::STARTED
+    %option=TOURNAMENT_STATUSES::FINISHED

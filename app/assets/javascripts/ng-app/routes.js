@@ -3,19 +3,23 @@
 
   function config($stateProvider, $urlRouterProvider) {
 
-  //  $urlRouterProvider.otherwise("/");
+    //  $urlRouterProvider.otherwise("/");
 
     $stateProvider
       .state('home', home)
       .state('tournaments', tournaments)
-      .state('addTournament', addTournament)
-      .state('editTournament', editTournament)
+      .state('newTournament', newTournament)
+      .state('newTournament.tournament', newTournament_tournament)
+      .state('newTournament.players', newTournament_players)
+      .state('newTournament.rounds', newTournament_rounds)
+      .state('newTournament.games', newTournament_games)
       .state('showTournament', showTournament)
+      .state('showTournament.editTournament', showTournament_editTournament)
+      .state('showTournament.editPlayers', showTournament_editPlayers)
       .state('login', login)
       .state('signup', signup)
       .state('profile', profile)
-      .state('editProfile', editProfile)
-      ;
+      .state('editProfile', editProfile);
   };
 
 
@@ -35,13 +39,13 @@
     },
     views: {
       '@': {
-        controller: "TournamentsController",
-        templateUrl: "templates/tournaments.html"
+        controller: "TournamentsIndexCtrl",
+        templateUrl: "templates/tournaments/index.html"
       }
     }
   };
 
-  var addTournament = {
+  var newTournament = {
     parent: 'tournaments',
     url: '/new',
     ncyBreadcrumb: {
@@ -49,24 +53,42 @@
     },
     views: {
       '@': {
-        controller: "TournamentAddController",
-        templateUrl: "templates/tournament-add.html"
+        controller: "TournamentsNewCtrl",
+        templateUrl: "templates/tournaments/new.html"
       }
     }
   };
 
-  var editTournament = {
-    parent: 'tournaments',
-    url: '/edit/:id',
+  var newTournament_tournament = {
+    url: '/tournament',
     ncyBreadcrumb: {
-      label: 'Edit'
+      label: 'Tournament'
     },
-    views: {
-      '@': {
-        controller: "TournamentEditController",
-        templateUrl: "templates/tournament-edit.html"
-      }
-    }
+    templateUrl: "templates/tournaments/new-tournament.html"
+  };
+
+  var newTournament_players = {
+    url: '/tournament',
+    ncyBreadcrumb: {
+      label: 'Players'
+    },
+    templateUrl: "templates/tournaments/new-players.html"
+  };
+
+  var newTournament_rounds = {
+    url: '/tournament',
+    ncyBreadcrumb: {
+      label: 'Rounds'
+    },
+    templateUrl: "templates/tournaments/new-rounds.html"
+  };
+
+  var newTournament_games = {
+    url: '/tournament',
+    ncyBreadcrumb: {
+      label: 'Games'
+    },
+    templateUrl: "templates/tournaments/new-games.html"
   };
 
   var showTournament = {
@@ -77,8 +99,45 @@
     },
     views: {
       '@': {
-        controller: "TournamentShowController",
-        templateUrl: "templates/tournament-show.html"
+        templateUrl: "templates/tournaments/show.html"
+      },
+      'tournament@showTournament': {
+        controller: "TournamentsShowCtrl",
+        // templateUrl: "templates/tournaments/show.html"
+      },
+      'rounds@showTournament': {
+        controller: "RoundsIndexCtrl",
+        templateUrl: "templates/tournaments/rounds/index.html"
+      },
+      'players@showTournament': {
+        controller: "PlayersIndexCtrl",
+        templateUrl: "templates/tournaments/players/index.html"
+      }
+    }
+  };
+
+  var showTournament_editTournament = {
+    parent: 'showTournament',
+    ncyBreadcrumb: {
+      label: 'Edit tournament'
+    },
+    views: {
+      'tournament@showTournament': {
+        controller: "TournamentsEditCtrl",
+        templateUrl: "templates/tournaments/edit.html"
+      }
+    }
+  };
+
+  var showTournament_editPlayers = {
+    parent: 'showTournament',
+    ncyBreadcrumb: {
+      label: 'Edit players'
+    },
+    views: {
+      'players@showTournament': {
+        controller: "PlayersEditCtrl",
+        templateUrl: "templates/tournaments/players/edit.html"
       }
     }
   };
@@ -91,7 +150,7 @@
     },
     views: {
       '@': {
-        controller: "LoginController",
+        controller: "LoginCtrl",
         templateUrl: "templates/login.html"
       }
     }
@@ -105,7 +164,7 @@
     },
     views: {
       '@': {
-        controller: "SignupController",
+        controller: "SignupCtrl",
         templateUrl: "templates/signup.html"
       }
     }
@@ -119,8 +178,8 @@
     },
     views: {
       '@': {
-        controller: "ProfileController",
-        templateUrl: "templates/profile-show.html"
+        controller: "ProfileCtrl",
+        templateUrl: "templates/profile/show.html"
       }
     }
   };
@@ -133,11 +192,12 @@
     },
     views: {
       '@': {
-        controller: "ProfileController",
-        templateUrl: "templates/profile-edit.html"
+        controller: "ProfileCtrl",
+        templateUrl: "templates/profile/edit.html"
       }
     }
   };
+
 
   angular.module('app').config(config);
 })();

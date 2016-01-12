@@ -1,0 +1,6 @@
+.list-container.panel.panel-body
+  .form-group{ :'ng-repeat' => 'user in users' }
+    %input{ :type => "checkbox",
+            :'checklist-model' => 'selectedUsers',
+            :'checklist-value' => 'user' }
+      {{user.firstName}} {{user.lastName}}

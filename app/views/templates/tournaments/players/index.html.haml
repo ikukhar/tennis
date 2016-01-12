@@ -1,0 +1,12 @@
+.panel.panel-default
+  .panel-heading
+    .pull-left
+      %h5 Players
+    .pull-right
+      .btn-group
+        %button.btn.btn-default{ :'ui-sref' => 'showTournament.editPlayers' } Edit
+    .clearfix
+  -# .list-container
+  %ol
+    %li{ :'ng-repeat' => 'player in players' }
+      %h5 {{player.user.firstName}} {{player.user.lastName}}

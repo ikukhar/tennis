@@ -1,9 +1,9 @@
 (function() {
   'use strict';
 
-  LoginController.$inject = ['$scope', '$auth', '$state', '$rootScope'];
+  LoginCtrl.$inject = ['$scope', '$auth', '$state', '$rootScope'];
 
-  function LoginController($scope, $auth, $state, $rootScope) {
+  function LoginCtrl($scope, $auth, $state, $rootScope) {
 
     $scope.login = function(user) {
       $auth.login(user)
@@ -29,5 +29,5 @@
     };
   };
 
-  angular.module('app').controller('LoginController', LoginController);
+  angular.module('app').controller('LoginCtrl', LoginCtrl);
 })();

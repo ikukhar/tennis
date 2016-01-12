@@ -9,7 +9,9 @@
     'rails',
     'ui-notification',
     'angularSpinner',
-    'satellizer'
+    'satellizer',
+    'ngAnimate',
+    'checklist-model'
   ]);
 
   angular.module('app').config(
@@ -55,8 +57,8 @@
     });
 
 
-  run.$inject = ['$rootScope', 'Notification', '$state', '$auth', 'User'];
-  function run($rootScope, Notification, $state, $auth, User) {
+  run.$inject = ['$rootScope', 'Notification', '$state', '$auth', 'User', '$document', '$window'];
+  function run($rootScope, Notification, $state, $auth, User, $document, $window) {
 
     $rootScope.setUser = setUser;
     setUser();
@@ -100,7 +102,25 @@
         }
       };
     }
-  }
 
+    // angular.element($document).ready(function(){
+    //   var target = angular.element('#navbar-container');
+    //   target.css('z-index', '0.1');
+    //   angular.element($document).scroll(function(e){
+    //       if ($window.scrollY >= 75){
+    //         target.css('opacity', '0.8');
+    //       }
+    //       else  target.css('opacity', '1');
+    //   });
+    //   target.hover(function(e) {
+    //     target.css('opacity', '1');
+    //   }, function(e) {
+    //     if ($window.scrollY >= 75){
+    //       target.css('opacity', '0.8');
+    //     }
+    //     else  target.css('opacity', '1');
+    //   })
+    // })
+  }
   angular.module('app').run(run);
 })();

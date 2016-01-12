@@ -1,0 +1,22 @@
+
+.panel.panel-default.panel-shadow
+  .panel-body.form-container
+    .command-panel
+      .pull-left
+        %h3
+          Create tournament
+      .clearfix
+    %hr
+
+    #status-buttons.text-center
+      %div{ :'ng-repeat' => 'status in statusButtons'}
+        %a{ :'ui-sref-active' => 'active', :'ui-sref' => '{{status.state}}' }
+          %span {{ $index+1 }}
+          {{status.name}}
+
+    %form{ :'ng-submit' => 'create()',
+           :role => 'form',
+           :name => 'form',
+           :novalidate => true }
+
+      .form-views{ :'ui-view' => true }

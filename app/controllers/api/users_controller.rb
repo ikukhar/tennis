@@ -1,5 +1,9 @@
 class Api::UsersController < ApplicationController
 
+  def index
+    respond_with :api, User.all
+  end
+
   def show
     # TODO: Ограничить поля (password_digest)
     if @user = User.find(params[:id])

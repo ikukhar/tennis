@@ -5,6 +5,17 @@
 .navbar {
   border: 0;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
+  background: #01253E;
+  color: #fff;
+}
+.navbar-default .navbar-brand {
+  color: #fff;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #fff;
+}
+.navbar-default .navbar-nav > li > a:hover {
+  color: #fff;
 }
 .panel {
   border-color: #cfd9D7;
@@ -56,4 +67,13 @@
 .btn-danger:hover {
   background-color: #b4412e;
   // border-color: #cd4033;
+}
+.btn-success {
+    background-color: #0f9d58;
+}
+.btn-success:hover {
+    background-color: #196c4a;
+}
+.btn-success[disabled]:hover {
+    background-color: #196c4a;
 }

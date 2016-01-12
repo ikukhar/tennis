@@ -7,7 +7,11 @@ class TemplatesController < ApplicationController
   end
 
   def template
-    render params[:template], layout: nil
+    path = 'templates/' + params[:name]
+    path = path + '/' + params[:name2] if params[:name2]
+    path = path + '/' + params[:name3] if params[:name3]
+    path = path + '/' + params[:name4] if params[:name4]
+    render  path, layout: nil
   end
 
 end

@@ -25,6 +25,8 @@
 //= require spin.js/spin.js
 //= require angular-spinner
 //= require satellizer
+//= require angular-animate
+//= require checklist-model
 
 //= require ng-app/config
 

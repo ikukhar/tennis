@@ -1,0 +1,29 @@
+.panel.panel-default.panel-shadow
+  .panel-body
+    .command-panel
+      .pull-left
+        %h3 {{tournament.name}}
+      .pull-right
+        .btn-group
+          %button.btn.btn-default{ :'ui-sref' => "editTournament(tournament)" } Edit
+          %button.btn.btn-default{ :'ng-click' => 'destroy(tournament)'} Destroy
+      .clearfix
+    %hr
+    %form{ :role => 'form',
+           :name => 'form',
+           :novalidate => true }
+
+      .form-group
+        %label.control-label Type
+        %h5 {{tournament.form}}
+
+      .form-group
+        %label.control-label Status
+        %h5 {{tournament.status}}
+
+      .form-group
+        %button.btn.btn-default{ :type => 'button',
+                                 :'ui-sref' => "tournaments" } Cancel
+
+%div{ :'ui-view' => 'teams' }
+%div{ :'ui-view' => 'games' }

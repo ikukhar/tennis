@@ -1,0 +1,20 @@
+.panel.panel-default.panel-shadow
+  .panel-body
+    .command-panel
+      .pull-left
+        %h3 Edit tournament
+      .clearfix
+    %hr
+      %form{ :'ng-submit' => 'update()',
+             :role => 'form',
+             :name => 'form',
+             :novalidate => true }
+
+        =render 'templates/tournaments/form'
+
+
+        .form-group
+          %button.btn.btn-success{ :type => 'submit',
+                                     :'ng-disabled' => 'form.$invalid' } Update
+          %button.btn.btn-default{ :type => 'button',
+                                     :'ui-sref' => "^" } Cancel

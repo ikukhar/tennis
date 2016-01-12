@@ -1,9 +1,9 @@
 (function() {
   'use strict';
 
-  SignupController.$inject = ['$scope', '$auth', '$state', '$timeout', '$rootScope'];
+  SignupCtrl.$inject = ['$scope', '$auth', '$state', '$rootScope'];
 
-  function SignupController($scope, $auth, $state, $timeout, $rootScope) {
+  function SignupCtrl($scope, $auth, $state, $rootScope) {
 
     $scope.signup = function(user) {
       $auth.signup(user)
@@ -18,5 +18,5 @@
     };
   };
 
-  angular.module('app').controller('SignupController', SignupController);
+  angular.module('app').controller('SignupCtrl', SignupCtrl);
 })();

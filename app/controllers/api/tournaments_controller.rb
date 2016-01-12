@@ -1,10 +1,7 @@
 class Api::TournamentsController < ApplicationController
 
   def index
-    respond_with Tournament
-                  .includes(:rounds)
-                  .all
-                  .to_json(:include => [:rounds])
+    respond_with Tournament.all.to_json
   end
 
   def create
@@ -17,10 +14,7 @@ class Api::TournamentsController < ApplicationController
   end
 
   def show
-    @tournament = Tournament
-                    .includes(:rounds)
-                    .find(params[:id])
-                    .to_json(:include => [:rounds])
+    @tournament = Tournament.find(params[:id])
     if @tournament
       respond_with :api, @tournament
     else
@@ -46,11 +40,32 @@ class Api::TournamentsController < ApplicationController
     end
   end
 
+  def players
+    render json: Player.includes(:user).where(tournament_id: params[:id]).to_json(include: [:user])
+  end
+
+  def create_players
+    begin
+      user_ids = params[:tournament][:users].map{ |h| h[:id] }
+      tournament = Tournament.find(params[:id])
+      tournament.players.where("user_id NOT IN (?)", user_ids).destroy_all
+      user_ids.each do |id|
+        tournament.players.find_or_create_by(user_id: id)
+      end
+      render nothing: true, status: :ok
+    rescue Exception => e
+      render_error e
+    end
+  end
+
+  def rounds
+    render json: Round.where(tournament_id: params[:id]).to_json
+  end
+
   private
 
   def tournament_params
-    params.require(:tournament).permit(:name, :form, :start,
-        :rounds_attributes => [:form, :match_sets, :point_per_win])
+    params.require(:tournament).permit(:name, :form, :status)
   end
 
   def rounds_params

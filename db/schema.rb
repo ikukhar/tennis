@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160108074757) do
+ActiveRecord::Schema.define(version: 20160111150313) do
 
   create_table "authorizations", force: :cascade do |t|
     t.string   "provider"
@@ -23,30 +23,26 @@ ActiveRecord::Schema.define(version: 20160108074757) do
 
   add_index "authorizations", ["user_id"], name: "index_authorizations_on_user_id"
 
-  create_table "matches", force: :cascade do |t|
-    t.integer  "rounds_id"
-    t.integer  "team1_id"
-    t.integer  "team2_id"
+  create_table "games", force: :cascade do |t|
+    t.integer  "round_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "team_1"
+    t.integer  "team_2"
   end
 
-  add_index "matches", ["rounds_id"], name: "index_matches_on_rounds_id"
-
-  create_table "members", force: :cascade do |t|
-    t.integer  "rounds_id"
-    t.integer  "team_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "members", ["rounds_id"], name: "index_members_on_rounds_id"
+  add_index "games", ["round_id"], name: "index_games_on_round_id"
 
   create_table "players", force: :cascade do |t|
     t.integer  "rating"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "tournament_id"
+    t.integer  "user_id"
   end
+
+  add_index "players", ["tournament_id"], name: "index_players_on_tournament_id"
+  add_index "players", ["user_id"], name: "index_players_on_user_id"
 
   create_table "rounds", force: :cascade do |t|
     t.integer  "tournament_id"

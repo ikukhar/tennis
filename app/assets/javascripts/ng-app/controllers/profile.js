@@ -1,9 +1,9 @@
 (function() {
   'use strict';
 
-  ProfileController.$inject = ['$scope', '$state', '$rootScope', '$filter', '$auth'];
+  ProfileCtrl.$inject = ['$scope', '$state', '$rootScope', '$filter', '$auth'];
 
-  function ProfileController($scope, $state, $rootScope, $filter, $auth) {
+  function ProfileCtrl($scope, $state, $rootScope, $filter, $auth) {
 
     $scope.user = $rootScope.current_user;
     $scope.update = update;
@@ -53,5 +53,5 @@
     }
   };
 
-  angular.module('app').controller('ProfileController', ProfileController);
+  angular.module('app').controller('ProfileCtrl', ProfileCtrl);
 })();
