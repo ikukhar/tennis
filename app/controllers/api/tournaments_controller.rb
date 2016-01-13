@@ -65,7 +65,7 @@ class Api::TournamentsController < ApplicationController
   private
 
   def tournament_params
-    params.require(:tournament).permit(:name, :form, :status)
+    params.require(:tournament).permit(:name, :mode, :status)
   end
 
   def rounds_params

@@ -21,7 +21,7 @@
 
     vm.selectAll = selectAll;
     vm.unselectAll = unselectAll;
-    vm.onSelectTournamentForm = onSelectTournamentForm;
+    vm.onSelectTournamentMode = onSelectTournamentMode;
 
     activate();
 
@@ -43,10 +43,10 @@
         });
     };
 
-    function onSelectTournamentForm() {
+    function onSelectTournamentMode() {
       var teams = { name: 'Teams', state: '.teams' };
       var idx = 2;
-      if (vm.tournament.form == 'Doubles') {
+      if (vm.tournament.mode == 'Doubles') {
         vm.statusButtons.splice(idx, 0, teams)
       } else {
         if (vm.statusButtons[idx]['name'] == teams['name']) {
@@ -74,7 +74,7 @@
 
     function setTeams() {
       vm.teams = [];
-      if (vm.tournament.form == 'Singles') {
+      if (vm.tournament.mode == 'Singles') {
         var length = vm.selectedPlayers.length
         for (var i = 0; i < length; i++) {
           var player = vm.selectedPlayers[i];
@@ -82,7 +82,7 @@
           team.players.push(player);
           vm.teams.push(team);
         }
-      } else if (vm.tournament.form == 'Doubles') {
+      } else if (vm.tournament.mode == 'Doubles') {
         // TODO PLayer RATING
       };
     };
@@ -92,7 +92,7 @@
       if (vm.rounds.length > 0) {
         var round = vm.rounds[0];
 
-        if (round.form == 'Сhampionship') {
+        if (round.mode == 'Сhampionship') {
           var length = vm.teams.length;
           for (var i = 0; i < length; i++) {
             console.log(i);
@@ -108,7 +108,7 @@
             // if (i == 1) {break};
           }
 
-        } else if (round.form == 'Play off') {
+        } else if (round.mode == 'Play off') {
 
         }
       }

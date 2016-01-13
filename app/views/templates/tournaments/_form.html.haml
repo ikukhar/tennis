@@ -5,16 +5,16 @@
                             :required => true,
                             :type => 'text'}
 
-.form-group.required{ :'ng-class' => "{ 'has-error': form.form.$touched && form.form.$invalid }" }
+.form-group.required{ :'ng-class' => "{ 'has-error': form.mode.$touched && form.mode.$invalid }" }
   %label.control-label Type:
-  %select.form-control{:'ng-model' => 'vm.tournament.form',
-                       :name => 'form',
+  %select.form-control{:'ng-model' => 'vm.tournament.mode',
+                       :name => 'mode',
                        :required => true,
                        :'ng-trim' => 'true',
                        :'ng-change' => "onSelectTournamentForm()"}
     %option
-    %option=TOURNAMENT_FORMS::SINGLES
-    %option=TOURNAMENT_FORMS::DOUBLES
+    -TOURNAMENT::MODES.constants.each do |name|
+      %option=TOURNAMENT::MODES.const_get(name)
 
 .form-group.required{ :'ng-class' => "{ 'has-error': form.status.$touched && form.status.$invalid }" }
   %label.control-label Status:
@@ -23,6 +23,5 @@
                        :required => true,
                        :'ng-trim' => 'true'}
     %option
-    %option=TOURNAMENT_STATUSES::NOT_STARTED
-    %option=TOURNAMENT_STATUSES::STARTED
-    %option=TOURNAMENT_STATUSES::FINISHED
+    -TOURNAMENT::STATUSES.constants.each do |name|
+      %option=TOURNAMENT::STATUSES.const_get(name)
