@@ -2,15 +2,15 @@
   .panel-body
     .command-panel
       .pull-left
-        %h3 Edit tournament
+        %h3 Edit user
       .clearfix
     %hr
-      %form{ :'ng-submit' => 'update()',
+      %form{ :'ng-submit' => 'vm.update()',
              :role => 'form',
              :name => 'form',
              :novalidate => true }
 
-        =render 'templates/tournaments/form'
+        =render 'templates/users/form'
 
 
         .form-group

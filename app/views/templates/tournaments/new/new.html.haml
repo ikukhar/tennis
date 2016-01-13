@@ -9,7 +9,7 @@
     %hr
 
     #status-buttons.text-center
-      %div{ :'ng-repeat' => 'status in statusButtons'}
+      %div{ :'ng-repeat' => 'status in vm.statusButtons'}
         %a{ :'ui-sref-active' => 'active', :'ui-sref' => '{{status.state}}' }
           %span {{ $index+1 }}
           {{status.name}}

@@ -6,7 +6,7 @@
           Profile
       .pull-right
         .btn-group
-          %button.btn.btn-default{ :'ui-sref' => "editProfile(user)" } Edit
+          =render_button 'edit', :'ui-sref' => "editProfile(user)"
       .clearfix
     %hr
     -# TODO: -Destroy profile and -change password
@@ -32,4 +32,5 @@
           %i.ion-at
           Email
         %h5.form-text-under-icon {{user.email}}
+        
 =render 'templates/profile/linked_accounts'

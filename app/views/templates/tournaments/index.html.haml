@@ -7,8 +7,7 @@
           Tournaments
       .pull-right
         .btn-group
-          %button.btn.btn-default{ :'ui-sref' => 'newTournament.tournament' }
-            New
+          =render_button 'new', :'ui-sref' => 'newTournament.tournament'
       .clearfix
     %hr
     %table.table.table-hover

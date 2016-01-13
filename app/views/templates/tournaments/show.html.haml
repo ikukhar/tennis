@@ -6,8 +6,8 @@
           %h3 {{tournament.name}}
         .pull-right
           .btn-group
-            %button.btn.btn-default{ :'ui-sref' => ".editTournament(tournament)" } Edit
-            %button.btn.btn-default{ :'ng-click' => 'destroy(tournament)'} Destroy
+            =render_button 'edit', :'ui-sref' => '.editTournament(tournament)'
+            =render_button 'destroy', :'ng-click' => 'destroy(tournament)'
         .clearfix
       %hr
       %form{ :role => 'form',
@@ -23,8 +23,7 @@
           %h5 {{tournament.status}}
 
         .form-group
-          %button.btn.btn-default{ :type => 'button',
-                                   :'ui-sref' => "tournaments" } Cancel
+          =render_button 'cancel', :'ui-sref' => '^'
 
 %div{ :'ui-view' => 'players' }
 %div{ :'ui-view' => 'rounds' }

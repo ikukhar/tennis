@@ -1,5 +1,4 @@
 class Api::UsersController < ApplicationController
-
   def index
     respond_with :api, User.all
   end
@@ -7,9 +6,18 @@ class Api::UsersController < ApplicationController
   def show
     # TODO: Ограничить поля (password_digest)
     if @user = User.find(params[:id])
-      respond_with :api, @user.to_json(:include => :authorizations)
+      respond_with :api, @user.to_json(include: :authorizations)
     else
       render_error 'User not found'
+    end
+  end
+
+  def create
+    @user = User.new(user_params)
+    if @user.save
+      respond_with :api, @user
+    else
+      render_error @user
     end
   end
 
@@ -22,10 +30,18 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def destroy
+    @user = User.find(params[:id])
+    if @user.destroy
+      head :no_content
+    else
+      render_error @user
+    end
+  end
+
   private
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email)
   end
-
 end

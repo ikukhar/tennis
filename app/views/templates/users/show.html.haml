@@ -1,0 +1,29 @@
+.panel.panel-default.panel-shadow
+  .panel-body
+    .command-panel
+      .pull-left
+        %h3 {{vm.user.firstName}} {{vm.user.lastName}}
+      .pull-right
+        .btn-group
+          =render_button 'edit', :'ui-sref' => 'editUser(vm.user)'
+          =render_button 'destroy', :'ng-click' => 'vm.destroy()'
+      .clearfix
+    %hr
+    %form{ :role => 'form',
+           :name => 'form',
+           :novalidate => true }
+
+      .form-group
+        %label.control-label First name
+        %h5 {{vm.user.firstName}}
+
+      .form-group
+        %label.control-label Last name
+        %h5 {{vm.user.lastName}}
+
+      .form-group
+        %label.control-label Email
+        %h5 {{vm.user.email}}
+
+      .form-group
+        =render_button 'cancel', :'ui-sref' => '^'

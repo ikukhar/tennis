@@ -1,0 +1,7 @@
+
+=render 'templates/tournaments/form'
+
+.form-group.row
+  .col-xs-3.col-xs-offset-3
+    =render_button 'next', :'ui-sref' => 'newTournament.players'
+  =render_button 'cancel', :'ui-sref' => 'tournaments'

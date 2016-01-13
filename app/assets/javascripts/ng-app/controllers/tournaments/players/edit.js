@@ -6,8 +6,10 @@
   function PlayersEditCtrl($scope, $stateParams, $rootScope, User, Tournament, $state) {
 
     $scope.users = [];
-    $scope.selectedUsers = [];
+    $scope.selectedUsers = { list: [] };
     $scope.update = update;
+    $scope.selectAll = selectAll;
+    $scope.unselectAll = unselectAll;
 
     activate();
 
@@ -27,7 +29,7 @@
 
           angular.forEach(success, function(value, key) {
             this.push(value['user'])
-          }, $scope.selectedUsers);
+          }, $scope.selectedUsers.list);
 
         }, function(error) {
           $rootScope.$emit('error', error)
@@ -42,7 +44,15 @@
         }, function(error) {
           $rootScope.$emit('error', error);
         })
-    }
+    };
+
+    function selectAll() {
+      $scope.selectedUsers.list = angular.copy($scope.users)
+    };
+
+    function unselectAll() {
+      $scope.selectedUsers.list = []
+    };
 
   };
 

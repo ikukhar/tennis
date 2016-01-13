@@ -4,7 +4,7 @@
       %h5 Players
     .pull-right
       .btn-group
-        %button.btn.btn-default{ :'ui-sref' => 'showTournament.editPlayers' } Edit
+        =render_button 'edit', :'ui-sref' => 'showTournament.editPlayers'
     .clearfix
   -# .list-container
   %ol

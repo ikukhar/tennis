@@ -2,18 +2,18 @@
   .panel-body
     .command-panel
       .pull-left
-        %h3 Edit tournament
+        %h3 New user
       .clearfix
     %hr
-      %form{ :'ng-submit' => 'update()',
+      %form{ :'ng-submit' => 'vm.create()',
              :role => 'form',
              :name => 'form',
              :novalidate => true }
 
-        =render 'templates/tournaments/form'
+        =render 'templates/users/form'
 
 
         .form-group
           =render_button 'submit', :'ng-disabled' => 'form.$invalid',
-                                   :text => 'Update'
+                                   :text => 'Create'
           =render_button 'cancel', :'ui-sref' => '^'

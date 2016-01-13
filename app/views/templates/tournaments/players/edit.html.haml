@@ -13,7 +13,5 @@
 
 
       .form-group
-        %button.btn.btn-success{ :type => 'submit',
-                                   :'ng-disabled' => 'form.$invalid' } Select
-        %button.btn.btn-default{ :type => 'button',
-                                   :'ui-sref' => "^" } Cancel
+        =render_button 'submit', :'ng-disabled' => 'form.$invalid', text: 'Select'
+        =render_button 'cancel', :'ui-sref' => '^'

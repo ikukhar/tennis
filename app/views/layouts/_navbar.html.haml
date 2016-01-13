@@ -8,8 +8,9 @@
               Home
           %ul.nav.navbar-nav.pull-left
             %li
-              %a{ :"ui-sref" => "tournaments" }
-                Tournaments
+              %a{ :"ui-sref" => "tournaments" } Tournaments
+            %li
+              %a{ :"ui-sref" => "users" } Users
           %ul.nav.navbar-nav.pull-right
             %li.dropdown{ :"ng-show" => "isAuthenticated()" }
               %a.dropdown-toggle{ :"data-toggle" => "dropdown", id: "dropdown-menu", :"ng-href" => '#' }
