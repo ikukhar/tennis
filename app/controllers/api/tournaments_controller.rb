@@ -5,9 +5,8 @@ class Api::TournamentsController < ApplicationController
   end
 
   def create
-    @tournament = Tournament.new(tournament_params)
-    if @tournament.save
-      respond_with :api, @tournament
+    if Tournament.create_tournament(create_params)
+      render nothing: true, status: :ok
     else
       render_error @tournament
     end
@@ -24,7 +23,7 @@ class Api::TournamentsController < ApplicationController
 
   def update
     @tournament = Tournament.find(params[:id])
-    if @tournament.update_attributes(tournament_params)
+    if @tournament.update_attributes(update_params)
       respond_with :api, @tournament
     else
       render_error @tournament
@@ -64,7 +63,15 @@ class Api::TournamentsController < ApplicationController
 
   private
 
-  def tournament_params
+  def create_params
+    params[:tournament]
+    # params.require(:tournament).permit(data: [tournament: [:name, :mode, :status],
+    #                                           rounds: [:match_sets, :mode],
+    #                                           teams: [:players],
+    #                                           games: [:rouns, :stage, :tean1, :team2])
+  end
+
+  def update_params
     params.require(:tournament).permit(:name, :mode, :status)
   end
 

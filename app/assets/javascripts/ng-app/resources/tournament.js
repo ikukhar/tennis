@@ -23,6 +23,10 @@
       return resource.get(''+id+'/rounds');
     };
 
+    resource.createTournament = function(data) {
+      return resource.$post('/api/tournaments', data)
+    }
+
     return resource;
   };
 

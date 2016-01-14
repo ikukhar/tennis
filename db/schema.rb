@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160113131752) do
+ActiveRecord::Schema.define(version: 20160114105125) do
 
   create_table "authorizations", force: :cascade do |t|
     t.string   "provider"
@@ -27,11 +27,13 @@ ActiveRecord::Schema.define(version: 20160113131752) do
     t.integer  "round_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "team_1"
-    t.integer  "team_2"
+    t.integer  "team1_id"
+    t.integer  "team2_id"
   end
 
   add_index "games", ["round_id"], name: "index_games_on_round_id"
+  add_index "games", ["team1_id"], name: "index_games_on_team1_id"
+  add_index "games", ["team2_id"], name: "index_games_on_team2_id"
 
   create_table "players", force: :cascade do |t|
     t.integer  "rating"
@@ -48,9 +50,8 @@ ActiveRecord::Schema.define(version: 20160113131752) do
     t.integer  "tournament_id"
     t.string   "mode"
     t.integer  "match_sets"
-    t.integer  "points_per_win"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.string   "start_stage"
   end
 
@@ -60,8 +61,12 @@ ActiveRecord::Schema.define(version: 20160113131752) do
     t.integer  "tournament_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "player1_id"
+    t.integer  "player2_id"
   end
 
+  add_index "teams", ["player1_id"], name: "index_teams_on_player1_id"
+  add_index "teams", ["player2_id"], name: "index_teams_on_player2_id"
   add_index "teams", ["tournament_id"], name: "index_teams_on_tournament_id"
 
   create_table "tournaments", force: :cascade do |t|

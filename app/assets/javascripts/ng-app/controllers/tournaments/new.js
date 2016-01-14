@@ -1,12 +1,15 @@
 (function() {
   'use strict';
 
-  TournamentsNewCtrl.$inject = ['$scope', '$state', 'Tournament', 'User'];
+  TournamentsNewCtrl.$inject =
+    ['$scope', '$state', 'Tournament', 'User', 'TOURNAMENT', 'ROUND', '$rootScope'];
 
-  function TournamentsNewCtrl($scope, $state, Tournament, User) {
+  function TournamentsNewCtrl($scope, $state, Tournament, User, TOURNAMENT, ROUND, $rootScope) {
 
     var vm = this;
-    vm.tournament = new Tournament({ status: 'Not started' });
+    vm.tournament = new Tournament({
+      status: 'Not started'
+    });
     vm.users = [];
     vm.selectedPlayers = [];
     vm.teams = [];
@@ -16,8 +19,7 @@
     vm.tmp_rounds = [];
     vm.statusButtons = statusButtons();
 
-
-    vm.createTournament = createTournament;
+    vm.create = create;
 
     vm.selectAll = selectAll;
     vm.unselectAll = unselectAll;
@@ -35,16 +37,25 @@
         });
     };
 
-    function createTournament() {
-      vm.tournament
-        .create()
-        .then(function(results) {
-          $state.go('tournaments');
+    function create() {
+      Tournament.createTournament({
+          tournament: vm.tournament,
+          rounds: vm.rounds,
+          teams: vm.teams,
+          games: vm.games
+        })
+        .then(function(success) {
+          // $state.go('tournaments');
+        }, function(error){
+          $rootScope.$emit('error', error.data)
         });
     };
 
     function onSelectTournamentMode() {
-      var teams = { name: 'Teams', state: '.teams' };
+      var teams = {
+        name: 'Teams',
+        state: '.teams'
+      };
       var idx = 2;
       if (vm.tournament.mode == 'Doubles') {
         vm.statusButtons.splice(idx, 0, teams)
@@ -64,25 +75,31 @@
     };
 
     function statusButtons() {
-      return [
-        { name: 'Tournament', state: 'newTournament.tournament' },
-        { name: 'Players', state: 'newTournament.players' },
-        { name: 'Rounds', state: 'newTournament.rounds' },
-        { name: 'Games', state: 'newTournament.games' },
-      ]
+      return [{
+        name: 'Tournament',
+        state: 'newTournament.tournament'
+      }, {
+        name: 'Players',
+        state: 'newTournament.players'
+      }, {
+        name: 'Rounds',
+        state: 'newTournament.rounds'
+      }, {
+        name: 'Games',
+        state: 'newTournament.games'
+      }, ]
     };
 
     function setTeams() {
       vm.teams = [];
-      if (vm.tournament.mode == 'Singles') {
+      if (vm.tournament.mode == TOURNAMENT.MODES.SINGLES) {
         var length = vm.selectedPlayers.length
         for (var i = 0; i < length; i++) {
           var player = vm.selectedPlayers[i];
-          var team = new Team()
-          team.players.push(player);
+          var team = new Team(player)
           vm.teams.push(team);
         }
-      } else if (vm.tournament.mode == 'Doubles') {
+      } else if (vm.tournament.mode == TOURNAMENT.MODES.DOUBLES) {
         // TODO PLayer RATING
       };
     };
@@ -92,39 +109,52 @@
       if (vm.rounds.length > 0) {
         var round = vm.rounds[0];
 
-        if (round.mode == 'Сhampionship') {
+        if (round.mode == ROUND.MODES.CHAMPIONSHIP) {
           var length = vm.teams.length;
           for (var i = 0; i < length; i++) {
-            console.log(i);
             var team1 = vm.teams[i];
-            for (var j = i+1; j < length; j++) {
+            for (var j = i + 1; j < length; j++) {
               var team2 = vm.teams[j];
-              //
-              // if (team1 == team2) { continue }
 
               var game = new Game(round, team1, team2);
               vm.games.push(game);
             }
-            // if (i == 1) {break};
           }
 
-        } else if (round.mode == 'Play off') {
+        } else if (round.mode == ROUND.MODES.PLAY_OFF) {
+          var count_games = 0;
+          for (var stage in ROUND.STAGES) {
+            if (round.startStage == ROUND.STAGES[stage].value) {
+              count_games = ROUND.STAGES[stage].games;
+              break;
+            }
+          };
 
+          var length = count_games;
+          for (var i = 0; i < length; i++) {
+            var team1 = vm.teams[i];
+            var team2 = vm.teams[i + count_games];
+            var game = new Game(round, team1, team2);
+            vm.games.push(game);
+
+          }
         }
       }
     };
 
-    function Team() {
-      this.players = [];
+    function Team(player1, player2) {
+      this.player1 = player1;
+      this.player2 = player2;
     };
 
     function Game(round, team1, team2) {
       this.round = round;
+      this.stage = round.startStage;
       this.team1 = team1;
       this.team2 = team2;
     };
 
-    $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+    $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
       if (fromState.name == 'newTournament.players') {
         setTeams();
       } else if (fromState.name == 'newTournament.rounds') {

@@ -4,10 +4,8 @@
       %li{:'ng-repeat' => 'round in vm.rounds'}
         %p
           {{round.mode}}: {{round.match_sets}} sets
-          %span{:'ng-show' => "round.mode.trim()=='#{ROUND::MODES::CHAMPIONSHIP}'"}
-            {{round.points_per_win}} points per win
 
-=render_button 'add', :'ng-click' => 'vm.showAddingRound = true; vm.tmp_rounds.push({ match_sets: 1, points_per_win: 1 })',
+=render_button 'add', :'ng-click' => 'vm.showAddingRound = true; vm.tmp_rounds.push({ match_sets: 1 })',
                       :'ng-show' => '!vm.showAddingRound'
 
 %div{:'ng-if' => 'vm.showAddingRound'}
@@ -45,16 +43,6 @@
                                   :required => true,
                                   :type => "number",
                                   :'min' => 1 }
-
-    %div{ 'ng-if' => "vm.tmp_rounds[vm.tmp_rounds.length-1].mode.trim()=='#{ROUND::MODES::CHAMPIONSHIP}'" }
-      .form-group.required{ :'ng-class' => "{ 'has-error': form.points_per_win.$touched && form.points_per_win.$invalid }" }
-        %label{ class: 'control-label col-md-4' } Points per win:
-        .col-md-7
-          %input.form-control{ :'ng-model' => 'vm.tmp_rounds[vm.tmp_rounds.length-1].points_per_win',
-                                    :name => 'points_per_win',
-                                    :required => true,
-                                    :type => "number",
-                                    :'min' => 0 }
 
     .form-group
       .col-md-offset-3.col-md-8

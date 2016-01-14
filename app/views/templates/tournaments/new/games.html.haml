@@ -1,6 +1,9 @@
-
+.games-list
+  .panel.panel-body
+    %div{ :'ng-repeat' => 'game in vm.games' }
+      =render 'templates/game_singles'
 
 .form-group.row
   .col-xs-5.col-xs-offset-4
-    =render_button 'submit', :text => 'Create'
+    =render_button 'submit', :text => 'Create', :'ng-click' => 'vm.create()'
     =render_button 'cancel', :'ui-sref' => 'tournaments'
