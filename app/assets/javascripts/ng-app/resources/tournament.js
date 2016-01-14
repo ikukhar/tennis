@@ -11,18 +11,6 @@
       // })
     });
 
-    resource.createPlayers = function(id, users) {
-      return resource.$post('/api/tournaments/'+id+'/create_players', {users: users});
-    };
-
-    resource.getPlayers = function(id) {
-      return resource.get(''+id+'/players');
-    };
-
-    resource.getRounds = function(id) {
-      return resource.get(''+id+'/rounds');
-    };
-
     resource.createTournament = function(data) {
       return resource.$post('/api/tournaments', data)
     }

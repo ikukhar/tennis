@@ -1,0 +1,8 @@
+.panel.panel-default
+  .panel-heading
+    .pull-left
+      %h5 Rounds
+    .clearfix
+  %ol
+    %li{ :'ng-repeat' => 'round in vm.rounds' }
+      %h5 {{round.mode}}

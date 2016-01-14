@@ -5,23 +5,24 @@
 
   function TournamentsEditCtrl($scope, $state, $stateParams, Tournament) {
 
-    $scope.tournament = {};
-    $scope.update = update;
+    var vm = this;
+    vm.tournament = {};
+    vm.update = update;
 
     activate();
 
     function activate() {
       Tournament.get(parseInt($stateParams['id']))
         .then(function(result) {
-          $scope.tournament = result;
+          vm.tournament = result;
         })
     }
 
     function update() {
-      $scope.tournament
+      vm.tournament
         .update()
         .then(function(results) {
-          $state.go('^');
+          $state.go('showTournament', vm.tournament);
         });
     };
 

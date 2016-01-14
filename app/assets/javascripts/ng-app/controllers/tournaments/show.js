@@ -1,28 +1,78 @@
 (function() {
   'use strict';
 
-  TournamentsShowCtrl.$inject = ['$scope', '$stateParams', '$rootScope', 'Tournament', '$state'];
+  TournamentsShowCtrl.$inject = [
+    '$scope',
+    '$stateParams',
+    '$rootScope',
+    '$state',
+    'Tournament',
+    'Round',
+    'Team',
+    'Game'
+  ];
 
-  function TournamentsShowCtrl($scope, $stateParams, $rootScope, Tournament, $state) {
+  function TournamentsShowCtrl(
+    $scope,
+    $stateParams,
+    $rootScope,
+    $state,
+    Tournament,
+    Round,
+    Team,
+    Game
+  ) {
 
-    $scope.tournament = {};
-    $scope.destroy = destroy;
+    var vm = this;
+    vm.tournament = {};
+    vm.rounds = [];
+    vm.teams = [];
+    vm.games = [];
+    vm.destroy = destroy;
 
     activate();
 
     function activate() {
       var tournament_id = parseInt($stateParams['id'])
+
       Tournament.get(tournament_id)
         .then(function(success) {
-          $scope.tournament = success;
+          vm.tournament = success;
         }, function(error) {
-          $rootScope.$emit('error', error)
+          $rootScope.$emit('error', error.data)
+        })
+
+      Round.query({
+          tournament_id: tournament_id
+        })
+        .then(function(success) {
+          vm.rounds = success;
+        }, function(error) {
+          $rootScope.$emit('error', error.data)
+        })
+
+      Team.query({
+          tournament_id: tournament_id
+        })
+        .then(function(success) {
+          vm.teams = success;
+        }, function(error) {
+          $rootScope.$emit('error', error.data)
+        })
+
+      Game.query({
+          tournament_id: tournament_id
+        })
+        .then(function(success) {
+          vm.games = success;
+        }, function(error) {
+          $rootScope.$emit('error', error.data)
         })
     };
 
     function destroy(tournament) {
       //TODO: Answer!
-      tournament
+      vm.tournament
         .delete()
         .then(function() {
           $state.go('^')

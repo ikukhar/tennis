@@ -1,6 +1,5 @@
 class Tournament < ActiveRecord::Base
   has_many :rounds, dependent: :destroy
-  has_many :players, dependent: :destroy
   has_many :teams, dependent: :destroy
 
   def self.create_tournament(params)
@@ -15,7 +14,8 @@ class Tournament < ActiveRecord::Base
       params[:rounds].each do |params_round|
         rounds << tournament.rounds.create!(
           match_sets: params_round[:match_sets],
-          mode: params_round[:mode]
+          mode: params_round[:mode],
+          start_stage: params_round[:start_stage] ? params_round[:start_stage][:id] : nil
         )
       end
 

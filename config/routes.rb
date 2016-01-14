@@ -4,14 +4,11 @@ Rails.application.routes.draw do
   get 'templates/:name(/:name2(/:name3(/:name4)))', to: 'templates#template'
 
   namespace :api do
-    get 'tournaments/:id/players', to: 'tournaments#players'
-    post 'tournaments/:id/create_players', to: 'tournaments#create_players'
-    get 'tournaments/:id/rounds', to: 'tournaments#rounds'
-
-    resources :tournaments
     resources :users
-    resources :players
+    resources :tournaments
     resources :rounds
+    resources :teams
+    resources :games
   end
 
   namespace :auth do

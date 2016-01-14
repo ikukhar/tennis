@@ -1,29 +1,31 @@
-%div{ :'ui-view' => 'tournament' }
-  .panel.panel-default.panel-shadow
-    .panel-body
-      .command-panel
-        .pull-left
-          %h3 {{tournament.name}}
-        .pull-right
-          .btn-group
-            =render_button 'edit', :'ui-sref' => '.editTournament(tournament)'
-            =render_button 'destroy', :'ng-click' => 'destroy(tournament)'
-        .clearfix
-      %hr
-      %form{ :role => 'form',
-             :name => 'form',
-             :novalidate => true }
+.panel.panel-default.panel-shadow
+  .panel-body
+    .command-panel
+      .pull-left
+        %h3 {{vm.tournament.name}}
+      .pull-right
+        .btn-group
+          =render_button 'edit', :'ui-sref' => 'editTournament(vm.tournament)'
+          =render_button 'destroy', :'ng-click' => 'vm.destroy()'
+      .clearfix
+    %hr
+    %form{ :role => 'form',
+           :name => 'form',
+           :novalidate => true }
 
-        .form-group
-          %label.control-label Type
-          %h5 {{tournament.mode}}
+      .form-group
+        %label.control-label Type
+        %h5 {{vm.tournament.mode}}
 
-        .form-group
-          %label.control-label Status
-          %h5 {{tournament.status}}
+      .form-group
+        %label.control-label Status
+        %h5 {{vm.tournament.status}}
 
-        .form-group
-          =render_button 'cancel', :'ui-sref' => '^'
+      .form-group
+        =render_button 'cancel', :'ui-sref' => '^'
 
+=render 'templates/rounds/index'
+=render 'templates/teams/index'
+=render 'templates/games/index'
 -# %div{ :'ui-view' => 'players' }
 -# %div{ :'ui-view' => 'rounds' }

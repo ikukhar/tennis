@@ -1,0 +1,12 @@
+.panel.panel-default
+  .panel-heading
+    .pull-left
+      %h5 Teams
+    .pull-right
+      .btn-group
+        =render_button 'edit', :'ui-sref' => 'editTeam'
+    .clearfix
+  -# .list-container
+  %ol
+    %li{ :'ng-repeat' => 'team in vm.teams' }
+      %h5 {{team.player1.firstName}} {{team.player1.lastName}}

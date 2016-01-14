@@ -5,7 +5,8 @@
 
   function TournamentsIndexCtrl($scope, usSpinnerService, Tournament) {
 
-    $scope.tournaments = [];
+    var vm = this;
+    vm.tournaments = [];
 
     activate();
 
@@ -13,14 +14,13 @@
       usSpinnerService.spin('spinner');
       Tournament.query()
         .then(function(response) {
-          $scope.tournaments = response;
+          vm.tournaments = response;
           usSpinnerService.stop('spinner');
         })
         .catch(function(){
           usSpinnerService.stop('spinner');
         })
     }
-
 
   };
 

@@ -12,7 +12,7 @@
     %hr
     %table.table.table-hover
       %tbody
-        %tr{ :"ng-repeat" => "tournament in tournaments" }
+        %tr{ :"ng-repeat" => "tournament in vm.tournaments" }
           %td{ :style => "width:100%"}
             %a{ :'ui-sref' => "showTournament(tournament)" }
-              {{tournament.name}}  {{tournament.mode}}  {{tournament.status}}
+              {{tournament.id}}:  {{tournament.name}}  {{tournament.mode}}  {{tournament.status}}

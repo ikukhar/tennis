@@ -39,28 +39,6 @@ class Api::TournamentsController < ApplicationController
     end
   end
 
-  def players
-    render json: Player.includes(:user).where(tournament_id: params[:id]).to_json(include: [:user])
-  end
-
-  def create_players
-    begin
-      user_ids = params[:tournament][:users].map{ |h| h[:id] }
-      tournament = Tournament.find(params[:id])
-      tournament.players.where("user_id NOT IN (?)", user_ids).destroy_all
-      user_ids.each do |id|
-        tournament.players.find_or_create_by(user_id: id)
-      end
-      render nothing: true, status: :ok
-    rescue Exception => e
-      render_error e
-    end
-  end
-
-  def rounds
-    render json: Round.where(tournament_id: params[:id]).to_json
-  end
-
   private
 
   def create_params

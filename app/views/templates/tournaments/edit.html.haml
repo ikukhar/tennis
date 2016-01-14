@@ -5,15 +5,30 @@
         %h3 Edit tournament
       .clearfix
     %hr
-      %form{ :'ng-submit' => 'update()',
+      %form{ :'ng-submit' => 'vm.update()',
              :role => 'form',
              :name => 'form',
              :novalidate => true }
 
-        =render 'templates/tournaments/form'
+        .form-group.required{ :'ng-class' => "{ 'has-error': form.name.$touched && form.name.$invalid }" }
+          %label.control-label Name:
+          %input.form-control{ :'ng-model' => 'vm.tournament.name',
+                                    :name => 'name',
+                                    :required => true,
+                                    :type => 'text'}
+
+        .form-group.required{ :'ng-class' => "{ 'has-error': form.status.$touched && form.status.$invalid }" }
+          %label.control-label Status:
+          %select.form-control{:'ng-model' => 'vm.tournament.status',
+                               :name => 'status',
+                               :required => true,
+                               :'ng-trim' => 'true'}
+            %option
+            -TOURNAMENT::STATUSES.constants.each do |name|
+              %option=TOURNAMENT::STATUSES.const_get(name)
 
 
         .form-group
           =render_button 'submit', :'ng-disabled' => 'form.$invalid',
                                    :text => 'Update'
-          =render_button 'cancel', :'ui-sref' => '^'
+          =render_button 'cancel', :'ui-sref' => 'showTournament(vm.tournament)'

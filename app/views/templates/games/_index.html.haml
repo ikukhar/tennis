@@ -1,0 +1,9 @@
+.panel.panel-default
+  .panel-heading
+    .pull-left
+      %h5 Games
+    .clearfix
+  .games-list
+    .panel.panel-body
+      %div{ :'ng-repeat' => 'game in vm.games' }
+        =render 'templates/games/game_singles'

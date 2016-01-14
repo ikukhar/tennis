@@ -15,8 +15,7 @@
       .state('newTournament.rounds', newTournament_rounds)
       .state('newTournament.games', newTournament_games)
       .state('showTournament', showTournament)
-      .state('showTournament.editTournament', showTournament_editTournament)
-      .state('showTournament.editPlayers', showTournament_editPlayers)
+      .state('editTournament', editTournament)
 
     .state('login', login)
       .state('signup', signup)
@@ -49,6 +48,7 @@
     views: {
       '@': {
         controller: "TournamentsIndexCtrl",
+        controllerAs: 'vm',
         templateUrl: "templates/tournaments/index.html"
       }
     }
@@ -109,45 +109,24 @@
     },
     views: {
       '@': {
-        templateUrl: "templates/tournaments/show.html"
-      },
-      'tournament@showTournament': {
         controller: "TournamentsShowCtrl",
-        // templateUrl: "templates/tournaments/show.html"
-      },
-      'rounds@showTournament': {
-        controller: "RoundsIndexCtrl",
-        templateUrl: "templates/tournaments/rounds/index.html"
-      },
-      'players@showTournament': {
-        controller: "PlayersIndexCtrl",
-        templateUrl: "templates/tournaments/players/index.html"
+        controllerAs: 'vm',
+        templateUrl: "templates/tournaments/show.html"
       }
     }
   };
 
-  var showTournament_editTournament = {
-    parent: 'showTournament',
+  var editTournament = {
+    parent: 'tournaments',
+    url: '/edit/:id',
     ncyBreadcrumb: {
-      label: 'Edit tournament'
+      label: 'Edit'
     },
     views: {
-      'tournament@showTournament': {
+      '@': {
         controller: "TournamentsEditCtrl",
+        controllerAs: 'vm',
         templateUrl: "templates/tournaments/edit.html"
-      }
-    }
-  };
-
-  var showTournament_editPlayers = {
-    parent: 'showTournament',
-    ncyBreadcrumb: {
-      label: 'Edit players'
-    },
-    views: {
-      'players@showTournament': {
-        controller: "PlayersEditCtrl",
-        templateUrl: "templates/tournaments/players/edit.html"
       }
     }
   };
