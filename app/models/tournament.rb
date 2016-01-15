@@ -5,17 +5,19 @@ class Tournament < ActiveRecord::Base
   def self.create_tournament(params)
     transaction do
       tournament = create!(
-        name: params[:tournament][:name],
-        mode: params[:tournament][:mode],
-        status: params[:tournament][:status]
+        name:        params[:tournament][:name],
+        teams_type:  params[:tournament][:teams_type],
+        rounds_type: params[:tournament][:rounds_type],
+        status:      TOURNAMENT::STATUSES::NOT_STARTED
       )
 
       rounds = []
       params[:rounds].each do |params_round|
         rounds << tournament.rounds.create!(
-          match_sets: params_round[:match_sets],
-          mode: params_round[:mode],
-          start_stage: params_round[:start_stage] ? params_round[:start_stage][:id] : nil
+          sets:   params_round[:sets],
+          stage:  params_round[:stage][:value],
+          status: ROUND::STATUSES::NOT_STARTED,
+          order:  params_round[:order]
         )
       end
 

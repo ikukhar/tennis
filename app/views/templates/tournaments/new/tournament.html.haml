@@ -6,28 +6,38 @@
                             :required => true,
                             :type => 'text'}
 
-.form-group.required{ :'ng-class' => "{ 'has-error': form.mode.$touched && form.mode.$invalid }" }
-  %label.control-label Type:
-  %select.form-control{:'ng-model' => 'vm.tournament.mode',
-                       :name => 'mode',
+.form-group.required{ :'ng-class' => "{ 'has-error': form.teamsType.$touched && form.teamsType.$invalid }" }
+  %label.control-label Teams type:
+  %select.form-control{:'ng-model' => 'vm.tournament.teamsType',
+                       :name => 'teamsType',
                        :required => true,
                        :'ng-trim' => 'true',
-                       :'ng-change' => "onSelectTournamentForm()"}
+                       :'ng-change' => "vm.onSelectTeamsType()"}
     %option
-    -TOURNAMENT::MODES.constants.each do |name|
-      %option=TOURNAMENT::MODES.const_get(name)
+    -TOURNAMENT::TEAMS_TYPES.constants.each do |name|
+      %option=TOURNAMENT::TEAMS_TYPES.const_get(name)
 
-.form-group.required{ :'ng-class' => "{ 'has-error': form.status.$touched && form.status.$invalid }" }
-  %label.control-label Status:
-  %select.form-control{:'ng-model' => 'vm.tournament.status',
-                       :name => 'status',
+.form-group.required{ :'ng-class' => "{ 'has-error': form.roundsType.$touched && form.roundsType.$invalid }" }
+  %label.control-label Rounds type:
+  %select.form-control{:'ng-model' => 'vm.tournament.roundsType',
+                       :name => 'roundsType',
                        :required => true,
                        :'ng-trim' => 'true'}
     %option
-    -TOURNAMENT::STATUSES.constants.each do |name|
-      %option=TOURNAMENT::STATUSES.const_get(name)
+    -TOURNAMENT::ROUNDS_TYPES.constants.each do |name|
+      %option=TOURNAMENT::ROUNDS_TYPES.const_get(name)
+
+-# .form-group.required{ :'ng-class' => "{ 'has-error': form.status.$touched && form.status.$invalid }" }
+-#   %label.control-label Status:
+-#   %select.form-control{:'ng-model' => 'vm.tournament.status',
+-#                        :name => 'status',
+-#                        :required => true,
+-#                        :'ng-trim' => 'true'}
+-#     %option
+-#     -TOURNAMENT::STATUSES.constants.each do |name|
+-#       %option=TOURNAMENT::STATUSES.const_get(name)
 
 .form-group.row
   .col-xs-3.col-xs-offset-3
-    =render_button 'next', :'ui-sref' => 'newTournament.players'
+    =render_button 'next', :'ui-sref' => 'newTournament.rounds'
   =render_button 'cancel', :'ui-sref' => 'tournaments'

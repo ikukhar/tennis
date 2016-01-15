@@ -1,59 +1,24 @@
-
-%div{:'ng-if' => 'vm.rounds'}
-  %h5
-    %ol
-      %li{:'ng-repeat' => 'round in vm.rounds'}
-        %p
-          {{round.mode}}: {{round.match_sets}} sets
-
-=render_button 'add', :'ng-click' => 'vm.showAddingRound = true; vm.tmp_rounds.push({ match_sets: 1 })',
-                      :'ng-show' => '!vm.showAddingRound'
-
-%div{:'ng-if' => 'vm.showAddingRound'}
-  %ng-form{ :class => 'form-horizontal',
-         :role => 'form',
-         :name => 'form',
-         :novalidate => true}
-
-    .form-group.required{ :'ng-class' => "{ 'has-error': form.mode.$touched && form.mode.$invalid }" }
-      %label{ class: 'control-label col-md-3' } Type:
-      .col-md-8
-        %select.form-control{:'ng-model' => 'vm.tmp_rounds[vm.tmp_rounds.length-1].mode',
-                             :name => 'mode',
-                             :required => true}
-          %option
-          -ROUND::MODES.constants.each do |name|
-            %option=ROUND::MODES.const_get(name)
-
-    %div{ 'ng-if' => "vm.tmp_rounds[vm.tmp_rounds.length-1].mode.trim()=='#{ROUND::MODES::PLAY_OFF}'" }
-      .form-group.required{ :'ng-class' => "{ 'has-error': form.startStage.$touched && form.startStage.$invalid }" }
-        %label{ class: 'control-label col-md-3' } Start stage:
-        .col-md-8
-          %select.form-control{:'ng-model' => 'vm.tmp_rounds[vm.tmp_rounds.length-1].startStage',
-                               :name => 'startStage',
-                               :required => true}
-            %option
-            -ROUND::STAGES.constants.each do |name|
-              %option=ROUND::STAGES.const_get(name)
-
-    .form-group.required{ :'ng-class' => "{ 'has-error': form.match_sets.$touched && form.match_sets.$invalid }" }
-      %label{ class: 'control-label col-md-3' } Match sets:
-      .col-md-8
-        %input.form-control{ :'ng-model' => 'vm.tmp_rounds[vm.tmp_rounds.length-1].match_sets',
-                                  :name => 'match_sets',
-                                  :required => true,
-                                  :type => "number",
-                                  :'min' => 1 }
-
-    .form-group
-      .col-md-offset-3.col-md-8
-        =render_button 'ok', :'ng-disabled' => 'form.$invalid',
-                             :'ng-click' => 'vm.showAddingRound = false; vm.rounds.push(vm.tmp_rounds.pop())',
-                             :type => 'button'
-        =render_button 'cancel', :'ng-click' => 'vm.showAddingRound = false; vm.tmp_rounds.pop()'
-
+.form-group
+  %table.table-hover
+    %thead
+      %tr
+        %th.col-md-1 №
+        %th.col-md-9 Round
+        %th.col-md-1 Sets
+        %th.col-md-1
+    %tbody
+      %tr{ :'ng-repeat' => 'round in vm.rounds' }
+        %td {{$index+1}}
+        %td {{round.stage.value}}
+        %td
+          %input.form-control{ :'ng-model' => 'round.sets',
+                               :name => 'sets',
+                               :type => 'number' }
+        %td
+          %a.btn.btn-default{ :'ng-click' => 'vm.removeRound(round)' }
+            %span.ion-trash-a
 
 .form-group.row
   .col-xs-3.col-xs-offset-3
-    =render_button 'next', :'ui-sref' => 'newTournament.games'
+    =render_button 'next', :'ui-sref' => 'newTournament.players'
   =render_button 'cancel', :'ui-sref' => 'tournaments'

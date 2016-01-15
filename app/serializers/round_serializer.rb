@@ -1,3 +1,3 @@
 class RoundSerializer < ActiveModel::Serializer
-  attributes :id, :mode
+  attributes :id, :stage, :status, :order
 end

@@ -1,7 +1,13 @@
 module TOURNAMENT
-  module MODES
+  module TEAMS_TYPES
     SINGLES = 'Singles'
     DOUBLES = 'Doubles'
+  end
+
+  module ROUNDS_TYPES
+    CHAMPIONSHIP = 'Сhampionship'
+    PLAY_OFF = 'Play off'
+    CHAMPIONSHIP_AND_PLAYOFF = 'Сhampionship & Play off'
   end
 
   module STATUSES
@@ -12,17 +18,19 @@ module TOURNAMENT
 end
 
 module ROUND
-  module MODES
+  module STAGES
     CHAMPIONSHIP = 'Сhampionship'
-    PLAY_OFF = 'Play off'
+    PLAY_OFF_1x16 = '1x16'
+    PLAY_OFF_1x8 = '1x8'
+    PLAY_OFF_1x4 = '1x4'
+    PLAY_OFF_1x2 = '1x2'
+    PLAY_OFF_FOR_3_PLACE = 'For 3 place'
+    PLAY_OFF_FINAL = 'Final'
   end
 
-  module STAGES
-    S_1x16 = '1x16'
-    S_1x8 = '1x8'
-    S_1x4 = '1x4'
-    S_1x2 = '1x2'
-    S_FOR_3_PLACE = 'For 3 place'
-    S_FINAL = 'Final'
+  module STATUSES
+    NOT_STARTED = 'Not started'
+    STARTED = 'Started'
+    FINISHED = 'Finished'
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160114112912) do
+ActiveRecord::Schema.define(version: 20160115080849) do
 
   create_table "authorizations", force: :cascade do |t|
     t.string   "provider"
@@ -37,11 +37,12 @@ ActiveRecord::Schema.define(version: 20160114112912) do
 
   create_table "rounds", force: :cascade do |t|
     t.integer  "tournament_id"
-    t.string   "mode"
-    t.integer  "match_sets"
+    t.string   "stage"
+    t.integer  "sets"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.string   "start_stage"
+    t.string   "status"
+    t.integer  "order"
   end
 
   add_index "rounds", ["tournament_id"], name: "index_rounds_on_tournament_id"
@@ -60,10 +61,11 @@ ActiveRecord::Schema.define(version: 20160114112912) do
 
   create_table "tournaments", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "mode"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "teams_type"
     t.string   "status"
+    t.string   "rounds_type"
   end
 
   create_table "users", force: :cascade do |t|
