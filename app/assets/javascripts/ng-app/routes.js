@@ -27,6 +27,8 @@
       .state('showUser', showUser)
       .state('editUser', editUser)
 
+    .state('showTournament.showRound', showTournament_showRound)
+
     ;
   };
 
@@ -243,6 +245,22 @@
         controller: "UsersEditCtrl",
         controllerAs: 'vm',
         templateUrl: "templates/users/edit.html"
+      }
+    }
+  };
+
+
+  var showTournament_showRound = {
+    parent: 'showTournament',
+    url: '/round/:roundId',
+    ncyBreadcrumb: {
+      label: 'Round'
+    },
+    views: {
+      '@': {
+        controller: "RoundsShowCtrl",
+        controllerAs: 'vm',
+        templateUrl: "templates/rounds/show.html"
       }
     }
   };

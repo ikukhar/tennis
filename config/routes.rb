@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :users
     resources :tournaments
     resources :rounds
+    get 'rounds/:id/championship_table_data', to: 'rounds#championship_table_data'
     resources :teams
     resources :games
   end

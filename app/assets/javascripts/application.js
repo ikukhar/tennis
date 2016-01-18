@@ -27,6 +27,7 @@
 //= require satellizer
 //= require angular-animate
 //= require checklist-model
+//= require angular-filter
 
 //= require ng-app/config
 

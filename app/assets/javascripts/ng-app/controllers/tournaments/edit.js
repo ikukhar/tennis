@@ -1,9 +1,9 @@
 (function() {
   'use strict';
 
-  TournamentsEditCtrl.$inject = ['$scope', '$state', '$stateParams', 'Tournament'];
+  TournamentsEditCtrl.$inject = ['$scope', '$rootScope', '$state', '$stateParams', 'Tournament'];
 
-  function TournamentsEditCtrl($scope, $state, $stateParams, Tournament) {
+  function TournamentsEditCtrl($scope, $rootScope, $state, $stateParams, Tournament) {
 
     var vm = this;
     vm.tournament = {};
@@ -23,6 +23,8 @@
         .update()
         .then(function(results) {
           $state.go('showTournament', vm.tournament);
+        }, function(error) {
+          $rootScope.$emit('error', error.data)
         });
     };
 

@@ -29,6 +29,10 @@
     vm.teams = [];
     vm.games = [];
     vm.destroy = destroy;
+    vm.updateGame = updateGame;
+    vm.equals = function(obj1, obj2) {
+      return angular.equals(obj1, obj2);
+    }
 
     activate();
 
@@ -78,6 +82,33 @@
           $state.go('^')
         })
     };
+
+    function getWinner(game) {
+      var winner = {};
+      var team1Wins = 0;
+      var team2Wins = 0;
+      for (var i = 0; i < game.score.length; i++) {
+        var set = game.score[i];
+        if (set.team1 > set.team2) {
+          team1Wins += 1;
+        } else {
+          team2Wins += 1;
+        }
+      }
+      winner = team1Wins > team2Wins ? game.team1 : game.team2
+      return winner;
+    }
+
+    function updateGame(game) {
+      game.winner = getWinner(game)
+      game.update()
+      .then(function(results) {
+        // round.competed???
+        game.edit = false;
+      }, function(error) {
+        $rootScope.$emit('error', error.data)
+      });
+    }
 
   };
 

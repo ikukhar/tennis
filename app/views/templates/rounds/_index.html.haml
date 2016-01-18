@@ -3,6 +3,8 @@
     .pull-left
       %h5 Rounds
     .clearfix
-  %ol
+  -# %ul.nav.nav-pills.nav-stacked
+  %ul
     %li{ :'ng-repeat' => 'round in vm.rounds' }
-      %h5 {{round.stage}}
+      %a{:'ui-sref' => 'showTournament.showRound({roundId: round.id})' }
+        {{round.stage}}

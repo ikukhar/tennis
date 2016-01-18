@@ -31,9 +31,12 @@ class Tournament < ActiveRecord::Base
       end
 
       params[:games].each do |params_game|
+        puts '~~~~~~~~~~~~~~~~~~~~~~~~'
+        puts params_game[:score].class
         rounds[0].games.create!(
           team1: teams[params_game[:team1]],
-          team2: teams[params_game[:team2]]
+          team2: teams[params_game[:team2]],
+          score: params_game[:score]
         )
       end
     end

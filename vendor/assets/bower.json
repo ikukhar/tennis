@@ -12,6 +12,7 @@
     "satellizer": "latest",
     "ionicons": "latest",
     "angular-animate": "latest",
-    "checklist-model": "latest"
+    "checklist-model": "latest",
+    "angular-filter": "latest"
   }
 }

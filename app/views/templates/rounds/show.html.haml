@@ -1,0 +1,30 @@
+.panel.panel-default.panel-shadow
+  .panel-body
+    //%ncy-breadcrumb
+    .command-panel
+      %h3
+        {{vm.round.stage}}
+    %hr
+    %table.table.table-hover
+      %thead
+        %tr
+          %th №
+          %th Team
+          %th Games
+          %th Win
+          %th Lose
+          %th Points
+
+      %tbody
+        %tr{ :"ng-repeat" => "row in vm.championshipTable" }
+          %td{ :style => "width:10%"}
+            {{row}}
+          -# %td{ :style => "width:50%"}
+          -#   %a{ :'ui-sref' => "showTournament(tournament)" }
+          -#     {{tournament.name}}
+          -# %td{ :style => "width:10%"}
+          -#   {{tournament.teamsType}}
+          -# %td{ :style => "width:10%"}
+          -#   {{tournament.roundsType}}
+          -# %td{ :style => "width:10%"}
+          -#   {{tournament.status}}

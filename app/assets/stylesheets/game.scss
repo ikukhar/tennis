@@ -11,6 +11,28 @@
 .game hr {
   margin: 0;
 }
-.game-team {
+.team {
   padding: 5px;
+  width: 265px;
+}
+.game-title {
+  font-size: smaller;
+  color: #1987b0;
+  margin-bottom: 5px;
+  padding: 5px 5px;
+}
+.set-control {
+  height: 24px;
+  width: 36px;
+  font-size: 12px;
+}
+.team-singles {
+  float: left;
+}
+.winner {
+  float: right;
+  margin: 0 5px;
+}
+.scores {
+  float: right;
 }

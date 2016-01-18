@@ -13,6 +13,14 @@
     %table.table.table-hover
       %tbody
         %tr{ :"ng-repeat" => "tournament in vm.tournaments" }
-          %td{ :style => "width:100%"}
+          %td{ :style => "width:10%"}
+            {{tournament.id}}
+          %td{ :style => "width:50%"}
             %a{ :'ui-sref' => "showTournament(tournament)" }
-              {{tournament.id}}:  {{tournament.name}}  {{tournament.mode}}  {{tournament.status}}
+              {{tournament.name}}
+          %td{ :style => "width:10%"}
+            {{tournament.teamsType}}
+          %td{ :style => "width:10%"}
+            {{tournament.roundsType}}
+          %td{ :style => "width:10%"}
+            {{tournament.status}}

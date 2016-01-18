@@ -8,6 +8,18 @@ class Api::GamesController < ApplicationController
   end
 
   def update
-    puts '!!!!!!!!'
+    game = Game.find(update_params[:id])
+    if game.update_attributes(score: update_params[:score],
+                              winner_id: update_params[:winner][:id],
+                              completed: update_params[:completed])
+      render nothing: true, status: :ok
+    else
+      render_error game
+    end
   end
+
+  def update_params
+    params.require(:game)
+  end
+
 end

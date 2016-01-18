@@ -1,7 +1,19 @@
 .games-list
   .panel.panel-body
     %div{ :'ng-repeat' => 'game in vm.games' }
-      =render 'templates/games/game_singles'
+      .game
+        .game-title
+          {{game.round.stage.value}}
+        .game-body
+          .game-team
+            %div
+              {{game.team1.player1.firstName}} {{game.team1.player1.lastName}}
+
+          %hr
+          .game-team
+            %div
+              {{game.team2.player1.firstName}} {{game.team2.player1.lastName}}
+
 
 .form-group.row
   .col-xs-5.col-xs-offset-4

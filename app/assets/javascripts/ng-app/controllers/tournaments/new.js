@@ -178,6 +178,10 @@
       this.round = round;
       this.team1 = team1;
       this.team2 = team2;
+      this.score = [];
+      for (var i = 0; i < this.round.sets; i++) {
+        this.score.push({ team1: 0, team2: 0})
+      }
     };
 
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {

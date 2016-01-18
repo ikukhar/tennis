@@ -1,8 +1,39 @@
 .game
   .game-title
+    {{game.round.stage}}
+    .pull-right
+      %a.btn.btn-sm.btn-default{ :'ng-click' => 'game.edit = true', :'ng-show' => '!game.edit' }
+        %span.ion-edit
+      %a.btn.btn-sm.btn-default{ :'ng-click' => 'vm.updateGame(game)', :'ng-show' => 'game.edit' }
+        %span.ion-checkmark
+      %a.btn.btn-sm.btn-default{ :'ng-click' => 'game.edit = false', :'ng-show' => 'game.edit' }
+        %span.ion-close
   .game-body
-    .game-team
-      {{game.team1.player1.firstName}} {{game.team1.player1.lastName}}
+    .team
+      .team-singles
+        {{game.team1.player1.firstName}} {{game.team1.player1.lastName}}
+      .scores
+        %div{ :'ng-repeat' => 'set in game.score' }
+          %div{ :'ng-show' => '!game.edit' }
+            {{set.team1}}
+          %div{ :'ng-show' => 'game.edit' }
+            %input.set-control{ :'ng-model' => 'set.team1',
+                                :type => 'number' }
+      .winner{ :'ng-show' => 'vm.equals(game.winner, game.team1)' }
+        %span.ion-checkmark
+
+    .clearfix
     %hr
-    .game-team
-      {{game.team2.player1.firstName}} {{game.team2.player1.lastName}}
+    
+    .team
+      .team-singles
+        {{game.team2.player1.firstName}} {{game.team2.player1.lastName}}
+      .scores
+        %div{ :'ng-repeat' => 'set in game.score' }
+          %div{ :'ng-show' => '!game.edit' }
+            {{set.team2}}
+          %div{ :'ng-show' => 'game.edit' }
+            %input.set-control{ :'ng-model' => 'set.team2',
+                                :type => 'number' }
+      .winner{ :'ng-show' => 'vm.equals(game.winner, game.team2)' }
+        %span.ion-checkmark
