@@ -10,8 +10,10 @@
           %th{ :style => "width:10%"} №
           %th{ :style => "width:50%"} Player
           %th{ :style => "width:10%"} Rating
-          %th{ :style => "width:10%"} W
-          %th{ :style => "width:10%"} L
+          %th{ :style => "width:10%"} W(s)
+          %th{ :style => "width:10%"} L(s)
+          %th{ :style => "width:10%"} W(d)
+          %th{ :style => "width:10%"} L(d)
 
       %tbody
         %tr{ :"ng-repeat" => "item in vm.playerStatistic" }
@@ -20,5 +22,7 @@
             %a{ :'ui-sref' => "showPlayer(item.player)" }
               {{item.player.full_name}}
           %td {{ item.rating }}
-          %td {{ item.wins }}
-          %td {{ item.loses }}
+          %td {{ item.wins_s }}
+          %td {{ item.loses_s }}
+          %td {{ item.wins_d }}
+          %td {{ item.loses_d }}

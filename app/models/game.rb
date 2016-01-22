@@ -33,11 +33,11 @@ class Game < ActiveRecord::Base
       end
 
       if round.name == ROUND::STAGES[:PLAY_OFF_FINAL][:value]
-        tournament.update_attributes(finished: all_games_finished) if tournament.finished != all_games_finished
-        if tournament.finished && tournament.winner.nil?
+        if tournament.finished != all_games_finished
+          tournament.update_attributes(finished: all_games_finished)
           tournament.update_attributes(winner: winner)
-          Tournament.calculate_players_rating! if tournament.finished
         end
+        Tournament.calculate_players_rating! if tournament.finished
       end
 
     end
@@ -88,11 +88,11 @@ class Game < ActiveRecord::Base
 
     else
 
-      if round.next_round.name == ROUND::STAGES[:PLAY_OFF_FOR_3_PLACE][:value]
+      if round.name == ROUND::STAGES[:PLAY_OFF_FOR_3_PLACE][:value]
         # Currenr round
         games = round.games.to_a
         count_games = count_games(round)
-        losers = losers(round.prev_round).shuffle
+        losers = losers(round.prev_round, count_games).shuffle
 
         0.upto count_games - 1 do |i|
           games[i].update_attributes(
@@ -157,17 +157,15 @@ class Game < ActiveRecord::Base
         Game.includes(:winner)
             .where('winner_id > 0 and round_id = ?', round.id)
             .select(:winner_id)
+            .map(&:winner)
       end
-    result.first(count_games(round.next_round)*2).map(&:winner)
+    result.first(count_games(round.next_round)*2)
   end
 
-  def self.losers(round)
+  def self.losers(round, count_games)
     result =
       if round.name == ROUND::STAGES[:CHAMPIONSHIP][:value]
-        round
-        .championship_table_data
-        .map { |h| h[:team] }
-        # TODO: LOSERS
+        []
       else
         Game.includes(:loser)
             .where('loser_id > 0 and round_id = ?', round.id)

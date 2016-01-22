@@ -42,6 +42,11 @@ class Api::UsersController < ApplicationController
     render json: User.players_statistic
   end
 
+  def calculate_rating
+    Tournament.calculate_players_rating!
+    render nothing: true
+  end
+
   private
 
   def user_params

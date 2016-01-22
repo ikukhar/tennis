@@ -17,13 +17,29 @@ class Tournament < ActiveRecord::Base
       from(
         select
           case
-            when r.name = '#{ROUND::STAGES[:CHAMPIONSHIP][:value]}' then #{ROUND::STAGES[:CHAMPIONSHIP][:win_coeff]}
-            when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x16][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x16][:win_coeff]}
-            when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x8][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x8][:win_coeff]}
-            when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x4][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x4][:win_coeff]}
-            when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x2][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x2][:win_coeff]}
-            when r.name = '#{ROUND::STAGES[:PLAY_OFF_FOR_3_PLACE][:value]}' then #{ROUND::STAGES[:PLAY_OFF_FOR_3_PLACE][:win_coeff]}
-            when r.name = '#{ROUND::STAGES[:PLAY_OFF_FINAL][:value]}' then #{ROUND::STAGES[:PLAY_OFF_FINAL][:win_coeff]}
+            when t.teams_type = '#{TOURNAMENT::TEAMS_TYPES::SINGLES}' then
+              case
+                when r.name = '#{ROUND::STAGES[:CHAMPIONSHIP][:value]}' then #{ROUND::STAGES[:CHAMPIONSHIP][:win_coeff]}
+                when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x16][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x16][:win_coeff]}
+                when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x8][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x8][:win_coeff]}
+                when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x4][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x4][:win_coeff]}
+                when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x2][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x2][:win_coeff]}
+                when r.name = '#{ROUND::STAGES[:PLAY_OFF_FOR_3_PLACE][:value]}' then #{ROUND::STAGES[:PLAY_OFF_FOR_3_PLACE][:win_coeff]}
+                when r.name = '#{ROUND::STAGES[:PLAY_OFF_FINAL][:value]}' then #{ROUND::STAGES[:PLAY_OFF_FINAL][:win_coeff]}
+                else 0
+              end
+            when t.teams_type = '#{TOURNAMENT::TEAMS_TYPES::DOUBLES}' then
+              case
+                when r.name = '#{ROUND::STAGES[:CHAMPIONSHIP][:value]}' then #{ROUND::STAGES[:CHAMPIONSHIP][:win_coeff]}/2
+                when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x16][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x16][:win_coeff]}/2
+                when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x8][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x8][:win_coeff]}/2
+                when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x4][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x4][:win_coeff]}/2
+                when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x2][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x2][:win_coeff]}/2
+                when r.name = '#{ROUND::STAGES[:PLAY_OFF_FOR_3_PLACE][:value]}' then #{ROUND::STAGES[:PLAY_OFF_FOR_3_PLACE][:win_coeff]}/2
+                when r.name = '#{ROUND::STAGES[:PLAY_OFF_FINAL][:value]}' then #{ROUND::STAGES[:PLAY_OFF_FINAL][:win_coeff]}/2
+                else 0
+              end
+            else 0
            end as coeff
         from
           tournaments as t
@@ -33,8 +49,8 @@ class Tournament < ActiveRecord::Base
           games as g on g.round_id = r.id
         inner join
           teams as tms on tms.id = g.winner_id
-        left join
-          users as u on u.id = tms.player1_id or tms.player2_id
+        inner join
+          users as u on u.id = tms.player1_id or u.id = tms.player2_id
         where
           t.finished = "t"
           and u.id = users.id
@@ -43,13 +59,31 @@ class Tournament < ActiveRecord::Base
 
         select
           case
-            when r.name = '#{ROUND::STAGES[:CHAMPIONSHIP][:value]}' then #{ROUND::STAGES[:CHAMPIONSHIP][:lose_coeff]}
-            when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x16][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x16][:lose_coeff]}
-            when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x8][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x8][:lose_coeff]}
-            when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x4][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x4][:lose_coeff]}
-            when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x2][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x2][:lose_coeff]}
-            when r.name = '#{ROUND::STAGES[:PLAY_OFF_FOR_3_PLACE][:value]}' then #{ROUND::STAGES[:PLAY_OFF_FOR_3_PLACE][:lose_coeff]}
-            when r.name = '#{ROUND::STAGES[:PLAY_OFF_FINAL][:value]}' then #{ROUND::STAGES[:PLAY_OFF_FINAL][:lose_coeff]}
+            when t.teams_type = '#{TOURNAMENT::TEAMS_TYPES::SINGLES}' then
+              case
+                when r.name = '#{ROUND::STAGES[:CHAMPIONSHIP][:value]}' then #{ROUND::STAGES[:CHAMPIONSHIP][:lose_coeff]}
+                when r.name = '#{ROUND::STAGES[:CHAMPIONSHIP][:value]}' then #{ROUND::STAGES[:CHAMPIONSHIP][:lose_coeff]}
+                when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x16][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x16][:lose_coeff]}
+                when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x8][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x8][:lose_coeff]}
+                when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x4][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x4][:lose_coeff]}
+                when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x2][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x2][:lose_coeff]}
+                when r.name = '#{ROUND::STAGES[:PLAY_OFF_FOR_3_PLACE][:value]}' then #{ROUND::STAGES[:PLAY_OFF_FOR_3_PLACE][:lose_coeff]}
+                when r.name = '#{ROUND::STAGES[:PLAY_OFF_FINAL][:value]}' then #{ROUND::STAGES[:PLAY_OFF_FINAL][:lose_coeff]}
+                else 0
+              end
+            when t.teams_type = '#{TOURNAMENT::TEAMS_TYPES::DOUBLES}'  then
+              case
+                when r.name = '#{ROUND::STAGES[:CHAMPIONSHIP][:value]}' then #{ROUND::STAGES[:CHAMPIONSHIP][:lose_coeff]}/2
+                when r.name = '#{ROUND::STAGES[:CHAMPIONSHIP][:value]}' then #{ROUND::STAGES[:CHAMPIONSHIP][:lose_coeff]}/2
+                when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x16][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x16][:lose_coeff]}/2
+                when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x8][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x8][:lose_coeff]}/2
+                when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x4][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x4][:lose_coeff]}/2
+                when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x2][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x2][:lose_coeff]}/2
+                when r.name = '#{ROUND::STAGES[:PLAY_OFF_FOR_3_PLACE][:value]}' then #{ROUND::STAGES[:PLAY_OFF_FOR_3_PLACE][:lose_coeff]}/2
+                when r.name = '#{ROUND::STAGES[:PLAY_OFF_FINAL][:value]}' then #{ROUND::STAGES[:PLAY_OFF_FINAL][:lose_coeff]}/2
+                else 0
+               end
+            else 0
            end as coeff
         from
           tournaments as t
@@ -59,8 +93,8 @@ class Tournament < ActiveRecord::Base
           games as g on g.round_id = r.id
         inner join
           teams as tms on tms.id = g.loser_id
-        left join
-          users as u on u.id = tms.player1_id or tms.player2_id
+        inner join
+          users as u on u.id = tms.player1_id or u.id = tms.player2_id
         where
           t.finished = "t"
           and u.id = users.id
@@ -70,7 +104,6 @@ class Tournament < ActiveRecord::Base
     SQL
 
     connection.execute(query)
-
   end
 
   def self.create_tournament(params)
@@ -110,7 +143,7 @@ class Tournament < ActiveRecord::Base
 
         # Teams
         players = User.find(params[:players].map { |h| h[:id] })
-        # Team.create_teams(tournament, players)
+        Team.create_teams(tournament, players)
 
         # Games
 
@@ -121,6 +154,7 @@ class Tournament < ActiveRecord::Base
         Game.set_teams_for_games(rounds[0])
       end
     rescue Exception => e
+      puts "ERROR: #{e}"
       tournament = Tournament.new
       tournament.errors[:tournament] << e
     end

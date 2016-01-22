@@ -13,7 +13,6 @@
               %i.glyphicon.glyphicon-remove
           %ui-select-choices{ :repeat => "item in (vm.tournFilter | filter: $select.search) track by item.id" }
             %span{ :'ng-bind' => "item.name" }
-
       %div{ :'ng-if' =>  'vm.roundFilter'}
         %label Round:
         %ui-select{ :'ng-model' => "vm.selectedRound" }
@@ -23,7 +22,6 @@
               %i.glyphicon.glyphicon-remove
           %ui-select-choices{ :repeat => "item in (vm.roundFilter | filter: $select.search) track by item.id" }
             %span{ :'ng-bind' => "item.name" }
-
       %label Search:
       %input{ :'ng-model' => 'search' }
 

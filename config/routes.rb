@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :users
+    get 'tournaments/calculate_rating', to: 'users#calculate_rating'
     resources :tournaments
     resources :rounds
     get 'rounds/:id/championship_table_data', to: 'rounds#championship_table_data'

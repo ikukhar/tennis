@@ -32,7 +32,7 @@
     activate();
 
     function calculate_players_rating() {
-      Tournament.get('calculate_players_rating')
+      Tournament.get('calculate_rating')
       .then(function(response) {
         vm.rating = response
       })

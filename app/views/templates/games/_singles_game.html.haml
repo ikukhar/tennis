@@ -11,7 +11,9 @@
   .game-body
     .team
       .team-singles
-        %a{ :'ui-sref'=> 'showPlayer({ id: game.team1.player1.id })' } {{game.team1.name}}
+        -# TODO: DOUBLES
+        -# %a{ :'ui-sref'=> 'showPlayer({ id: game.team1.player1.id })' } {{game.team1.name}}
+        {{game.team1.name}}
       .scores
         %div{ :'ng-repeat' => 'set in game.score' }
           %div{ :'ng-show' => '!game.edit' }
@@ -27,7 +29,8 @@
 
     .team
       .team-singles
-        %a{ :'ui-sref'=> 'showPlayer({ id: game.team2.player1.id })' } {{game.team2.name}}
+        -# %a{ :'ui-sref'=> 'showPlayer({ id: game.team2.player1.id })' } 
+        {{game.team2.name}}
       .scores
         %div{ :'ng-repeat' => 'set in game.score' }
           %div{ :'ng-show' => '!game.edit' }
