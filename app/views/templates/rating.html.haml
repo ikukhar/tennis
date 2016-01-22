@@ -1,0 +1,24 @@
+.panel.panel-default.panel-shadow
+  .panel-body
+    .command-panel
+      %h3
+        Players rating
+    %br
+    %table.table.table-hover.table-bordered
+      %thead
+        %tr
+          %th{ :style => "width:10%"} №
+          %th{ :style => "width:50%"} Player
+          %th{ :style => "width:10%"} Rating
+          %th{ :style => "width:10%"} W
+          %th{ :style => "width:10%"} L
+
+      %tbody
+        %tr{ :"ng-repeat" => "item in vm.playerStatistic" }
+          %td {{ $index+1 }}
+          %td
+            %a{ :'ui-sref' => "showPlayer(item.player)" }
+              {{item.player.full_name}}
+          %td {{ item.rating }}
+          %td {{ item.wins }}
+          %td {{ item.loses }}

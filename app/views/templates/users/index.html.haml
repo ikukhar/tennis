@@ -14,4 +14,4 @@
         %tr{ :"ng-repeat" => "user in vm.users" }
           %td{ :style => "width:100%"}
             %a{ :'ui-sref' => "showUser(user)" }
-              {{user.firstName}}  {{user.lastName}}
+              {{user.fullName}}

@@ -11,8 +11,7 @@
   %select.form-control{:'ng-model' => 'vm.tournament.teamsType',
                        :name => 'teamsType',
                        :required => true,
-                       :'ng-trim' => 'true',
-                       :'ng-change' => "vm.onSelectTeamsType()"}
+                       :'ng-trim' => 'true'}
     %option
     -TOURNAMENT::TEAMS_TYPES.constants.each do |name|
       %option=TOURNAMENT::TEAMS_TYPES.const_get(name)
@@ -39,5 +38,5 @@
 
 .form-group.row
   .col-xs-3.col-xs-offset-3
-    =render_button 'next', :'ui-sref' => 'newTournament.rounds'
-  =render_button 'cancel', :'ui-sref' => 'tournaments'
+    =render_button 'next', :'ui-sref' => 'newTournament.players'
+  =render_button 'cancel'

@@ -6,16 +6,16 @@
     %a.btn.btn-default{ :'ng-click' => 'vm.unselectAll()' }
       %span.fa.fa-square-o
       Unelect all
-
   .list-container
     .form-group{ :'ng-repeat' => 'user in vm.users' }
       %input{ :type => "checkbox",
               :'checklist-model' => 'vm.selectedPlayers',
               :'checklist-value' => 'user' }
-        {{user.firstName}} {{user.lastName}}
+        {{user.fullName}}
 
+  %h5 Selected: {{vm.selectedPlayers.length}}
 
 .form-group.row
   .col-xs-3.col-xs-offset-3
-    =render_button 'next', :'ui-sref' => 'newTournament.games'
-  =render_button 'cancel', :'ui-sref' => 'tournaments'
+    =render_button 'next', :'ui-sref' => 'newTournament.rounds'
+  =render_button 'cancel'

@@ -1,12 +1,12 @@
 class Api::TournamentsController < ApplicationController
-
   def index
-    respond_with Tournament.all.to_json
+    respond_with Tournament.includes(:winner).all
   end
 
   def create
-    if Tournament.create_tournament(create_params)
-      render nothing: true, status: :ok
+    @tournament = Tournament.create_tournament(create_params)
+    if @tournament.errors.size == 0
+      respond_with :api, @tournament
     else
       render_error @tournament
     end

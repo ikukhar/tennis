@@ -8,8 +8,10 @@ Rails.application.routes.draw do
     resources :tournaments
     resources :rounds
     get 'rounds/:id/championship_table_data', to: 'rounds#championship_table_data'
+    post 'rounds/:id/createGames', to: 'rounds#create_games'
     resources :teams
     resources :games
+    get 'rating', to: 'users#players_rating'
   end
 
   namespace :auth do

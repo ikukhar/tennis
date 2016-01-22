@@ -38,6 +38,10 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def players_rating
+    render json: User.players_statistic
+  end
+
   private
 
   def user_params

@@ -1,44 +1,130 @@
 class Tournament < ActiveRecord::Base
   has_many :rounds, dependent: :destroy
   has_many :teams, dependent: :destroy
+  has_many :games
+  belongs_to :winner, class_name: 'Team'
+
+  validates_presence_of :name, :status, :teams_type, :rounds_type
+  validates_inclusion_of :finished, in: [true, false]
+
+  def self.calculate_players_rating!
+    # TODO: Перейти на pg т.к. синтаксис апдейта специфичен!
+    query = <<-SQL
+    update users
+    set rating =
+      (select
+         sum(vt.coeff)
+      from(
+        select
+          case
+            when r.name = '#{ROUND::STAGES[:CHAMPIONSHIP][:value]}' then #{ROUND::STAGES[:CHAMPIONSHIP][:win_coeff]}
+            when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x16][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x16][:win_coeff]}
+            when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x8][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x8][:win_coeff]}
+            when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x4][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x4][:win_coeff]}
+            when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x2][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x2][:win_coeff]}
+            when r.name = '#{ROUND::STAGES[:PLAY_OFF_FOR_3_PLACE][:value]}' then #{ROUND::STAGES[:PLAY_OFF_FOR_3_PLACE][:win_coeff]}
+            when r.name = '#{ROUND::STAGES[:PLAY_OFF_FINAL][:value]}' then #{ROUND::STAGES[:PLAY_OFF_FINAL][:win_coeff]}
+           end as coeff
+        from
+          tournaments as t
+        left join
+          rounds as r on r.tournament_id = t.id
+        left join
+          games as g on g.round_id = r.id
+        inner join
+          teams as tms on tms.id = g.winner_id
+        left join
+          users as u on u.id = tms.player1_id or tms.player2_id
+        where
+          t.finished = "t"
+          and u.id = users.id
+
+        union all
+
+        select
+          case
+            when r.name = '#{ROUND::STAGES[:CHAMPIONSHIP][:value]}' then #{ROUND::STAGES[:CHAMPIONSHIP][:lose_coeff]}
+            when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x16][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x16][:lose_coeff]}
+            when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x8][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x8][:lose_coeff]}
+            when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x4][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x4][:lose_coeff]}
+            when r.name = '#{ROUND::STAGES[:PLAY_OFF_1x2][:value]}' then #{ROUND::STAGES[:PLAY_OFF_1x2][:lose_coeff]}
+            when r.name = '#{ROUND::STAGES[:PLAY_OFF_FOR_3_PLACE][:value]}' then #{ROUND::STAGES[:PLAY_OFF_FOR_3_PLACE][:lose_coeff]}
+            when r.name = '#{ROUND::STAGES[:PLAY_OFF_FINAL][:value]}' then #{ROUND::STAGES[:PLAY_OFF_FINAL][:lose_coeff]}
+           end as coeff
+        from
+          tournaments as t
+        left join
+          rounds as r on r.tournament_id = t.id
+        left join
+          games as g on g.round_id = r.id
+        inner join
+          teams as tms on tms.id = g.loser_id
+        left join
+          users as u on u.id = tms.player1_id or tms.player2_id
+        where
+          t.finished = "t"
+          and u.id = users.id
+
+      ) as vt
+    )
+    SQL
+
+    connection.execute(query)
+
+  end
 
   def self.create_tournament(params)
-    transaction do
-      tournament = create!(
-        name:        params[:tournament][:name],
-        teams_type:  params[:tournament][:teams_type],
-        rounds_type: params[:tournament][:rounds_type],
-        status:      TOURNAMENT::STATUSES::NOT_STARTED
-      )
-
-      rounds = []
-      params[:rounds].each do |params_round|
-        rounds << tournament.rounds.create!(
-          sets:   params_round[:sets],
-          stage:  params_round[:stage][:value],
-          status: ROUND::STATUSES::NOT_STARTED,
-          order:  params_round[:order]
+    tournament = nil
+    begin
+      transaction do
+        # Tournament
+        tournament = create!(
+          name:        params[:tournament][:name],
+          teams_type:  params[:tournament][:teams_type],
+          rounds_type: params[:tournament][:rounds_type],
+          finished:    false,
+          status:      TOURNAMENT::STATUSES::NOT_STARTED
         )
-      end
 
-      teams = {}
-      params[:teams].each do |params_team|
-        team = tournament.teams.create!(
-          player1_id: params_team[:player1][:id],
-          player2_id: params_team[:player2] ? params_team[:player2][:id] : nil
-        )
-        teams[params_team] = team
-      end
+        # Rounds
+        rounds = []
+        params[:rounds].each do |params_round|
+          rounds << tournament.rounds.create!(
+            sets:   params_round[:sets],
+            name:  params_round[:name],
+            finished: false
+          )
+        end
 
-      params[:games].each do |params_game|
-        puts '~~~~~~~~~~~~~~~~~~~~~~~~'
-        puts params_game[:score].class
-        rounds[0].games.create!(
-          team1: teams[params_game[:team1]],
-          team2: teams[params_game[:team2]],
-          score: params_game[:score]
-        )
+        prev_round = nil
+        rounds.each do |round|
+          round.update_attributes(prev_round: prev_round)
+          prev_round = round
+        end
+
+        next_round = nil
+        rounds.reverse_each do |round|
+          round.update_attributes(next_round: next_round)
+          next_round = round
+        end
+
+        # Teams
+        players = User.find(params[:players].map { |h| h[:id] })
+        # Team.create_teams(tournament, players)
+
+        # Games
+
+        rounds.each do |round|
+          Game.create_games(round)
+        end
+
+        Game.set_teams_for_games(rounds[0])
       end
+    rescue Exception => e
+      tournament = Tournament.new
+      tournament.errors[:tournament] << e
     end
+
+    tournament
   end
 end

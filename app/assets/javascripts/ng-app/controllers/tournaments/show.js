@@ -8,8 +8,7 @@
     '$state',
     'Tournament',
     'Round',
-    'Team',
-    'Game'
+    'Team'
   ];
 
   function TournamentsShowCtrl(
@@ -19,8 +18,7 @@
     $state,
     Tournament,
     Round,
-    Team,
-    Game
+    Team
   ) {
 
     var vm = this;
@@ -29,19 +27,23 @@
     vm.teams = [];
     vm.games = [];
     vm.destroy = destroy;
-    vm.updateGame = updateGame;
-    vm.equals = function(obj1, obj2) {
-      return angular.equals(obj1, obj2);
-    }
-
+    vm.calculate_players_rating = calculate_players_rating;
+    vm.rating = [];
     activate();
+
+    function calculate_players_rating() {
+      Tournament.get('calculate_players_rating')
+      .then(function(response) {
+        vm.rating = response
+      })
+    }
 
     function activate() {
       var tournament_id = parseInt($stateParams['id'])
 
       Tournament.get(tournament_id)
-        .then(function(success) {
-          vm.tournament = success;
+        .then(function(response) {
+          vm.tournament = response;
         }, function(error) {
           $rootScope.$emit('error', error.data)
         })
@@ -63,15 +65,6 @@
         }, function(error) {
           $rootScope.$emit('error', error.data)
         })
-
-      Game.query({
-          tournament_id: tournament_id
-        })
-        .then(function(success) {
-          vm.games = success;
-        }, function(error) {
-          $rootScope.$emit('error', error.data)
-        })
     };
 
     function destroy(tournament) {
@@ -83,32 +76,6 @@
         })
     };
 
-    function getWinner(game) {
-      var winner = {};
-      var team1Wins = 0;
-      var team2Wins = 0;
-      for (var i = 0; i < game.score.length; i++) {
-        var set = game.score[i];
-        if (set.team1 > set.team2) {
-          team1Wins += 1;
-        } else {
-          team2Wins += 1;
-        }
-      }
-      winner = team1Wins > team2Wins ? game.team1 : game.team2
-      return winner;
-    }
-
-    function updateGame(game) {
-      game.winner = getWinner(game)
-      game.update()
-      .then(function(results) {
-        // round.competed???
-        game.edit = false;
-      }, function(error) {
-        $rootScope.$emit('error', error.data)
-      });
-    }
 
   };
 

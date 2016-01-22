@@ -1,0 +1,40 @@
+.panel.panel-default
+  .panel-heading
+    .pull-left
+      %h5 Games
+
+    .pull-right
+      %div{ :'ng-if' =>  'vm.tournFilter'}
+        %label Tournament:
+        %ui-select{ :'ng-model' => "vm.selectedTourn", :'on-select' => 'vm.onSelectTournament($item)' }
+          %ui-select-match
+            %span{ :'ng-bind' => "$select.selected.name" }
+            %a.btn.btn-xs.btn-link.pull-right{ :'ng-click' => 'vm.rootScope.clearSelectFilter($event, $select)' }
+              %i.glyphicon.glyphicon-remove
+          %ui-select-choices{ :repeat => "item in (vm.tournFilter | filter: $select.search) track by item.id" }
+            %span{ :'ng-bind' => "item.name" }
+
+      %div{ :'ng-if' =>  'vm.roundFilter'}
+        %label Round:
+        %ui-select{ :'ng-model' => "vm.selectedRound" }
+          %ui-select-match
+            %span{ :'ng-bind' => "$select.selected.name" }
+            %a.btn.btn-xs.btn-link.pull-right{ :'ng-click' => 'vm.rootScope.clearSelectFilter($event, $select)' }
+              %i.glyphicon.glyphicon-remove
+          %ui-select-choices{ :repeat => "item in (vm.roundFilter | filter: $select.search) track by item.id" }
+            %span{ :'ng-bind' => "item.name" }
+
+      %label Search:
+      %input{ :'ng-model' => 'search' }
+
+    .clearfix
+  {{vm.round}}
+  %a.btn.btn-default{ :'ng-click' => 'vm.create()',
+                      :'ng-show' => 'vm.round.prevRound.finished && vm.games.length == 0' }
+    %span.ion-plus
+      Generate games
+
+  .games-list
+    .panel.panel-body
+      %div{ :'ng-repeat' => 'game in vm.games | filter: vm.selectedFilter | filterBy: ["team1.name", "team2.name"]: search'  }
+        =render 'templates/games/singles_game'

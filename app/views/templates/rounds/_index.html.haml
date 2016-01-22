@@ -6,5 +6,5 @@
   -# %ul.nav.nav-pills.nav-stacked
   %ul
     %li{ :'ng-repeat' => 'round in vm.rounds' }
-      %a{:'ui-sref' => 'showTournament.showRound({roundId: round.id})' }
-        {{round.stage}}
+      %a{:'ui-sref' => 'showTournament.showRound({ id: round.tournament.id, roundId: round.id })' }
+        {{round.name}}

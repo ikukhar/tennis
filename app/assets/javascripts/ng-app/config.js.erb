@@ -12,7 +12,8 @@
     'satellizer',
     'ngAnimate',
     'checklist-model',
-    'angular.filter'
+    'angular.filter',
+    'ui.select', 'ngSanitize'
   ]);
 
   angular.module('app').config(
@@ -22,6 +23,7 @@
       NotificationProvider.setOptions({
         startTop: 55
       });
+
       // GitHub
       $authProvider.github({
         url: '/auth/github/callback',
@@ -91,6 +93,7 @@
     })
 
     function setUser(new_user) {
+      // TODO: asynchronious doesn't work!!!!
       if (new_user) {
         $rootScope.current_user = new_user
       } else {
@@ -102,26 +105,29 @@
           $rootScope.current_user = {}
         }
       };
+    };
+
+    $rootScope.clearSelectFilter = function($event, $select) {
+      //stops click event bubbling
+      $event.stopPropagation();
+      //to allow empty field, in order to force a selection remove the following line
+      $select.selected = undefined;
+      //reset search query
+      $select.search = undefined;
+      //focus and open dropdown
+      $select.activate();
     }
 
-    // angular.element($document).ready(function(){
-    //   var target = angular.element('#navbar-container');
-    //   target.css('z-index', '0.1');
-    //   angular.element($document).scroll(function(e){
-    //       if ($window.scrollY >= 75){
-    //         target.css('opacity', '0.8');
-    //       }
-    //       else  target.css('opacity', '1');
-    //   });
-    //   target.hover(function(e) {
-    //     target.css('opacity', '1');
-    //   }, function(e) {
-    //     if ($window.scrollY >= 75){
-    //       target.css('opacity', '0.8');
-    //     }
-    //     else  target.css('opacity', '1');
-    //   })
-    // })
+    $rootScope.equals = function(obj1, obj2) {
+      return angular.equals(obj1, obj2);
+    }
+
+    $rootScope.previousState;
+    $rootScope.currentState;
+    $rootScope.$on('$stateChangeSuccess', function(ev, to, toParams, from, fromParams) {
+        $rootScope.previousState = from.name;
+        $rootScope.currentState = to.name;
+    });
   }
   angular.module('app').run(run);
 })();

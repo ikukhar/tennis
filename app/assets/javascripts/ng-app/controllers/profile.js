@@ -1,15 +1,20 @@
 (function() {
   'use strict';
 
-  ProfileCtrl.$inject = ['$scope', '$state', '$rootScope', '$filter', '$auth'];
+  ProfileCtrl.$inject = ['$scope', '$state', '$rootScope', '$filter', '$auth', '$window'];
 
-  function ProfileCtrl($scope, $state, $rootScope, $filter, $auth) {
+  function ProfileCtrl($scope, $state, $rootScope, $filter, $auth, $window) {
 
     $scope.user = $rootScope.current_user;
+    $scope.back = back;
     $scope.update = update;
     $scope.link = link;
     $scope.unlink = unlink;
     $scope.have_auth = have_auth;
+
+    function back() {
+      $window.history.back();
+    }
 
     function update() {
       $scope.user
@@ -23,9 +28,13 @@
     };
 
     function link(provider) {
-      $auth.link(provider, { isLinking: true })
+      $auth.link(provider, {
+          isLinking: true
+        })
         .then(function(response) {
-          $scope.user.authorizations.push({ provider: provider });
+          $scope.user.authorizations.push({
+            provider: provider
+          });
         })
         .catch(function(response) {
           $rootScope.$emit('error', response.data);

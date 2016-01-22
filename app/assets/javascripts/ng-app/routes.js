@@ -28,16 +28,40 @@
       .state('editUser', editUser)
 
     .state('showTournament.showRound', showTournament_showRound)
+      .state('showPlayer', showPlayer)
+      .state('rating', rating)
 
     ;
   };
 
-
   var home = {
+      // TODO: state не обновляется
     url: '/',
-    templateUrl: "templates/home.html",
     ncyBreadcrumb: {
       label: 'Home'
+    },
+    views: {
+      '@': {
+        templateUrl: "templates/home.html",
+      },
+      'games@home': {
+        controller: 'GamesIndexCtrl',
+        controllerAs: 'vm',
+        templateUrl: 'templates/games/index.html',
+        resolve: {
+          Game: 'Game',
+          Tournament: 'Tournament',
+          tournFilter: function(Tournament) {
+            return Tournament.query()
+          },
+          roundFilter: function() {
+            return null
+          },
+          games: function(Game) {
+            return Game.query()
+          }
+        }
+      }
     }
   };
 
@@ -114,6 +138,62 @@
         controller: "TournamentsShowCtrl",
         controllerAs: 'vm',
         templateUrl: "templates/tournaments/show.html"
+      },
+      'games@showTournament': {
+        controller: 'GamesIndexCtrl',
+        controllerAs: 'vm',
+        templateUrl: 'templates/games/index.html',
+        resolve: {
+          Game: 'Game',
+          Round: 'Round',
+          tournFilter: function() {
+            return null
+          },
+          roundFilter: function(Round, $stateParams) {
+            return Round.query({
+              tournament_id: $stateParams.id
+            })
+          },
+          games: function(Game, $stateParams) {
+            return Game.query({
+              tournament_id: $stateParams.id
+            })
+          }
+        }
+      }
+    }
+  };
+
+  var showTournament_showRound = {
+    parent: 'showTournament',
+    url: '/round/:roundId',
+    ncyBreadcrumb: {
+      label: 'Round'
+    },
+    views: {
+      '@': {
+        controller: "RoundsShowCtrl",
+        controllerAs: 'vm',
+        templateUrl: "templates/rounds/show.html"
+      },
+      'games@showTournament.showRound': {
+        controller: 'GamesIndexCtrl',
+        controllerAs: 'vm',
+        templateUrl: 'templates/games/index.html',
+        resolve: {
+          Game: 'Game',
+          tournFilter: function() {
+            return null
+          },
+          roundFilter: function() {
+            return null
+          },
+          games: function(Game, $stateParams) {
+            return Game.query({
+              round_id: $stateParams.roundId
+            })
+          }
+        }
       }
     }
   };
@@ -249,18 +329,33 @@
     }
   };
 
-
-  var showTournament_showRound = {
-    parent: 'showTournament',
-    url: '/round/:roundId',
+  var showPlayer = {
+    parent: 'home',
+    url: 'players/:id',
     ncyBreadcrumb: {
-      label: 'Round'
+      label: 'Player'
     },
     views: {
       '@': {
-        controller: "RoundsShowCtrl",
+        controller: "UsersShowCtrl",
         controllerAs: 'vm',
-        templateUrl: "templates/rounds/show.html"
+        templateUrl: "templates/users/show.html"
+      }
+    }
+  };
+
+
+  var rating = {
+    parent: 'home',
+    url: 'rating',
+    ncyBreadcrumb: {
+      label: 'Rating'
+    },
+    views: {
+      '@': {
+        controller: "RatingIndexCtrl",
+        controllerAs: 'vm',
+        templateUrl: "templates/rating.html"
       }
     }
   };

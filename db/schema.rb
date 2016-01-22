@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160115111630) do
+ActiveRecord::Schema.define(version: 20160121134536) do
 
   create_table "authorizations", force: :cascade do |t|
     t.string   "provider"
@@ -25,13 +25,15 @@ ActiveRecord::Schema.define(version: 20160115111630) do
 
   create_table "games", force: :cascade do |t|
     t.integer  "round_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.integer  "team1_id"
     t.integer  "team2_id"
     t.string   "score"
     t.integer  "winner_id"
-    t.boolean  "completed"
+    t.boolean  "finished"
+    t.integer  "tournament_id"
+    t.integer  "loser_id"
   end
 
   add_index "games", ["round_id"], name: "index_games_on_round_id"
@@ -40,12 +42,14 @@ ActiveRecord::Schema.define(version: 20160115111630) do
 
   create_table "rounds", force: :cascade do |t|
     t.integer  "tournament_id"
-    t.string   "stage"
+    t.string   "name"
     t.integer  "sets"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.string   "status"
     t.integer  "order"
+    t.boolean  "finished"
+    t.integer  "prev_round_id"
+    t.integer  "next_round_id"
   end
 
   add_index "rounds", ["tournament_id"], name: "index_rounds_on_tournament_id"
@@ -56,6 +60,7 @@ ActiveRecord::Schema.define(version: 20160115111630) do
     t.datetime "updated_at",    null: false
     t.integer  "player1_id"
     t.integer  "player2_id"
+    t.string   "name"
   end
 
   add_index "teams", ["player1_id"], name: "index_teams_on_player1_id"
@@ -69,6 +74,8 @@ ActiveRecord::Schema.define(version: 20160115111630) do
     t.string   "teams_type"
     t.string   "status"
     t.string   "rounds_type"
+    t.boolean  "finished"
+    t.integer  "winner_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -78,6 +85,8 @@ ActiveRecord::Schema.define(version: 20160115111630) do
     t.string   "password_digest"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.string   "full_name"
+    t.integer  "rating"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

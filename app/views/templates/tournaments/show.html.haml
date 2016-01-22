@@ -5,9 +5,11 @@
         %h3 {{vm.tournament.name}}
       .pull-right
         .btn-group
+          =render_button 'submit', :'ng-click' => 'vm.calculate_players_rating()', text: 'TEST'
           =render_button 'edit', :'ui-sref' => 'editTournament(vm.tournament)'
           =render_button 'destroy', :'ng-click' => 'vm.destroy()'
       .clearfix
+      {{vm.rating | json}}
     -# %hr
     -# %form{ :role => 'form',
     -#        :name => 'form',
@@ -22,8 +24,10 @@
     -#     %h5 {{vm.tournament.status}}
     -#
     -#   .form-group
-    -#     =render_button 'cancel', :'ui-sref' => '^'
+    -#     =render_button 'cancel'
 -#
+
 =render 'templates/rounds/index'
--# =render 'templates/teams/index'
-=render 'templates/games/index'
+=render 'templates/teams/index'
+
+%div{ :'ui-view' => 'games' }

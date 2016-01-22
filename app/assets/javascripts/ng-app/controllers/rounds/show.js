@@ -7,7 +7,8 @@
     '$rootScope',
     '$state',
     'Round',
-    'ROUND'
+    'ROUND',
+    'Game'
   ];
 
   function RoundsShowCtrl(
@@ -16,12 +17,16 @@
     $rootScope,
     $state,
     Round,
-    ROUND
+    ROUND,
+    Game
   ) {
 
     var vm = this;
-    vm.round = [];
-    vm.championshipTable = [];
+    vm.round = {};
+    vm.championshipTable = null;
+    vm.games = [];
+    vm.createGames = createGames;
+
 
     activate();
 
@@ -30,19 +35,40 @@
       Round.get(roundId)
         .then(function(response) {
             vm.round = response;
-            if (vm.round.stage = ROUND.STAGES.CHAMPIONSHIP.value) {
-              Round.$get('api/rounds/'+roundId+'/championship_table_data')
+            vm.games = response.games;
+            if (vm.round.name == ROUND.STAGES.CHAMPIONSHIP.value) {
+              Round.get(roundId + '/championship_table_data')
                 .then(function(response) {
                     vm.championshipTable = response
                   },
                   function(error) {
                     $rootScope.$emit('error', error.data)
                   })
-            }},
-            function(error) {
-              $rootScope.$emit('error', error.data)
-            })
+            }
+          },
+          function(error) {
+            $rootScope.$emit('error', error.data)
+          })
+
+      // Game.query({
+      //     round_id: roundId
+      //   })
+      //   .then(function(response) {
+      //     vm.games = response;
+      //   }, function(error) {
+      //     $rootScope.$emit('error', error.data)
+      //   })
     };
+
+    function createGames() {
+      Round.$post('api/rounds/' + vm.round.id + '/createGames')
+        .then(function(response) {
+          vm.games = response.games;
+        }, function(error) {
+          $rootScope.$emit('error', error.data)
+        })
+        // Game.generateGame
+    }
 
   };
 

@@ -13,6 +13,8 @@
     "ionicons": "latest",
     "angular-animate": "latest",
     "checklist-model": "latest",
-    "angular-filter": "latest"
+    "angular-filter": "latest",
+    "angular-ui-select": "latest",
+    "angular-sanitize": "latest"
   }
 }

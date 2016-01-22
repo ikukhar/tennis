@@ -28,6 +28,8 @@
 //= require angular-animate
 //= require checklist-model
 //= require angular-filter
+//= require angular-ui-select
+//= require angular-sanitize
 
 //= require ng-app/config
 

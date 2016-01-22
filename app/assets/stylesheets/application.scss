@@ -19,6 +19,7 @@ $icon-font-path: "bootstrap-sass/assets/fonts/bootstrap/";
 @import "bootstrap-sass/assets/stylesheets/bootstrap";
 @import "bootstrap-custom";
 @import "ionicons/scss/ionicons";
+@import 'angular-ui-select/dist/select.min';
 @font-face {
   font-family: "Ionicons";
   src: url(ionicons/fonts/ionicons.eot?) format("eot"), url(ionicons/fonts/ionicons.woff) format("woff"), url(ionicons/fonts/ionicons.ttf) format("truetype");

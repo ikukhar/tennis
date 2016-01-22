@@ -9,7 +9,7 @@
     %tbody
       %tr{ :'ng-repeat' => 'round in vm.rounds' }
         %td {{$index+1}}
-        %td {{round.stage.value}}
+        %td {{round.name}}
         %td
           %input.form-control{ :'ng-model' => 'round.sets',
                                :name => 'sets',
@@ -20,5 +20,5 @@
 
 .form-group.row
   .col-xs-3.col-xs-offset-3
-    =render_button 'next', :'ui-sref' => 'newTournament.players'
-  =render_button 'cancel', :'ui-sref' => 'tournaments'
+    =render_button 'submit', :text => 'Create tournament', :'ng-click' => 'vm.create()'
+  =render_button 'cancel'
