@@ -141,6 +141,11 @@
             event.preventDefault();
           }
         }
+        if (toState.data.authorized !== undefined && toState.data.authorized) {
+          if (!$auth.isAuthenticated()) {
+            event.preventDefault();
+          }
+        }
       }
     };
   }

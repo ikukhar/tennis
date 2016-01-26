@@ -44,6 +44,11 @@
       '@': {
         templateUrl: "templates/home.html",
       },
+      'tournaments@home': {
+        controller: 'TournamentsIndexCtrl',
+        controllerAs: 'vm',
+        templateUrl: 'templates/tournaments/index.html',
+      },
       'games@home': {
         controller: 'GamesIndexCtrl',
         controllerAs: 'vm',
@@ -65,14 +70,13 @@
           },
           title: function() { return 'My games' },
           games: function(Game, $auth) {
-            return Game.query({user_id: $auth.getPayload()['user_id']})
+            if ($auth.isAuthenticated()) {
+              return Game.query({user_id: $auth.getPayload()['user_id']})
+            } else {
+              return []
+            }
           }
         }
-      },
-      'tournaments@home': {
-        controller: 'TournamentsIndexCtrl',
-        controllerAs: 'vm',
-        templateUrl: 'templates/tournaments/index.html',
       }
     }
   };
