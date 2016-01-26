@@ -16,7 +16,9 @@ require 'sprockets/railtie'
 Bundler.require(*Rails.groups)
 
 if File.exist?(".env")
-  Dotenv::Railtie.load
+  require 'dotenv'
+  # Dotenv::Railtie.load
+  Dotenv.load ".env"
 end
 
 module Tennis
