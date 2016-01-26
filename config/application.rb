@@ -52,5 +52,6 @@ module Tennis
     ::Sass::Script::Value::Number.precision = [8, ::Sass::Script::Value::Number.precision].max
     config.autoload_paths += %W(#{config.root}/lib/tools)
 
+    config.serve_static_files = true
   end
 end
