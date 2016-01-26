@@ -53,5 +53,12 @@ module Tennis
     config.autoload_paths += %W(#{config.root}/lib/tools)
 
     config.serve_static_files = true
+    config.assets.register_engine '.haml', Tilt::HamlTemplate
+    # config.assets.js_compressor = Uglifier.new(mangle: false)
+    # config.assets.precompile += ['*.scss']
+
+     config.assets.compress = true
+     config.assets.js_compressor = nil
+     config.assets.css_compressor = nil
   end
 end
