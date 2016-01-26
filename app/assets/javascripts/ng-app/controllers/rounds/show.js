@@ -7,7 +7,7 @@
     '$rootScope',
     '$state',
     'Round',
-    'ROUND',
+    'CONSTANTS',
     'Game'
   ];
 
@@ -17,7 +17,7 @@
     $rootScope,
     $state,
     Round,
-    ROUND,
+    CONSTANTS,
     Game
   ) {
 
@@ -36,7 +36,7 @@
         .then(function(response) {
             vm.round = response;
             vm.games = response.games;
-            if (vm.round.name == ROUND.STAGES.CHAMPIONSHIP.value) {
+            if (vm.round.name == CONSTANTS.ROUND.STAGES.CHAMPIONSHIP.value) {
               Round.get(roundId + '/championship_table_data')
                 .then(function(response) {
                     vm.championshipTable = response

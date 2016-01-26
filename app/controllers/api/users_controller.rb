@@ -1,18 +1,25 @@
 class Api::UsersController < ApplicationController
+  skip_before_action :authenticate_by_token, except: [:create, :update, :destroy]
+  before_action :check_admin, only: [:create, :update, :destroy]
+
   def index
     respond_with :api, User.all
   end
 
   def show
     if @user = User.find(params[:id])
-      respond_with :api, @user.to_json(include: :authorizations, only:[:first_name, :last_name, :email])
+      respond_with :api, @user.to_json(include: :authorizations, only:[:first_name, :last_name, :email, :id, :admin])
     else
       render_error 'User not found'
     end
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.new(
+      first_name: user_params[:first_name],
+      last_name: user_params[:last_name],
+      email:  user_params[:email]
+    )
     if @user.save
       respond_with :api, @user
     else
@@ -22,7 +29,11 @@ class Api::UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if @user.update_attributes(user_params)
+    if @user.update_attributes(
+      first_name: user_params[:first_name],
+      last_name: user_params[:last_name],
+      email:  user_params[:email]
+    )
       respond_with :api, @user
     else
       render_error @user
@@ -50,6 +61,7 @@ class Api::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email)
+    params.require(:user)
   end
+
 end

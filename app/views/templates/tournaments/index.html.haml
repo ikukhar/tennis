@@ -6,23 +6,53 @@
         %h3
           Tournaments
       .pull-right
-        .btn-group
+        .btn-group{ :'ng-show' => 'currentUser.admin' }
           =render_button 'new', :'ui-sref' => 'newTournament.tournament'
       .clearfix
+    %form.form-vertical.select-filter-panel
+      .col-sm-3{ :'ng-if' =>  'vm.yearFilter'}
+        .form-group
+          %label.control-label Year:
+          %ui-select{ :'ng-model' => "vm.selectedYear" }
+            %ui-select-match
+              %span{ :'ng-bind' => "$select.selected" }
+              %a.btn.btn-xs.btn-link{ :'ng-click' => 'vm.rootScope.clearSelectFilter($event, $select);' }
+                %i.ion-close
+            %ui-select-choices{ :repeat => "item in (vm.yearFilter | filter: $select.search)" }
+              %span{ :'ng-bind' => "item" }
+
+      .col-sm-3{ :'ng-if' =>  'vm.statusFilter'}
+        .form-group
+          %label.control-label Status:
+          %ui-select{ :'ng-model' => "vm.selectedStatus" }
+            %ui-select-match
+              %span{ :'ng-bind' => "$select.selected.value" }
+              %a.btn.btn-xs.btn-link{ :'ng-click' => 'vm.rootScope.clearSelectFilter($event, $select)' }
+                %i.ion-close
+            %ui-select-choices{ :repeat => "item.value as (key, item) in vm.statusFilter | filter: {'value':$select.search}" }
+              %span{ :'ng-bind' => "item.value" }
+
+      .col-sm-3
+        .form-group
+          %label.control-label Search:
+          %input.form-control{ :'ng-model' => 'search' }
+    .clearfix
     %hr
-    %table.table.table-hover
-      %tbody
-        %tr{ :"ng-repeat" => "tournament in vm.tournaments" }
-          %td{ :style => "width:10%"}
-            {{tournament.id}}
-          %td{ :style => "width:50%"}
+    .tournaments-container
+      .tournament{ :"ng-repeat" => 'tournament in vm.tournaments  | filter: vm.selectedFilter | filterBy: ["name"] : search' }
+        .left
+          .title
             %a{ :'ui-sref' => "showTournament(tournament)" }
               {{tournament.name}}
-          %td{ :style => "width:10%"}
+          .data
             {{tournament.teamsType}}
-          %td{ :style => "width:10%"}
-            {{tournament.roundsType}}
-          %td{ :style => "width:10%"}
-            {{tournament.status}}
-          %td{ :style => "width:10%"}
+            %br
+            {{tournament.createdAt | date:'yyyy' }}
+        .right
+          .status
+            {{ tournament.finished ? 'Finished' : '' }}
+          .winner
+            .title
+              Winner
             {{tournament.winner.name}}
+        .clearfix

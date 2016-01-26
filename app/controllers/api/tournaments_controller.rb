@@ -1,4 +1,7 @@
 class Api::TournamentsController < ApplicationController
+  skip_before_action :authenticate_by_token, except: [:create, :update, :destroy]
+  before_action :check_admin, only: [:create, :update, :destroy]
+
   def index
     respond_with Tournament.includes(:winner).all
   end
@@ -37,6 +40,11 @@ class Api::TournamentsController < ApplicationController
     else
       render_error @tournament
     end
+  end
+
+  def years
+    years = Tournament.select(:created_at).map(&:created_at).map(&:year).uniq
+    render json: years
   end
 
   private

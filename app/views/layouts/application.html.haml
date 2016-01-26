@@ -10,13 +10,10 @@
     = csrf_meta_tags
     %base{href: "/"}
 
-  %body{ :"ng-class" => "ng-cloak" }
+  %body
+    -# { :"ng-class" => "ng-cloak" }
 
     %span{ :'us-spinner' => true, :'spinner-key' => "spinner" }
-    =render partial: 'layouts/navbar'
-
-    .container
-      .row.col-md-10.col-md-offset-1
-        .panel.panel-default.panel-shadow
-          %ncy-breadcrumb
-        .ui-view
+    -# =render partial: 'layouts/navbar'
+    %div{ :'ng-include' => '"templates/navbar.html"'}
+    %div{ :'ng-include' => '"templates/content.html"'}

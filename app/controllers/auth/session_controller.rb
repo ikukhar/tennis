@@ -70,7 +70,6 @@ class Auth::SessionController < ApplicationController
   private
 
   def facebook_callback
-    # TODO: DRY
     result = RestClient.post('https://graph.facebook.com/oauth/access_token',
                              client_id: ENV['FACEBOOK_KEY'],
                              client_secret: ENV['FACEBOOK_SECRET'],

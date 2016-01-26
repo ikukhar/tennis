@@ -10,7 +10,10 @@
     'Game',
     'games',
     'roundFilter',
-    'tournFilter'
+    'tournFilter',
+    'statusFilter',
+    'CONSTANTS',
+    'title'
   ];
 
   function GamesIndexCtrl(
@@ -22,7 +25,10 @@
     Game,
     games,
     roundFilter,
-    tournFilter
+    tournFilter,
+    statusFilter,
+    CONSTANTS,
+    title
   ) {
 
     var vm = this;
@@ -34,8 +40,11 @@
     vm.selectedTourn = null;
     vm.roundFilter = roundFilter;
     vm.selectedRound = null;
+    vm.statusFilter = statusFilter;
+    vm.selectedStatus = null;
     vm.selectedFilter = selectedFilter;
     vm.onSelectTournament = onSelectTournament;
+    vm.title = title;
 
     function update(game) {
       game.winner = getWinner(game);
@@ -51,13 +60,21 @@
     function selectedFilter(game) {
       var tourn = true;
       var round = true;
+      var status = true;
       if (vm.selectedTourn) {
         tourn = game.tournament.id == vm.selectedTourn.id
       }
       if (vm.selectedRound) {
         round = game.round.id == vm.selectedRound.id
       }
-      return tourn && round;
+      if (vm.selectedStatus) {
+        if (vm.selectedStatus == CONSTANTS.GAME.STATUSES.FINISHED) {
+          status = game.finished
+        }else {
+          status = !game.finished
+        }
+      }
+      return tourn && round && status;
     }
 
     function getWinner(game) {

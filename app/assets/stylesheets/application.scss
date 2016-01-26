@@ -10,87 +10,25 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
- *= require_self
- *= require angular-ui-notification
  */
 $icon-font-path: "bootstrap-sass/assets/fonts/bootstrap/";
 @import "bootstrap-sass/assets/stylesheets/bootstrap-sprockets";
 @import "bootstrap-sass/assets/stylesheets/bootstrap";
-@import "bootstrap-custom";
 @import "ionicons/scss/ionicons";
 @import 'angular-ui-select/dist/select.min';
+@import 'angular-ui-notification/dist/angular-ui-notification.min';
+@import "*";
+
 @font-face {
   font-family: "Ionicons";
   src: url(ionicons/fonts/ionicons.eot?) format("eot"), url(ionicons/fonts/ionicons.woff) format("woff"), url(ionicons/fonts/ionicons.ttf) format("truetype");
 }
+
 body {
   padding: 55px;
   font-size: 14px;
   background: #e4e7ec;
   font-family: 'Open Sans', sans-serif;
-}
-.command-panel h3 {
-  margin: 5px 0 0;
-}
-.center-form {
-  width: 330px;
-  margin: 6% auto;
-}
-.signup-or-separator {
-  position: relative;
-  height: 34px;
-  text-align: center;
-  background: none;
-}
-.signup-or-separator .text {
-  display: inline-block;
-  padding: 8px;
-  margin: 0;
-  background-color: #fff;
-}
-.signup-or-separator hr {
-  width: 90%;
-  margin: -16px auto 10px;
-  border-top: 1px solid #dce0e0;
-}
-.btn-facebook {
-  color: #fff;
-  background-color: #3b5998;
-  border: 1px solid #335190;
-}
-.btn-facebook:hover,
-.btn-facebook:focus {
-  color: #fff;
-  background-color: #294786;
-}
-.btn-github {
-  color: #fff;
-  background-color: #444;
-  border: 1px solid #3b3b3b;
-}
-.btn-github:hover,
-.btn-github:focus {
-  color: #fff;
-  background-color: #303030;
-}
-.btn-vkontakte {
-  color: #fff;
-  background-color: #007bb6;
-  border: 1px solid #0073ae;
-}
-.btn-vkontakte:hover,
-.btn-vkontakte:focus {
-  color: #fff;
-  background-color: #0069a4;
-}
-.btn-group-vertical {
-  position: relative;
-  display: inline-block;
-  vertical-align: middle;
-}
-.btn-group-vertical .btn {
-  margin-bottom: 10px;
 }
 .breadcrumb {
   margin-bottom: 0;
@@ -137,4 +75,7 @@ body {
 }
 #status-buttons div {
   display: inline;
+}
+hr {
+  margin-top: 0px;
 }

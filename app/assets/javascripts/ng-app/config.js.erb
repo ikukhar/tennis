@@ -67,7 +67,7 @@
     setUser();
 
     $rootScope.$on('responseError', function(event, responce) {
-      console.log(responce);
+      // console.log(responce);
       Notification.error(responce.statusText);
     });
 
@@ -76,7 +76,7 @@
     });
 
     $rootScope.$on('auth_error', function(event, message) {
-      $state.go('login')
+      // $state.go('login')
       Notification.error(message);
     });
 
@@ -85,24 +85,29 @@
     });
 
     $rootScope.$on('logout', function(event, message) {
-      $rootScope.current_user = {}
+      $rootScope.currentUser = {}
     });
 
-    $rootScope.$on('$stateChangeSuccess', function(event){
-      //setUser();
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+      $rootScope.checkAccess(event, toState, toParams, fromState, fromParams);
     })
 
     function setUser(new_user) {
       // TODO: asynchronious doesn't work!!!!
       if (new_user) {
-        $rootScope.current_user = new_user
+        $rootScope.currentUser = new_user
       } else {
         if ($auth.isAuthenticated()) {
-          User.get($auth.getPayload()['user_id']).then(function(response){
-            $rootScope.current_user = response;
-          })
+          console.log('isAuthenticated');
+          $.ajax('api/users/'+$auth.getPayload()['user_id'], {async: false})
+           .success(function (data) {
+             $rootScope.currentUser = data;
+         });
+          // User.get($auth.getPayload()['user_id']).then(function(response){
+          //   $rootScope.currentUser = response;
+          // })
         } else {
-          $rootScope.current_user = {}
+          $rootScope.currentUser = {}
         }
       };
     };
@@ -128,6 +133,16 @@
         $rootScope.previousState = from.name;
         $rootScope.currentState = to.name;
     });
+
+    $rootScope.checkAccess = function(event, toState, toParams, fromState, fromParams) {
+      if (toState.data !== undefined) {
+        if (toState.data.checkAdmin !== undefined && toState.data.checkAdmin) {
+          if (!$rootScope.currentUser.admin) {
+            event.preventDefault();
+          }
+        }
+      }
+    };
   }
   angular.module('app').run(run);
 })();

@@ -10,6 +10,12 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
   before_action :authenticate_by_token
 
+  def check_admin
+    unless @current_user.admin?
+      render_error 'Permission denied!', 403
+    end
+  end
+
   private
 
   def authenticate_by_token
@@ -27,7 +33,7 @@ class ApplicationController < ActionController::Base
     { token: JsonWebToken.encode({ user_id: @current_user.id, user_email: @current_user.email }, 7.day.from_now) }
   end
 
-  def render_error(obj, status=422)
+  def render_error(obj, status = 422)
     if obj.is_a?(ActiveRecord::Base)
       message = obj.errors.messages.to_a.join(': ')
     else

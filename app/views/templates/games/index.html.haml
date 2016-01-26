@@ -1,38 +1,46 @@
-.panel.panel-default
-  .panel-heading
-    .pull-left
-      %h5 Games
+.panel.panel-default.panel-shadow
+  .panel-body
+    %h3 {{vm.title}}
+    %form.form-vertical.select-filter-panel
+      .col-sm-3{ :'ng-if' =>  'vm.tournFilter'}
+        .form-group
+          %label.control-label Tournament:
+          %ui-select{ :'ng-model' => "vm.selectedTourn", :'on-select' => 'vm.onSelectTournament($item)' }
+            %ui-select-match
+              %span{ :'ng-bind' => "$select.selected.name" }
+              %a.btn.btn-xs.btn-link{ :'ng-click' => 'vm.rootScope.clearSelectFilter($event, $select); vm.onSelectTournament(null)' }
+                %i.ion-close
+            %ui-select-choices{ :repeat => "item in (vm.tournFilter | filter: $select.search) track by item.id" }
+              %span{ :'ng-bind' => "item.name" }
 
-    .pull-right
-      %div{ :'ng-if' =>  'vm.tournFilter'}
-        %label Tournament:
-        %ui-select{ :'ng-model' => "vm.selectedTourn", :'on-select' => 'vm.onSelectTournament($item)' }
-          %ui-select-match
-            %span{ :'ng-bind' => "$select.selected.name" }
-            %a.btn.btn-xs.btn-link.pull-right{ :'ng-click' => 'vm.rootScope.clearSelectFilter($event, $select)' }
-              %i.glyphicon.glyphicon-remove
-          %ui-select-choices{ :repeat => "item in (vm.tournFilter | filter: $select.search) track by item.id" }
-            %span{ :'ng-bind' => "item.name" }
-      %div{ :'ng-if' =>  'vm.roundFilter'}
-        %label Round:
-        %ui-select{ :'ng-model' => "vm.selectedRound" }
-          %ui-select-match
-            %span{ :'ng-bind' => "$select.selected.name" }
-            %a.btn.btn-xs.btn-link.pull-right{ :'ng-click' => 'vm.rootScope.clearSelectFilter($event, $select)' }
-              %i.glyphicon.glyphicon-remove
-          %ui-select-choices{ :repeat => "item in (vm.roundFilter | filter: $select.search) track by item.id" }
-            %span{ :'ng-bind' => "item.name" }
-      %label Search:
-      %input{ :'ng-model' => 'search' }
+      .col-sm-3{ :'ng-if' =>  'vm.tournFilter || vm.roundFilter'}
+        .form-group
+          %label.control-label Round:
+          %ui-select{ :'ng-model' => "vm.selectedRound", :'ng-disabled' =>  '!vm.roundFilter' }
+            %ui-select-match
+              %span{ :'ng-bind' => "$select.selected.name" }
+              %a.btn.btn-xs.btn-link{ :'ng-click' => 'vm.rootScope.clearSelectFilter($event, $select)' }
+                %i.ion-close
+            %ui-select-choices{ :repeat => "item in (vm.roundFilter | filter: $select.search) track by item.id" }
+              %span{ :'ng-bind' => "item.name" }
+
+      .col-sm-3{ :'ng-if' =>  'vm.statusFilter'}
+        .form-group
+          %label.control-label Status:
+          %ui-select{ :'ng-model' => "vm.selectedStatus" }
+            %ui-select-match
+              %span{ :'ng-bind' => "$select.selected.value" }
+              %a.btn.btn-xs.btn-link{ :'ng-click' => 'vm.rootScope.clearSelectFilter($event, $select)' }
+                %i.ion-close
+            %ui-select-choices{ :repeat => "item.value as (key, item) in vm.statusFilter | filter: {'value':$select.search}" }
+              %span{ :'ng-bind' => "item.value" }
+
+      .col-sm-3
+        .form-group
+          %label.control-label Search:
+          %input.form-control{ :'ng-model' => 'search' }
 
     .clearfix
-  {{vm.round}}
-  %a.btn.btn-default{ :'ng-click' => 'vm.create()',
-                      :'ng-show' => 'vm.round.prevRound.finished && vm.games.length == 0' }
-    %span.ion-plus
-      Generate games
-
-  .games-list
-    .panel.panel-body
-      %div{ :'ng-repeat' => 'game in vm.games | filter: vm.selectedFilter | filterBy: ["team1.name", "team2.name"]: search'  }
-        =render 'templates/games/singles_game'
+    %hr
+    %div{ :'ng-repeat' => 'game in vm.games | filter: vm.selectedFilter | filterBy: ["team1.name", "team2.name"]: search'  }
+      =render 'templates/games/singles_game'

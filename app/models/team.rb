@@ -13,7 +13,7 @@ class Team < ActiveRecord::Base
         create!(
           tournament: tournament,
           player1: player,
-          name: player.fullName
+          name: player.full_name
         )
       end
 

@@ -4,28 +4,10 @@
       .pull-left
         %h3 {{vm.tournament.name}}
       .pull-right
-        .btn-group
-          =render_button 'submit', :'ng-click' => 'vm.calculate_players_rating()', text: 'TEST'
+        .btn-group{ :'ng-show' => 'currentUser.admin' }
           =render_button 'edit', :'ui-sref' => 'editTournament(vm.tournament)'
           =render_button 'destroy', :'ng-click' => 'vm.destroy()'
       .clearfix
-      {{vm.rating | json}}
-    -# %hr
-    -# %form{ :role => 'form',
-    -#        :name => 'form',
-    -#        :novalidate => true }
-    -#
-    -#   .form-group
-    -#     %label.control-label Type
-    -#     %h5 {{vm.tournament.mode}}
-    -#
-    -#   .form-group
-    -#     %label.control-label Status
-    -#     %h5 {{vm.tournament.status}}
-    -#
-    -#   .form-group
-    -#     =render_button 'cancel'
--#
 
 =render 'templates/rounds/index'
 =render 'templates/teams/index'

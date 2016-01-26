@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   # validates_confirmation_of :password, if: ->{ updating_password || new_record? }
 
   before_save do
-    full_name = '#{first_name} #{last_name}'
+    self.full_name = "#{first_name} #{last_name}"
   end
 
   def self.players_statistic
@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
       ,sum(vt.loses_s) as loses_s
       ,sum(vt.wins_d) as wins_d
       ,sum(vt.loses_d) as loses_d
-      ,sum(vt.wins_s) + sum(vt.loses_s) + sum(vt.wins_s)+ sum(vt.loses_d) as games
+      ,sum(vt.wins_s) + sum(vt.loses_s) + sum(vt.wins_s) + sum(vt.loses_d) as games
     from(
       select
          u.id as id

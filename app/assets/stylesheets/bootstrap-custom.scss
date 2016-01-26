@@ -1,3 +1,11 @@
+a {
+  color: #025289;
+}
+.form-control:focus {
+  border-color: #0AD0C0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(103, 233, 178, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(103, 233, 178, 0.6);
+}
 .form-group.required label:after {
   content: " *";
   color: #777777;
@@ -69,15 +77,32 @@
   // border-color: #cd4033;
 }
 .btn-success {
-    background-color: #0f9d58;
+  background-color: #0f9d58;
 }
 .btn-success:hover {
-    background-color: #196c4a;
+  background-color: #196c4a;
 }
 .btn-success[disabled]:hover {
-    background-color: #196c4a;
+  background-color: #196c4a;
 }
 .btn-sm {
   font-size: 10px;
-  padding: 3px 6px; 
+  padding: 3px 6px;
+}
+.navbar-default .navbar-brand:hover {
+  color: #0AD0C0;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #0AD0C0;
+}
+.navbar-default .navbar-brand:focus {
+  color: #fff;
+}
+.navbar-default .navbar-nav > li > a:focus {
+  color: #fff;
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+    background-color: #01253E;
+    color: #fff;
 }

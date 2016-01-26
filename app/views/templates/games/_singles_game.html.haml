@@ -2,8 +2,9 @@
   .game-title
     %a{ :'ui-sref' => 'showTournament.showRound({ id: game.tournament.id, roundId: game.round.id })' } {{game.round.name}}
     .pull-right
-      %a.btn.btn-sm.btn-default{ :'ng-click' => 'game.edit = true', :'ng-show' => '!game.edit' }
-        %span.ion-edit
+      %div{ :'ng-show' => 'currentUser.admin' }
+        %a.btn.btn-sm.btn-default{ :'ng-click' => 'game.edit = true', :'ng-show' => '!game.edit' }
+          %span.ion-edit
       %a.btn.btn-sm.btn-default{ :'ng-click' => 'vm.update(game)', :'ng-show' => 'game.edit' }
         %span.ion-checkmark
       %a.btn.btn-sm.btn-default{ :'ng-click' => 'game.edit = false', :'ng-show' => 'game.edit' }
@@ -21,7 +22,7 @@
           %div{ :'ng-show' => 'game.edit' }
             %input.set-control{ :'ng-model' => 'set.team1',
                                 :type => 'number' }
-      .winner{ :'ng-show' => 'vm.rootScope.equals(game.winner, game.team1)' }
+      .winner-icon{ :'ng-show' => 'vm.rootScope.equals(game.winner, game.team1)' }
         %span.ion-checkmark
 
     .clearfix
@@ -29,7 +30,7 @@
 
     .team
       .team-singles
-        -# %a{ :'ui-sref'=> 'showPlayer({ id: game.team2.player1.id })' } 
+        -# %a{ :'ui-sref'=> 'showPlayer({ id: game.team2.player1.id })' }
         {{game.team2.name}}
       .scores
         %div{ :'ng-repeat' => 'set in game.score' }
@@ -38,5 +39,5 @@
           %div{ :'ng-show' => 'game.edit' }
             %input.set-control{ :'ng-model' => 'set.team2',
                                 :type => 'number' }
-      .winner{ :'ng-show' => 'vm.rootScope.equals(game.winner, game.team2)' }
+      .winner-icon{ :'ng-show' => 'vm.rootScope.equals(game.winner, game.team2)' }
         %span.ion-checkmark

@@ -5,7 +5,7 @@
 
   function ProfileCtrl($scope, $state, $rootScope, $filter, $auth, $window) {
 
-    $scope.user = $rootScope.current_user;
+    $scope.user = $rootScope.currentUser;
     $scope.back = back;
     $scope.update = update;
     $scope.link = link;

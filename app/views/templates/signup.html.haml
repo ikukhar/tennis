@@ -5,6 +5,7 @@
            :role => 'form',
            :name => 'form',
            :novalidate => true }
+           
       .form-group.has-feedback{ :'ng-class' => "{ 'has-error': form.first_name.$touched && form.first_name.$invalid }" }
         %span.ion-person.form-control-feedback
         %input.form-control.input-lg{ :'ng-model' => 'user.first_name',

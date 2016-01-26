@@ -1,17 +1,37 @@
 class Api::GamesController < ApplicationController
-  # TODO: Убрать в контроллерах лишние экшены
+  skip_before_action :authenticate_by_token, except: [:create, :update, :destroy]
+  before_action :check_admin, only: [:create, :update, :destroy]
+  
   def index
+    # TODO: Убрать этот ужас
     if params[:tournament_id]
       games = Game
-              .includes(:tournament, :round, team1: [:player1, :player2], team2: [:player1, :player2])
+              .includes(:tournament, :round, team1: [:player1, :player2],
+                                             team2: [:player1, :player2],
+                                             winner: [:player1, :player2])
               .where(tournament_id: params[:tournament_id])
     elsif params[:round_id]
       games = Game
-              .includes(:tournament, :round, team1: [:player1, :player2], team2: [:player1, :player2])
+              .includes(:tournament, :round, team1: [:player1, :player2],
+                                             team2: [:player1, :player2],
+                                             winner: [:player1, :player2])
               .where(round_id: params[:round_id])
+    elsif params[:user_id]
+      games = Game
+              .includes(:tournament, :round, team1: [:player1, :player2],
+                                             team2: [:player1, :player2],
+                                             winner: [:player1, :player2])
+             .joins(:team1)
+             .joins(:team2)
+             .where('teams.player1_id = :id
+                  or teams.player2_id = :id
+                  or team2s_games.player1_id = :id
+                  or team2s_games.player2_id =:id', id: params[:user_id])
     else
       games = Game
-              .includes(:tournament, :round, team1: [:player1, :player2], team2: [:player1, :player2])
+              .includes(:tournament, :round, team1: [:player1, :player2],
+                                             team2: [:player1, :player2],
+                                             winner: [:player1, :player2])
               .all
     end
 

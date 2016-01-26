@@ -2,9 +2,9 @@
   'use strict';
 
   TournamentsNewCtrl.$inject =
-    ['$scope', '$state', 'Tournament', 'User', 'TOURNAMENT', 'ROUND', '$rootScope'];
+    ['$scope', '$state', 'Tournament', 'User', 'CONSTANTS', '$rootScope'];
 
-  function TournamentsNewCtrl($scope, $state, Tournament, User, TOURNAMENT, ROUND, $rootScope) {
+  function TournamentsNewCtrl($scope, $state, Tournament, User, CONSTANTS, $rootScope) {
 
     var vm = this;
     vm.tournament = new Tournament({
@@ -51,18 +51,26 @@
 
     function setRounds(){
       vm.rounds = [];
-      if(vm.tournament.roundsType == TOURNAMENT.ROUNDS_TYPES.CHAMPIONSHIP) {
-        var round = new Round(ROUND.STAGES['CHAMPIONSHIP'], 1)
+      if(vm.tournament.roundsType == CONSTANTS.TOURNAMENT.ROUNDS_TYPES.CHAMPIONSHIP) {
+        var round = new Round(CONSTANTS.ROUND.STAGES['CHAMPIONSHIP'], 1)
         vm.rounds.push(round)
-      } else if(vm.tournament.roundsType == TOURNAMENT.ROUNDS_TYPES.PLAY_OFF) {
-        for (var stageName in ROUND.STAGES) {
-          if (stageName == 'CHAMPIONSHIP') { continue; }
-          var round = new Round(ROUND.STAGES[stageName], 1)
+      } else if(vm.tournament.roundsType == CONSTANTS.TOURNAMENT.ROUNDS_TYPES.PLAY_OFF) {
+        for (var stageName in CONSTANTS.ROUND.STAGES) {
+          if (stageName == 'CHAMPIONSHIP') {
+            continue;
+          }
+          var round = new Round(CONSTANTS.ROUND.STAGES[stageName], 1)
           vm.rounds.push(round);
         }
-      } else if(vm.tournament.roundsType == TOURNAMENT.ROUNDS_TYPES.CHAMPIONSHIP_AND_PLAYOFF) {
-        for (var stageName in ROUND.STAGES) {
-          var round = new Round(ROUND.STAGES[stageName], 1)
+      } else if(vm.tournament.roundsType == CONSTANTS.TOURNAMENT.ROUNDS_TYPES.CHAMPIONSHIP_AND_PLAYOFF) {
+        for (var stageName in CONSTANTS.ROUND.STAGES) {
+          var championshipTeams = vm.selectedPlayers.length;
+          if (vm.tournament.teamsType == CONSTANTS.TOURNAMENT.TEAMS_TYPES.DOUBLES) {
+            championshipTeams = championshipTeams/2
+          }
+          var stage = CONSTANTS.ROUND.STAGES[stageName];
+          if (stage.games > championshipTeams/2) { continue }
+          var round = new Round(stage, 1)
           vm.rounds.push(round);
         }
       };
@@ -104,7 +112,7 @@
     }
 
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-      if (fromState.name == 'newTournament.tournament') {
+      if (fromState.name == 'newTournament.players') {
         setRounds();
       }
     })

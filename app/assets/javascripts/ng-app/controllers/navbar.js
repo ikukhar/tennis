@@ -5,8 +5,9 @@
 
   function NavbarCtrl($scope, $auth, $state, $rootScope) {
 
-    $scope.isAuthenticated = $auth.isAuthenticated;
-    $scope.logout = logout;
+    var vm = this;
+    vm.isAuthenticated = $auth.isAuthenticated;
+    vm.logout = logout;
 
     function logout() {
       $auth.logout();

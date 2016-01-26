@@ -10,9 +10,9 @@
         .then(function(response) {
           $rootScope.$emit('auth')
           $state.go('home')
-        })
-        .catch(function(response) {
-          $rootScope.$emit('error', response.data);
+        }, function(error) {
+          console.log(error);
+          $rootScope.$emit('error', error.data);
         });
     };
 
@@ -22,9 +22,8 @@
           $auth.setToken(response.data.token)
           $rootScope.$emit('auth')
           $state.go('home')
-        })
-        .catch(function(response) {
-          $rootScope.$emit('error', response.data);
+        }, function(error) {
+          $rootScope.$emit('error', error.data);
         });
     };
   };

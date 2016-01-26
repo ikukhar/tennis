@@ -116,7 +116,7 @@ class Tournament < ActiveRecord::Base
           teams_type:  params[:tournament][:teams_type],
           rounds_type: params[:tournament][:rounds_type],
           finished:    false,
-          status:      TOURNAMENT::STATUSES::NOT_STARTED
+          status:      TOURNAMENT::STATUSES::UPCOMING
         )
 
         # Rounds

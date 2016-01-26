@@ -11,7 +11,7 @@ module TOURNAMENT
   end
 
   module STATUSES
-    NOT_STARTED = 'Not started'
+    UPCOMING = 'Upcoming'
     STARTED = 'Started'
     FINISHED = 'Finished'
   end
@@ -29,8 +29,16 @@ module ROUND
   }
 
   module STATUSES
-    NOT_STARTED = 'Not started'
+    UPCOMING = 'Upcoming'
     STARTED = 'Started'
+    FINISHED = 'Finished'
+  end
+end
+
+
+module GAME
+  module STATUSES
+    UPCOMING = 'Upcoming'
     FINISHED = 'Finished'
   end
 end

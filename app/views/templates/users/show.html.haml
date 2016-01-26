@@ -4,11 +4,12 @@
       .pull-left
         %h3 {{vm.user.firstName}} {{vm.user.lastName}}
       .pull-right
-        .btn-group
+        .btn-group{ :'ng-show' => 'currentUser.admin' }
           =render_button 'edit', :'ui-sref' => 'editUser(vm.user)'
           =render_button 'destroy', :'ng-click' => 'vm.destroy()'
       .clearfix
     %hr
+    
     %form{ :role => 'form',
            :name => 'form',
            :novalidate => true }
