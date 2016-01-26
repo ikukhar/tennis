@@ -22,8 +22,6 @@ Rails.application.routes.draw do
     post '/:provider/callback', to: 'session#omniauth_callback'
   end
 
-  mount Ryakuzu::Engine => '/ryakuzu'
-
   get '*path', to: 'templates#angular'
 
 end
