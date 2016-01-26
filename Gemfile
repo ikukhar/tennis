@@ -57,3 +57,9 @@ gem 'bcrypt'
 gem 'jwt'
 gem 'rest-client'
 gem 'active_model_serializers'
+
+# heroku
+group :production do
+  gem 'pg'
+  gem 'rails_12factor' ,'0.0.2'
+end
