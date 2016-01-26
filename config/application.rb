@@ -15,7 +15,9 @@ require 'sprockets/railtie'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-Dotenv::Railtie.load
+if File.exist?(".env")
+  Dotenv::Railtie.load
+end
 
 module Tennis
   class Application < Rails::Application
