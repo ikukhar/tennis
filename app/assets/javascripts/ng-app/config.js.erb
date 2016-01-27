@@ -98,8 +98,7 @@
         $rootScope.currentUser = new_user
       } else {
         if ($auth.isAuthenticated()) {
-          console.log('isAuthenticated');
-          $.ajax('api/users/'+$auth.getPayload()['user_id'], {async: false})
+          $.ajax('api/users/'+$auth.getPayload().user_id, {async: false})
            .success(function (data) {
              $rootScope.currentUser = data;
          });

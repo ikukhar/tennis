@@ -1,6 +1,5 @@
 class Api::UsersController < ApplicationController
   skip_before_action :authenticate_by_token, except: [:create, :update, :destroy]
-  before_action :check_admin, only: [:create, :update, :destroy]
 
   def index
     respond_with :api, User.all

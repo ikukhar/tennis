@@ -42,12 +42,12 @@
     },
     views: {
       '@': {
-        templateUrl: "templates/home.html",
+        templateUrl: "templates/home.html"
       },
       'tournaments@home': {
         controller: 'TournamentsIndexCtrl',
         controllerAs: 'vm',
-        templateUrl: 'templates/tournaments/index.html',
+        templateUrl: 'templates/tournaments/index.html'
       },
       'games@home': {
         controller: 'GamesIndexCtrl',
@@ -284,6 +284,7 @@
     views: {
       '@': {
         controller: "ProfileCtrl",
+        controllerAs: 'vm',
         templateUrl: "templates/profile/show.html"
       }
     }
@@ -298,6 +299,7 @@
     views: {
       '@': {
         controller: "ProfileCtrl",
+        controllerAs: 'vm',
         templateUrl: "templates/profile/edit.html"
       }
     }

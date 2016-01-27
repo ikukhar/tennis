@@ -1,26 +1,35 @@
 (function() {
   'use strict';
 
-  ProfileCtrl.$inject = ['$scope', '$state', '$rootScope', '$filter', '$auth', '$window'];
+  ProfileCtrl.$inject = ['$scope', '$state', '$rootScope', '$filter', '$auth', 'User'];
 
-  function ProfileCtrl($scope, $state, $rootScope, $filter, $auth, $window) {
+  function ProfileCtrl($scope, $state, $rootScope, $filter, $auth, User) {
 
-    $scope.user = $rootScope.currentUser;
-    $scope.back = back;
-    $scope.update = update;
-    $scope.link = link;
-    $scope.unlink = unlink;
-    $scope.have_auth = have_auth;
+    var vm = this;
+    vm.user = {
+      authorizations: []
+    };
+    vm.update = update;
+    vm.link = link;
+    vm.unlink = unlink;
+    vm.have_auth = have_auth;
 
-    function back() {
-      $window.history.back();
+    activate();
+
+    function activate() {
+      User.get(+$auth.getPayload().user_id)
+        .then(function(success) {
+          vm.user = success;
+        }, function(error) {
+          $rootScope.$emit('error', error.data)
+        })
     }
 
     function update() {
-      $scope.user
+      vm.user
         .update()
         .then(function(success) {
-          $rootScope.setUser($scope.user);
+          $rootScope.setUser(vm.user);
           $state.go('^')
         }, function(error) {
           $rootScope.$emit('error', error.data.message)
@@ -32,7 +41,7 @@
           isLinking: true
         })
         .then(function(response) {
-          $scope.user.authorizations.push({
+          vm.user.authorizations.push({
             provider: provider
           });
         })
@@ -44,7 +53,7 @@
     function unlink(provider) {
       $auth.unlink(provider)
         .then(function(response) {
-          var arr = $scope.user.authorizations;
+          var arr = vm.user.authorizations;
           provider = $filter('filter')(arr, {
             provider: provider
           })
@@ -56,9 +65,9 @@
     };
 
     function have_auth(provider) {
-      return $filter('filter')($scope.user.authorizations, {
+      return $filter('filter')(vm.user.authorizations, {
         provider: provider
-      })[0];;
+      })[0];
     }
   };
 
