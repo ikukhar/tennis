@@ -85,7 +85,7 @@
     });
 
     $rootScope.$on('logout', function(event, message) {
-      $rootScope.currentUser = {}
+      $rootScope.currentUser = null
     });
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
@@ -106,7 +106,7 @@
           //   $rootScope.currentUser = response;
           // })
         } else {
-          $rootScope.currentUser = {}
+          $rootScope.currentUser = null
         }
       };
     };
