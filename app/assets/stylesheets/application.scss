@@ -16,6 +16,7 @@ $icon-font-path: "bootstrap-sass/assets/fonts/bootstrap/";
 @import "bootstrap-sass/assets/stylesheets/bootstrap";
 @import 'angular-ui-select/dist/select.min';
 @import 'angular-ui-notification/dist/angular-ui-notification.min';
+@import 'angular-loading-bar/build/loading-bar.min';
 @import "*";
 
 body {
@@ -23,6 +24,12 @@ body {
   font-size: 14px;
   background: #e4e7ec;
   font-family: 'Open Sans', sans-serif;
+}
+#loading-bar .bar {
+  top: 50px;
+}
+#loading-bar-spinner {
+  top: 55px;
 }
 .breadcrumb {
   margin-bottom: 0;

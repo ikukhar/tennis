@@ -23,13 +23,14 @@
 //= require angularjs/rails/resource
 //= require angular-ui-notification
 //= require spin.js/spin.js
-//= require angular-spinner
+/*//= require angular-spinner*/
 //= require satellizer
 //= require angular-animate
 //= require checklist-model
 //= require angular-filter
 //= require angular-ui-select
 //= require angular-sanitize
+//= require angular-loading-bar
 
 //= require ng-app/config
 

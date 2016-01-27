@@ -3,7 +3,6 @@
 
   TournamentsIndexCtrl.$inject = [
     '$scope',
-    'usSpinnerService',
     'Tournament',
     'CONSTANTS',
     '$rootScope',
@@ -12,7 +11,6 @@
 
   function TournamentsIndexCtrl(
     $scope,
-    usSpinnerService,
     Tournament,
     CONSTANTS,
     $rootScope,
@@ -31,13 +29,10 @@
     activate();
 
     function activate() {
-      usSpinnerService.spin('spinner');
       Tournament.query()
         .then(function(response) {
           vm.tournaments = response;
-          usSpinnerService.stop('spinner');
         }, function() {
-          usSpinnerService.stop('spinner');
         })
       Tournament.get('years')
         .then(function(response) {

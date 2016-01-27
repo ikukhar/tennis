@@ -15,6 +15,7 @@
     "checklist-model": "latest",
     "angular-filter": "latest",
     "angular-ui-select": "latest",
-    "angular-sanitize": "latest"
+    "angular-sanitize": "latest",
+    "angular-loading-bar": "latest"
   }
 }

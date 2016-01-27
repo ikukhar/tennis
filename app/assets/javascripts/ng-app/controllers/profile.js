@@ -17,7 +17,7 @@
     activate();
 
     function activate() {
-      User.get(+$auth.getPayload().user_id)
+      User.get($auth.getPayload().user_id)
         .then(function(success) {
           vm.user = success;
         }, function(error) {
