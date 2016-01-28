@@ -1,44 +1,56 @@
 class Api::GamesController < ApplicationController
   skip_before_action :authenticate_by_token, except: [:create, :update, :destroy]
   before_action :check_admin, only: [:create, :update, :destroy]
-  
-  def index
-    # TODO: Убрать этот ужас
-    if params[:tournament_id]
-      games = Game
-              .includes(:tournament, :round, team1: [:player1, :player2],
-                                             team2: [:player1, :player2],
-                                             winner: [:player1, :player2])
-              .where(tournament_id: params[:tournament_id])
-    elsif params[:round_id]
-      games = Game
-              .includes(:tournament, :round, team1: [:player1, :player2],
-                                             team2: [:player1, :player2],
-                                             winner: [:player1, :player2])
-              .where(round_id: params[:round_id])
-    elsif params[:user_id]
-      games = Game
-              .includes(:tournament, :round, team1: [:player1, :player2],
-                                             team2: [:player1, :player2],
-                                             winner: [:player1, :player2])
-             .joins(:team1)
-             .joins(:team2)
-             .where('teams.player1_id = :id
-                  or teams.player2_id = :id
-                  or team2s_games.player1_id = :id
-                  or team2s_games.player2_id =:id', id: params[:user_id])
-    else
-      games = Game
-              .includes(:tournament, :round, team1: [:player1, :player2],
-                                             team2: [:player1, :player2],
-                                             winner: [:player1, :player2])
-              .all
-    end
 
-    # games = Game
-    #         .includes(:tournament, :round, team1: [:player1, :player2], team2: [:player1, :player2])
-    #         .where(condition)
-    render json: games
+  def index
+
+    items_per_page = params[:items_per_page].to_i
+    page_number = params[:page_number].to_i
+    limit = items_per_page
+    offset = (page_number-1) * items_per_page
+    includes = [:tournament, :round, team1:  [:player1, :player2],
+                                     team2:  [:player1, :player2],
+                                     winner: [:player1, :player2]]
+
+
+    query = Game
+    if params[:tournament_id]
+      query = query.where(tournament_id: params[:tournament_id])
+    end
+    if params[:round_id]
+      query =  query.where(round_id: params[:round_id])
+    end
+    if params[:user_id]
+      query = query.joins('inner join teams as t1 on t1.id = games.team1_id')
+                  .joins('inner join teams as t2 on t1.id = games.team2_id')
+                  .where('t1.player1_id = :id
+                      or t1.player2_id = :id
+                      or t2.player1_id = :id
+                      or t2.player2_id =:id', id: params[:user_id])
+    end
+    if params[:search]
+      query = query.joins('inner join teams as t1 on t1.id = games.team1_id')
+                  .joins('left join users as t1p1 on t1p1.id = t1.player1_id')
+                  .joins('left join users as t1p2 on t1p2.id = t1.player2_id')
+                  .joins('inner join teams as t2 on t2.id = games.team2_id')
+                  .joins('left join users as t2p1 on t2p1.id = t2.player1_id')
+                  .joins('left join users as t2p2 on t2p2.id = t2.player2_id')
+                  .where('t1p1.full_name like   :search
+                          or t1p2.full_name like :search
+                          or t2p1.full_name like :search
+                          or t2p2.full_name like :search', search: "%#{params[:search]}%")
+
+    end
+    if params[:status]
+      finished = params[:status] == GAME::STATUSES::FINISHED ? true : false
+      query = query.where(finished: finished)
+    end
+    games = query.limit(limit).offset(offset).includes(includes).all
+    count = query.count
+
+    render json: { data: ActiveModel::ArraySerializer.new(games),
+                   total_count: count }
+
   end
 
   def update

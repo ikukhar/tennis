@@ -8,7 +8,7 @@
     '$state',
     'Round',
     'Game',
-    'games',
+    'query_filter',
     'roundFilter',
     'tournFilter',
     'statusFilter',
@@ -23,7 +23,7 @@
     $state,
     Round,
     Game,
-    games,
+    query_filter,
     roundFilter,
     tournFilter,
     statusFilter,
@@ -33,7 +33,7 @@
 
     var vm = this;
     vm.rootScope = $rootScope;
-    vm.games = games;
+    vm.games = [];
     vm.update = update;
 
     vm.tournFilter = tournFilter;
@@ -45,6 +45,28 @@
     vm.selectedFilter = selectedFilter;
     vm.onSelectTournament = onSelectTournament;
     vm.title = title;
+    vm.onSelectFilter = onSelectFilter;
+    vm.onPagination = onPagination;
+
+
+    vm.total_count = 0;
+    vm.itemsPerPage = 8;
+    vm.current_page = 1;
+    vm.search = '';
+
+    vm.getData = function(newPageNumber){
+
+      query_filter.itemsPerPage = vm.itemsPerPage;
+      query_filter.pageNumber = newPageNumber ? newPageNumber : vm.current_page;
+
+      Game.query(query_filter)
+        .then(function(response){
+          vm.games = response.data;
+          vm.total_count = response.totalCount;
+      });
+    };
+    vm.getData();
+
 
     function update(game) {
       game.winner = getWinner(game);
@@ -100,10 +122,10 @@
       return winner;
     }
 
-    function onSelectTournament(item) {
-      if (item) {
+    function onSelectTournament(mode) {
+      if (mode) {
         Round.query({
-            tournament_id: item.id
+            tournament_id: vm.selectedTourn.id
           })
           .then(function(response) {
             vm.roundFilter = response;
@@ -112,6 +134,46 @@
         vm.roundFilter = null;
       }
       vm.selectedRound = null;
+    }
+
+    function onSelectFilter() {
+      vm.current_page = 1
+
+      if (vm.tournFilter) {
+        if (vm.selectedTourn) {
+          query_filter.tournament_id = vm.selectedTourn.id;
+        } else {
+          delete query_filter.tournament_id
+        }
+      }
+
+      if (vm.roundFilter) {
+        if (vm.selectedRound) {
+          query_filter.round_id = vm.selectedRound.id;
+        } else {
+          delete query_filter.round_id
+        }
+      }
+
+      if (vm.statusFilter) {
+        if (vm.selectedStatus) {
+          query_filter.status = vm.selectedStatus;
+        } else {
+          delete query_filter.status
+        }
+      }
+
+      if (vm.search.length > 0){
+        query_filter.search = vm.search
+      } else {
+        delete query_filter.search
+      }
+
+      vm.getData()
+    }
+
+    function onPagination(newPageNumber) {
+      vm.getData(newPageNumber)
     }
 
   };

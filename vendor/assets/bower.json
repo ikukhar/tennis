@@ -16,6 +16,7 @@
     "angular-filter": "latest",
     "angular-ui-select": "latest",
     "angular-sanitize": "latest",
-    "angular-loading-bar": "latest"
+    "angular-loading-bar": "latest",
+    "angular-utils-pagination": "latest"
   }
 }

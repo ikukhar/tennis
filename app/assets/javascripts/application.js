@@ -31,6 +31,7 @@
 //= require angular-ui-select
 //= require angular-sanitize
 //= require angular-loading-bar
+//= require angular-utils-pagination
 
 //= require ng-app/config
 

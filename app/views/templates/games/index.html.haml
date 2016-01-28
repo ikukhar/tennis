@@ -1,46 +1,61 @@
 .panel.panel-default.panel-shadow
   .panel-body
-    %h3 {{vm.title}}
+    %h3 {{ vm.title }}
+
     %form.form-vertical.select-filter-panel
       .col-sm-3{ :'ng-if' =>  'vm.tournFilter'}
         .form-group
           %label.control-label Tournament:
-          %ui-select{ :'ng-model' => "vm.selectedTourn", :'on-select' => 'vm.onSelectTournament($item)' }
+          %ui-select{ :'ng-model' => "vm.selectedTourn",
+                      :'on-select' => 'vm.onSelectFilter(); vm.onSelectTournament(true)'}
             %ui-select-match
-              %span{ :'ng-bind' => "$select.selected.name" }
-              %a.btn.btn-xs.btn-link{ :'ng-click' => 'vm.rootScope.clearSelectFilter($event, $select); vm.onSelectTournament(null)' }
+              %span{ :'ng-bind' => '$select.selected.name' }
+              %a.btn.btn-xs.btn-link{ :'ng-click' => 'vm.rootScope.clearSelectFilter($event, $select); vm.selectedTourn = null; vm.onSelectFilter(); vm.onSelectTournament(false)' }
                 %i.ion-close
-            %ui-select-choices{ :repeat => "item in (vm.tournFilter | filter: $select.search) track by item.id" }
-              %span{ :'ng-bind' => "item.name" }
+            %ui-select-choices{ :repeat => 'item in (vm.tournFilter | filter: $select.search) track by item.id' }
+              %span{ :'ng-bind' => 'item.name' }
 
       .col-sm-3{ :'ng-if' =>  'vm.tournFilter || vm.roundFilter'}
         .form-group
           %label.control-label Round:
-          %ui-select{ :'ng-model' => "vm.selectedRound", :'ng-disabled' =>  '!vm.roundFilter' }
+          %ui-select{ :'ng-model' => 'vm.selectedRound',
+                      :'on-select' => 'vm.onSelectFilter()',
+                      :'ng-disabled' =>  '!vm.roundFilter' }
             %ui-select-match
-              %span{ :'ng-bind' => "$select.selected.name" }
-              %a.btn.btn-xs.btn-link{ :'ng-click' => 'vm.rootScope.clearSelectFilter($event, $select)' }
+              %span{ :'ng-bind' => '$select.selected.name' }
+              %a.btn.btn-xs.btn-link{ :'ng-click' => 'vm.rootScope.clearSelectFilter($event, $select); vm.selectedRound = null; vm.onSelectFilter()' }
                 %i.ion-close
-            %ui-select-choices{ :repeat => "item in (vm.roundFilter | filter: $select.search) track by item.id" }
-              %span{ :'ng-bind' => "item.name" }
+            %ui-select-choices{ :repeat => 'item in (vm.roundFilter | filter: $select.search) track by item.id' }
+              %span{ :'ng-bind' => 'item.name' }
 
       .col-sm-3{ :'ng-if' =>  'vm.statusFilter'}
         .form-group
           %label.control-label Status:
-          %ui-select{ :'ng-model' => "vm.selectedStatus" }
+          %ui-select{ :'ng-model' => 'vm.selectedStatus',
+                      :'on-select' => 'vm.onSelectFilter()' }
             %ui-select-match
               %span{ :'ng-bind' => "$select.selected.value" }
-              %a.btn.btn-xs.btn-link{ :'ng-click' => 'vm.rootScope.clearSelectFilter($event, $select)' }
+              %a.btn.btn-xs.btn-link{ :'ng-click' => 'vm.rootScope.clearSelectFilter($event, $select); vm.selectedStatus = null; vm.onSelectFilter()' }
                 %i.ion-close
-            %ui-select-choices{ :repeat => "item.value as (key, item) in vm.statusFilter | filter: {'value':$select.search}" }
-              %span{ :'ng-bind' => "item.value" }
+            %ui-select-choices{ :repeat => 'item.value as (key, item) in vm.statusFilter | filter: { "value":$select.search }' }
+              %span{ :'ng-bind' => 'item.value' }
 
       .col-sm-3
         .form-group
           %label.control-label Search:
-          %input.form-control{ :'ng-model' => 'search' }
+          %input.form-control{ :'ng-model' => 'vm.search',
+                               :'ng-change' => 'vm.onSelectFilter()',
+                               :'ng-model-options' => '{ debounce: 500 }' }
 
     .clearfix
     %hr
-    %div{ :'ng-repeat' => 'game in vm.games | filter: vm.selectedFilter | filterBy: ["team1.name", "team2.name"]: search'  }
+    -#%div{ :'ng-repeat' => 'game in vm.games | filter: vm.selectedFilter | filterBy: ["team1.name", "team2.name"]: search'  }
+    %div{ :'dir-paginate' => 'game in vm.games | itemsPerPage: vm.itemsPerPage',
+          :'total-items' => 'vm.total_count',
+          :'current-page' => 'vm.current_page' }
       =render 'templates/games/singles_game'
+    .clearfix
+    %dir-pagination-controls{ :'max-size' => 5,
+                              :'direction-links' => 'true',
+                              :'boundary-links' => 'true',
+                              :'on-page-change' => 'vm.onPagination(newPageNumber)', :'auto-hide' => 'false' }

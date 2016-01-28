@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     get 'rounds/:id/championship_table_data', to: 'rounds#championship_table_data'
     post 'rounds/:id/createGames', to: 'rounds#create_games'
     resources :teams
+    get 'games/test/', to: 'games#test'
     resources :games
     get 'rating', to: 'users#players_rating'
   end

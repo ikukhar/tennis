@@ -69,11 +69,11 @@
             }
           },
           title: function() { return 'My games' },
-          games: function(Game, $auth) {
+          query_filter: function($auth) {
             if ($auth.isAuthenticated()) {
-              return Game.query({user_id: $auth.getPayload()['user_id']})
+              return { user_id: $auth.getPayload()['user_id'] }
             } else {
-              return []
+              return {}
             }
           }
         }
@@ -163,7 +163,6 @@
         controllerAs: 'vm',
         templateUrl: 'templates/games/index.html',
         resolve: {
-          Game: 'Game',
           Round: 'Round',
           tournFilter: function() {
             return null
@@ -180,10 +179,8 @@
             }
           },
           title: function() { return 'Games' },
-          games: function(Game, $stateParams) {
-            return Game.query({
-              tournament_id: $stateParams.id
-            })
+          query_filter: function($stateParams) {
+            return { tournament_id: $stateParams.id }
           }
         }
       }
@@ -221,10 +218,8 @@
             }
           },
           title: function() { return 'Games' },
-          games: function(Game, $stateParams) {
-            return Game.query({
-              round_id: $stateParams.roundId
-            })
+          query_filter: function($stateParams) {
+            return { round_id: $stateParams.roundId }
           }
         }
       }
@@ -424,8 +419,8 @@
             }
           },
           title: function() { return 'Games' },
-          games: function(Game) {
-            return Game.query()
+          query_filter: function() {
+            return {}
           }
         }
       }

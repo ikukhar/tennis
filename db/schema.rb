@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20160126104721) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "authorizations", force: :cascade do |t|
     t.string   "provider"
     t.string   "uid"
@@ -21,7 +24,7 @@ ActiveRecord::Schema.define(version: 20160126104721) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "authorizations", ["user_id"], name: "index_authorizations_on_user_id"
+  add_index "authorizations", ["user_id"], name: "index_authorizations_on_user_id", using: :btree
 
   create_table "games", force: :cascade do |t|
     t.integer  "round_id"
@@ -36,9 +39,9 @@ ActiveRecord::Schema.define(version: 20160126104721) do
     t.integer  "loser_id"
   end
 
-  add_index "games", ["round_id"], name: "index_games_on_round_id"
-  add_index "games", ["team1_id"], name: "index_games_on_team1_id"
-  add_index "games", ["team2_id"], name: "index_games_on_team2_id"
+  add_index "games", ["round_id"], name: "index_games_on_round_id", using: :btree
+  add_index "games", ["team1_id"], name: "index_games_on_team1_id", using: :btree
+  add_index "games", ["team2_id"], name: "index_games_on_team2_id", using: :btree
 
   create_table "rounds", force: :cascade do |t|
     t.integer  "tournament_id"
@@ -52,7 +55,7 @@ ActiveRecord::Schema.define(version: 20160126104721) do
     t.integer  "next_round_id"
   end
 
-  add_index "rounds", ["tournament_id"], name: "index_rounds_on_tournament_id"
+  add_index "rounds", ["tournament_id"], name: "index_rounds_on_tournament_id", using: :btree
 
   create_table "teams", force: :cascade do |t|
     t.integer  "tournament_id"
@@ -63,9 +66,9 @@ ActiveRecord::Schema.define(version: 20160126104721) do
     t.string   "name"
   end
 
-  add_index "teams", ["player1_id"], name: "index_teams_on_player1_id"
-  add_index "teams", ["player2_id"], name: "index_teams_on_player2_id"
-  add_index "teams", ["tournament_id"], name: "index_teams_on_tournament_id"
+  add_index "teams", ["player1_id"], name: "index_teams_on_player1_id", using: :btree
+  add_index "teams", ["player2_id"], name: "index_teams_on_player2_id", using: :btree
+  add_index "teams", ["tournament_id"], name: "index_teams_on_tournament_id", using: :btree
 
   create_table "tournaments", force: :cascade do |t|
     t.string   "name"
@@ -90,6 +93,7 @@ ActiveRecord::Schema.define(version: 20160126104721) do
     t.boolean  "admin"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
+  add_foreign_key "games", "rounds"
 end

@@ -5,27 +5,25 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: sqlite3
-  pool: 5
+  adapter: postgresql
+  encoding: unicode
   timeout: 5000
+  pool: 5
+  host: localhost
+  username: pguser
+  password: pguser
 
 development:
   <<: *default
-  database: db/development.sqlite3
+  database: tennis_dev
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: db/test.sqlite3
+  database: tennis_test
 
 production:
-  adapter: postgresql
-  encoding: unicode
-  database: tennis
-  pool: 5
-  timeout: 5000
-  host: localhost
-  username: pguser
-  password: pguser
+  database: tennis_prod
+

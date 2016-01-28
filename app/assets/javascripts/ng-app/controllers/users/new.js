@@ -1,9 +1,9 @@
 (function() {
   'use strict';
 
-  UsersNewCtrl.$inject = ['$scope', '$state', 'User'];
+  UsersNewCtrl.$inject = ['$scope', '$state', 'User', '$rootScope'];
 
-  function UsersNewCtrl($scope, $state, User) {
+  function UsersNewCtrl($scope, $state, User, $rootScope) {
 
     var vm = this;
     vm.user = new User;
