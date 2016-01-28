@@ -45,7 +45,7 @@ class Api::GamesController < ApplicationController
       finished = params[:status] == GAME::STATUSES::FINISHED ? true : false
       query = query.where(finished: finished)
     end
-    games = query.limit(limit).offset(offset).includes(includes).all
+    games = query.limit(limit).offset(offset).includes(includes).all.order(:id)
     count = query.count
 
     render json: { data: ActiveModel::ArraySerializer.new(games),
