@@ -10,7 +10,7 @@
                       :'on-select' => 'vm.onSelectFilter(); vm.onSelectTournament(true)'}
             %ui-select-match
               %span{ :'ng-bind' => '$select.selected.name' }
-              %a.btn.btn-xs.btn-link{ :'ng-click' => 'vm.rootScope.clearSelectFilter($event, $select); vm.selectedTourn = null; vm.onSelectFilter(); vm.onSelectTournament(false)' }
+              %a.btn.btn-xs.btn-link{ :'ng-click' => 'vm.rootScope.clearSelectFilter($event, $select); vm.selectedTourn = null; vm.selectedRound = null; vm.onSelectFilter(); vm.onSelectTournament(false)' }
                 %i.ion-close
             %ui-select-choices{ :repeat => 'item in (vm.tournFilter | filter: $select.search) track by item.id' }
               %span{ :'ng-bind' => 'item.name' }
