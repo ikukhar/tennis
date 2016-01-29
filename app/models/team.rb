@@ -22,8 +22,6 @@ class Team < ActiveRecord::Base
       count_pl = players.count
       fail 'Count players must be even!' if count_pl%2 != 0
       stat = User.players_statistic
-      puts '---------------'
-      puts stat
 
       new_players = players.dup - (players.delete_if do |pl|
         if h = stat.find { |row| row[:player] == pl }
@@ -33,8 +31,6 @@ class Team < ActiveRecord::Base
         end
       end)
 
-      p 'New players:'
-      p new_players
       players.sort!{ |pl1,pl2| pl2.rating <=> pl1.rating }
 
       count_without_new = players.count
@@ -45,8 +41,7 @@ class Team < ActiveRecord::Base
         p new_pl
         players.insert(rand(from..to), new_pl)
       end
-      p 'Players'
-      p players
+
       # Можно улучшить(увеличить кво частей) разбиение в зависимости от к-ва игроков
       middle = count_pl/2
 

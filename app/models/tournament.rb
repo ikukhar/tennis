@@ -8,7 +8,6 @@ class Tournament < ActiveRecord::Base
   validates_inclusion_of :finished, in: [true, false]
 
   def self.calculate_players_rating!
-    # TODO: Перейти на pg т.к. синтаксис апдейта специфичен!
     query = <<-SQL
     update users
     set rating =
