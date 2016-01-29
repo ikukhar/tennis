@@ -4,7 +4,7 @@
       {{ vm.title }}
 
     %form.form-vertical.select-filter-panel
-      .col-sm-3{ ng_if:  'vm.tournFilter'}
+      .col-sm-3{ ng_if:  'vm.tournFilter' }
         .form-group
           %label.control-label Tournament:
           %ui-select{ ng_model: 'vm.selectedTourn',
@@ -16,7 +16,7 @@
             %ui-select-choices{ repeat: 'item in (vm.tournFilter | filter: $select.search) track by item.id' }
               %span{ ng_bind: 'item.name' }
 
-      .col-sm-3{ ng_if: 'vm.tournFilter || vm.roundFilter'}
+      .col-sm-3{ ng_if: 'vm.tournFilter || vm.roundFilter' }
         .form-group
           %label.control-label Round:
           %ui-select{ ng_model: 'vm.selectedRound',
@@ -35,7 +35,7 @@
           %ui-select{ ng_model: 'vm.selectedStatus',
                       on_select: 'vm.onSelectFilter()' }
             %ui-select-match
-              %span{ ng_bind: "$select.selected.value" }
+              %span{ ng_bind: '$select.selected.value' }
               %a.btn.btn-xs.btn-link{ ng_click: 'vm.rootScope.clearSelectFilter($event, $select); vm.selectedStatus = null; vm.onSelectFilter()' }
                 %i.ion-close
             %ui-select-choices{ repeat: 'item.value as (key, item) in vm.statusFilter | filter: { "value":$select.search }' }
@@ -50,7 +50,7 @@
 
     .clearfix
     %hr
-    %div{ dir_paginate: 'game in vm.games | itemsPerPage: vm.itemsPerPage',
+    %div{ :'dir-paginate' => 'game in vm.games | itemsPerPage: vm.itemsPerPage',
           total_items: 'vm.total_count',
           current_page: 'vm.current_page' }
       =render 'templates/games/singles_game'
