@@ -1,16 +1,11 @@
 .panel.panel-default.panel-shadow
   .panel-body
-    //%ncy-breadcrumb
     .command-panel
-      .pull-left
-        %h3 {{vm.round.name}}
-      .pull-right
-        .btn-group
+      %h3
+        {{ vm.round.name }}
 
-      .clearfix
-    %div{ :'ng-if' => 'vm.championshipTable' }
+    %div{ ng_if: 'vm.championshipTable' }
       %hr
-      %div{ :'ng-include' => "'/templates/rounds/_table.html'" }
-    -# %div{ :'ng-if' => '!vm.championshipTable', :'ng-include' => "'/templates/rounds/_grid.html'" }
+      %div{ ng_include: "'/templates/rounds/_table.html'" }
 
-%div{ :'ui-view' => 'games' }
+%div{ ui_view: 'games' }

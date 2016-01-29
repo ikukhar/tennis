@@ -1,22 +1,19 @@
-
 .panel.panel-default.panel-shadow
   .panel-body.form-container
     .command-panel
-      .pull-left
-        %h3
-          Create tournament
-      .clearfix
+      %h3
+        Create tournament
     %hr
-
     #status-buttons.text-center
-      %div{ :'ng-repeat' => 'status in vm.statusButtons'}
-        %a{ :'ui-sref-active' => 'active', :'ui-sref' => '{{status.state}}' }
-          %span {{ $index+1 }}
+      %div{ ng_repeat: 'status in vm.statusButtons'}
+        %a{ ui_sref_active: 'active', ui_sref: '{{status.state}}' }
+          %span
+            {{ $index+1 }}
           {{status.name}}
 
-    %form{ :'ng-submit' => 'create()',
-           :role => 'form',
-           :name => 'form',
-           :novalidate => true }
+    %form{ ng_submit: 'create()',
+           role: 'form',
+           name: 'form',
+           novalidate: true }
 
-      .form-views{ :'ui-view' => true }
+      .form-views{ ui_view: true }

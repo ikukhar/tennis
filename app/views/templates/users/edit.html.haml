@@ -1,19 +1,15 @@
 .panel.panel-default.panel-shadow
   .panel-body
     .command-panel
-      .pull-left
-        %h3 Edit user
-      .clearfix
+      %h3 Edit user
     %hr
-      %form{ :'ng-submit' => 'vm.update()',
-             :role => 'form',
-             :name => 'form',
-             :novalidate => true }
+      %form{ ng_submit: 'vm.update()',
+             role: 'form',
+             name: 'form',
+             novalidate: true }
 
         =render 'templates/users/form'
 
-
         .form-group
-          =render_button 'submit', :'ng-disabled' => 'form.$invalid',
-                                   :text => 'Update'
+          =render_button 'submit', ng_disabled: 'form.$invalid', text: 'Update'
           =render_button 'cancel'

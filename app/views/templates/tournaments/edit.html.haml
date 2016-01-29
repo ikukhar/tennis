@@ -1,34 +1,31 @@
 .panel.panel-default.panel-shadow
   .panel-body
     .command-panel
-      .pull-left
-        %h3 Edit tournament
-      .clearfix
+      %h3 Edit tournament
     %hr
-      %form{ :'ng-submit' => 'vm.update()',
-             :role => 'form',
-             :name => 'form',
-             :novalidate => true }
+      %form{ ng_submit: 'vm.update()',
+             role: 'form',
+             name: 'form',
+             novalidate: true }
 
-        .form-group.required{ :'ng-class' => "{ 'has-error': form.name.$touched && form.name.$invalid }" }
+        .form-group.required{ ng_class: "{ 'has-error': form.name.$touched && form.name.$invalid }" }
           %label.control-label Name:
-          %input.form-control{ :'ng-model' => 'vm.tournament.name',
-                                    :name => 'name',
-                                    :required => true,
-                                    :type => 'text'}
+          %input.form-control{ ng_model: 'vm.tournament.name',
+                               name: 'name',
+                               required: true,
+                               type: 'text'}
 
-        .form-group.required{ :'ng-class' => "{ 'has-error': form.status.$touched && form.status.$invalid }" }
+        .form-group.required{ ng_class: "{ 'has-error': form.status.$touched && form.status.$invalid }" }
           %label.control-label Status:
-          %select.form-control{:'ng-model' => 'vm.tournament.status',
-                               :name => 'status',
-                               :required => true,
-                               :'ng-trim' => 'true'}
+          %select.form-control{ ng_model: 'vm.tournament.status',
+                                name: 'status',
+                                required: true,
+                                ng_trim: 'true'}
             %option
             -TOURNAMENT::STATUSES.constants.each do |name|
               %option=TOURNAMENT::STATUSES.const_get(name)
 
 
         .form-group
-          =render_button 'submit', :'ng-disabled' => 'form.$invalid',
-                                   :text => 'Update'
+          =render_button 'submit', ng_disabled: 'form.$invalid', :text => 'Update'
           =render_button 'cancel'

@@ -1,19 +1,15 @@
 .panel.panel-default.panel-shadow
   .panel-body
     .command-panel
-      .pull-left
-        %h3 New user
-      .clearfix
+      %h3 New user
     %hr
-      %form{ :'ng-submit' => 'vm.create()',
-             :role => 'form',
-             :name => 'form',
-             :novalidate => true }
+      %form{ ng_submit: 'vm.create()',
+             role: 'form',
+             name: 'form',
+             novalidate: true }
 
         =render 'templates/users/form'
 
-
         .form-group
-          =render_button 'submit', :'ng-disabled' => 'form.$invalid',
-                                   :text => 'Create'
+          =render_button 'submit', ng_disabled: 'form.$invalid', text: 'Create'
           =render_button 'cancel'

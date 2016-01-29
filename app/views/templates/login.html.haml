@@ -1,49 +1,49 @@
 .center-form.panel.panel-shadow
   .panel-body
     %h2.text-center Log in
-    %form{ :'ng-submit' => 'login(user)',
-           :role => 'form',
-           :name => 'form',
-           :novalidate => true }
+    %form{ ng_submit: 'login(user)',
+           role: 'form',
+           name: 'form',
+           novalidate: true }
 
-      .form-group.has-feedback{ :'ng-class' => "{ 'has-error': form.email.$touched && form.email.$invalid }" }
+      .form-group.has-feedback{ ng_class: "{ 'has-error': form.email.$touched && form.email.$invalid }" }
         %span.ion-at.form-control-feedback
-        %input.form-control.input-lg{ :'ng-model' => 'user.email',
-                                     :name => 'email',
-                                     :required => true,
-                                     :type => 'email',
-                                     :placeholder => "Email" }
+        %input.form-control.input-lg{ ng_model: 'user.email',
+                                      name: 'email',
+                                      required: true,
+                                      type: 'email',
+                                      placeholder: 'Email' }
 
-      .form-group.has-feedback{ :'ng-class' => "{ 'has-error': form.password.$touched && form.password.$invalid }" }
+      .form-group.has-feedback{ ng_class: "{ 'has-error': form.password.$touched && form.password.$invalid }" }
         %span.ion-key.form-control-feedback
-        %input.form-control.input-lg{ :'ng-model' => 'user.password',
-                                      :name => 'password',
-                                      :required => true,
-                                      :type => 'password',
-                                      :placeholder => "Password" }
+        %input.form-control.input-lg{ ng_model: 'user.password',
+                                      name: 'password',
+                                      required: true,
+                                      type: 'password',
+                                      placeholder: 'Password' }
       .form-group
-        %button.btn.btn-lg.btn-block.btn-success{ :type => 'submit', :'ng-disabled' => 'form.$invalid' } Log in
+        %button.btn.btn-lg.btn-block.btn-success{ type: 'submit', ng_disabled: 'form.$invalid' } Log in
 
       %br
       .text-center.text-muted
         %small Don't have an account yet?
-        %a{ :'ui-sref' => 'signup'} Sign up
+        %a{ ui_sref: 'signup'} Sign up
       .signup-or-separator
         %h6.text
           or
         %hr
 
-      %button.btn.btn-block.btn-facebook.btn-social{ :'ng-click' => "authenticate('facebook')",
-                                        :type => 'button' }
+      %button.btn.btn-block.btn-facebook.btn-social{ ng_click: "authenticate('facebook')",
+                                                     type: 'button' }
         %span.ion-social-facebook
           Sign in with Facebook
 
-      %button.btn.btn-block.btn-vkontakte.btn-social{ :'ng-click' => "authenticate('vkontakte')",
-                                           :type => 'button' }
+      %button.btn.btn-block.btn-vkontakte.btn-social{ ng_click: "authenticate('vkontakte')",
+                                                      type: 'button' }
         %span.fa.fa-vk
           Sign in with Vkontakte
 
-      %button.btn.btn-block.btn-github.btn-social{ :'ng-click' => "authenticate('github')",
-                                        :type => 'button' }
+      %button.btn.btn-block.btn-github.btn-social{ ng_click: "authenticate('github')",
+                                                   type: 'button' }
         %span.ion-social-github
           Sign in with Github

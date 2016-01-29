@@ -7,36 +7,36 @@
       .clearfix
     %hr
 
-    %form{ :'ng-submit' => 'vm.update()',
-          :role => 'form',
-          :name => 'form',
-          :novalidate => true }
+    %form{ ng_submit: 'vm.update()',
+          role: 'form',
+          name: 'form',
+          novalidate: true }
 
-      .form-group{ :'ng-class' => "{ 'has-error': form.firstName.$touched && form.firstName.$invalid }" }
+      .form-group{ ng_class: "{ 'has-error': form.firstName.$touched && form.firstName.$invalid }" }
         %label.control-label
           %i.ion-person
           Name
-        %input.form-control{ :'ng-model' => 'vm.user.firstName',
-                             :name => 'firstName',
-                             :required => true,
-                             :type => 'text' }
-      .form-group{ :'ng-class' => "{ 'has-error': form.lastName.$touched && form.lastName.$invalid }" }
+        %input.form-control{ ng_model: 'vm.user.firstName',
+                             name: 'firstName',
+                             required: true,
+                             type: 'text' }
+      .form-group{ ng_class: "{ 'has-error': form.lastName.$touched && form.lastName.$invalid }" }
         %label.control-label
           %i.ion-person
           Surname
-        %input.form-control{ :'ng-model' => 'vm.user.lastName',
-                             :name => 'lastName',
-                             :required => true,
-                             :type => 'text' }
+        %input.form-control{ ng_model: 'vm.user.lastName',
+                             name: 'lastName',
+                             required: true,
+                             type: 'text' }
 
-      .form-group{ :'ng-class' => "{ 'has-error': form.email.$touched && form.email.$invalid }" }
+      .form-group{ ng_class: "{ 'has-error': form.email.$touched && form.email.$invalid }" }
         %label.control-label
           %i.ion-at
           Email
-        %input.form-control{ :'ng-model' => 'vm.user.email',
-                             :name => 'email',
-                             :required => true,
-                             :type => 'email' }
+        %input.form-control{ ng_model: 'vm.user.email',
+                             name: 'email',
+                             required: true,
+                             type: 'email' }
 
       .form-group
         =render_button 'submit', :'ng-disabled' => 'form.$invalid', text: 'Update'

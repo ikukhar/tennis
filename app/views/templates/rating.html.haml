@@ -7,22 +7,28 @@
     %table.table.table-hover.table-bordered
       %thead
         %tr
-          %th{ :style => "width:10%"} Rank
-          %th{ :style => "width:50%"} Player
-          %th{ :style => "width:10%"} Rating
-          %th{ :style => "width:10%"} W(s)
-          %th{ :style => "width:10%"} L(s)
-          %th{ :style => "width:10%"} W(d)
-          %th{ :style => "width:10%"} L(d)
+          %th{ style: 'width:10%' } Rank
+          %th{ style: 'width:50%' } Player
+          %th{ style: 'width:10%' } Rating
+          %th{ style: 'width:10%' } W(s)
+          %th{ style: 'width:10%' } L(s)
+          %th{ style: 'width:10%' } W(d)
+          %th{ style: 'width:10%' } L(d)
 
       %tbody
-        %tr{ :"ng-repeat" => "item in vm.playerStatistic" }
-          %td {{ $index+1 }}
+        %tr{ ng_repeat: 'item in vm.playerStatistic' }
           %td
-            %a{ :'ui-sref' => "showPlayer(item.player)" }
+            {{ $index+1 }}
+          %td
+            %a{ ui_sref: 'showPlayer(item.player)' }
               {{item.player.full_name}}
-          %td {{ item.rating }}
-          %td {{ item.wins_s }}
-          %td {{ item.loses_s }}
-          %td {{ item.wins_d }}
-          %td {{ item.loses_d }}
+          %td
+            {{ item.rating }}
+          %td
+            {{ item.wins_s }}
+          %td
+            {{ item.loses_s }}
+          %td
+            {{ item.wins_d }}
+          %td
+            {{ item.loses_d }}

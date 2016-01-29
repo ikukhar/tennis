@@ -1,54 +1,53 @@
 .center-form.panel.panel-shadow
   .panel-body
     %h2.text-center Sign up
-    %form{ :'ng-submit' => 'signup(user)',
-           :role => 'form',
-           :name => 'form',
-           :novalidate => true }
-           
-      .form-group.has-feedback{ :'ng-class' => "{ 'has-error': form.first_name.$touched && form.first_name.$invalid }" }
+    %form{ ng_submit: 'signup(user)',
+           role: 'form',
+           name: 'form',
+           novalidate: true }
+      .form-group.has-feedback{ ng_class: "{ 'has-error': form.first_name.$touched && form.first_name.$invalid }" }
         %span.ion-person.form-control-feedback
-        %input.form-control.input-lg{ :'ng-model' => 'user.first_name',
-                                     :name => 'first_name',
-                                     :required => true,
-                                     :type => 'text',
-                                     :placeholder => "First name" }
+        %input.form-control.input-lg{ ng_model: 'user.first_name',
+                                      name: 'first_name',
+                                      required: true,
+                                      type: 'text',
+                                      placeholder: 'First name' }
 
-      .form-group.has-feedback{ :'ng-class' => "{ 'has-error': form.last_name.$touched && form.last_name.$invalid }" }
+      .form-group.has-feedback{ ng_class: "{ 'has-error': form.last_name.$touched && form.last_name.$invalid }" }
         %span.ion-person.form-control-feedback
-        %input.form-control.input-lg{ :'ng-model' => 'user.last_name',
-                                     :name => 'last_name',
-                                     :required => true,
-                                     :type => 'text',
-                                     :placeholder => "Last name" }
+        %input.form-control.input-lg{ ng_model: 'user.last_name',
+                                      name: 'last_name',
+                                      required: true,
+                                      type: 'text',
+                                      placeholder: 'Last name' }
 
-      .form-group.has-feedback{ :'ng-class' => "{ 'has-error': form.email.$touched && form.email.$invalid }" }
+      .form-group.has-feedback{ ng_class: "{ 'has-error': form.email.$touched && form.email.$invalid }" }
         %span.ion-at.form-control-feedback
-        %input.form-control.input-lg{ :'ng-model' => 'user.email',
-                                     :name => 'email',
-                                     :required => true,
-                                     :type => 'email',
-                                     :placeholder => "Email" }
+        %input.form-control.input-lg{ ng_model: 'user.email',
+                                      name: 'email',
+                                      required: true,
+                                      type: 'email',
+                                      placeholder: 'Email' }
 
-      .form-group.has-feedback{ :'ng-class' => "{ 'has-error': form.password.$touched && form.password.$invalid }" }
+      .form-group.has-feedback{ ng_class: "{ 'has-error': form.password.$touched && form.password.$invalid }" }
         %span.ion-key.form-control-feedback
-        %input.form-control.input-lg{ :'ng-model' => 'user.password',
-                                      :name => 'password',
-                                      :required => true,
-                                      :type => 'password',
-                                      :placeholder => "Password" }
+        %input.form-control.input-lg{ ng_model: 'user.password',
+                                      name: 'password',
+                                      required: true,
+                                      type: 'password',
+                                      placeholder: "Password" }
 
-      .form-group.has-feedback{ :'ng-class' => "{ 'has-error': form.password_confirmation.$touched && form.password_confirmation.$invalid }" }
+      .form-group.has-feedback{ ng_class: "{ 'has-error': form.password_confirmation.$touched && form.password_confirmation.$invalid }" }
         %span.ion-key.form-control-feedback
-        %input.form-control.input-lg{ :'ng-model' => 'user.password_confirmation',
-                                      :name => 'password_confirmation',
-                                      :required => true,
-                                      :type => 'password',
-                                      :placeholder => "Confirm password" }
+        %input.form-control.input-lg{ ng_model: 'user.password_confirmation',
+                                      name: 'password_confirmation',
+                                      required: true,
+                                      type: 'password',
+                                      placeholder: 'Confirm password' }
 
       .form-group
-        %button.btn.btn-lg.btn-block.btn-primary{ :type => 'submit', :'ng-disabled' => 'form.$invalid' } Sign up
+        %button.btn.btn-lg.btn-block.btn-primary{ type: 'submit', ng_disabled: 'form.$invalid' } Sign up
 
       .text-center.text-muted
         %small Already have an account?
-        %a{ :'ui-sref' => 'login'} Log in
+        %a{ ui_sref: 'login'} Log in

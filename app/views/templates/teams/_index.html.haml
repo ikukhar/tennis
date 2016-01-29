@@ -1,9 +1,8 @@
-.panel.panel-default
+.panel.panel-default.panel-shadow
   .panel-heading
-    .pull-left
-      %h5 Teams
-    .clearfix
-  -# .list-container
+    %h5 Teams
+
   %ol
-    %li{ :'ng-repeat' => 'team in vm.teams' }
-      %h5 {{team.name}}
+    %li{ ng_repeat: 'team in vm.teams' }
+      %h5
+        {{team.name}}

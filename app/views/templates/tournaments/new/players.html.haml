@@ -1,21 +1,21 @@
 .panel.panel-body
   .form-group
-    %a.btn.btn-default{ :'ng-click' => 'vm.selectAll()' }
+    %a.btn.btn-default{ ng_click: 'vm.selectAll()' }
       %span.fa.fa-check-square-o
       Select all
-    %a.btn.btn-default{ :'ng-click' => 'vm.unselectAll()' }
+    %a.btn.btn-default{ ng_click: 'vm.unselectAll()' }
       %span.fa.fa-square-o
       Unelect all
   .list-container
-    .form-group{ :'ng-repeat' => 'user in vm.users' }
-      %input{ :type => "checkbox",
-              :'checklist-model' => 'vm.selectedPlayers',
-              :'checklist-value' => 'user' }
+    .form-group{ ng_repeat: 'user in vm.users' }
+      %input{ type: 'checkbox',
+              checklist_model: 'vm.selectedPlayers',
+              checklist_value: 'user' }
         {{user.fullName}}
 
-  %h5 Selected: {{vm.selectedPlayers.length}}
+  %h5 Selected: {{ vm.selectedPlayers.length }}
 
 .form-group.row
   .col-xs-3.col-xs-offset-3
-    =render_button 'next', :'ui-sref' => 'newTournament.rounds'
+    =render_button 'next', ui_sref: 'newTournament.rounds'
   =render_button 'cancel'

@@ -8,23 +8,23 @@
     %hr
 
     .btn-group-vertical
-      %button.btn.btn-primary.btn-social{ :'ng-if' => "!vm.have_auth('facebook')", :'ng-click' => "vm.link('facebook')"}
+      %button.btn.btn-primary.btn-social{ ng_if: "!vm.have_auth('facebook')", ng_click: "vm.link('facebook')"}
         %span.ion-social-facebook
           Link Facebook Account
-      %button.btn.btn-danger.btn-social{ :'ng-if' => "vm.have_auth('facebook')", :'ng-click' => "vm.unlink('facebook')"}
+      %button.btn.btn-danger.btn-social{ ng_if: "vm.have_auth('facebook')", ng_click: "vm.unlink('facebook')"}
         %span.ion-social-facebook
           Unlink Facebook Account
 
-      %button.btn.btn-primary.btn-social{ :'ng-if' => "!vm.have_auth('vkontakte')", :'ng-click' => "vm.link('vkontakte')"}
+      %button.btn.btn-primary.btn-social{ ng_if: "!vm.have_auth('vkontakte')", ng_click: "vm.link('vkontakte')"}
         %span.fa.fa-vk
           Link Vkontakte Account
-      %button.btn.btn-danger.btn-social{ :'ng-if' => "vm.have_auth('vkontakte')", :'ng-click' => "vm.unlink('vkontakte')"}
+      %button.btn.btn-danger.btn-social{ ng_if: "vm.have_auth('vkontakte')", ng_click: "vm.unlink('vkontakte')"}
         %span.fa.fa-vk
           Unlink Vkontakte Account
 
-      %button.btn.btn-primary.btn-social{ :'ng-if' => "!vm.have_auth('github')", :'ng-click' => "vm.link('github')"}
+      %button.btn.btn-primary.btn-social{ ng_if: "!vm.have_auth('github')", ng_click: "vm.link('github')"}
         %span.ion-social-github
           Link Github Account
-      %button.btn.btn-danger.btn-social{ :'ng-if' => "vm.have_auth('github')", :'ng-click' => "vm.unlink('github')"}
+      %button.btn.btn-danger.btn-social{ ng_if: "vm.have_auth('github')", ng_click: "vm.unlink('github')"}
         %span.ion-social-github
           Unlink GitHub Account

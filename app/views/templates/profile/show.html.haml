@@ -6,31 +6,34 @@
           Profile
       .pull-right
         .btn-group
-          =render_button 'edit', :'ui-sref' => 'editProfile(vm.user)'
+          =render_button 'edit', ui_sref: 'editProfile(vm.user)'
       .clearfix
     %hr
     -# TODO: -Destroy profile and -change password
 
-    %form{ :role => 'form',
-           :name => 'form',
-           :novalidate => true }
+    %form{ role: 'form',
+           name: 'form',
+           novalidate: true }
 
       .form-group
         %label.control-label
           %i.ion-person
           Name
-        %h5.form-text-under-icon {{vm.user.firstName}}
+        %h5.form-text-under-icon
+          {{ vm.user.firstName }}
 
       .form-group
         %label.control-label
           %i.ion-person
           Surname
-        %h5.form-text-under-icon {{vm.user.lastName}}
+        %h5.form-text-under-icon
+          {{ vm.user.lastName }}
 
       .form-group
         %label.control-label
           %i.ion-at
           Email
-        %h5.form-text-under-icon {{vm.user.email}}
+        %h5.form-text-under-icon
+          {{ vm.user.email }}
 
 =render 'templates/profile/linked_accounts'

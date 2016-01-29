@@ -1,10 +1,7 @@
 .panel.panel-default
   .panel-heading
-    .pull-left
-      %h5 Rounds
-    .clearfix
-  -# %ul.nav.nav-pills.nav-stacked
+    %h5 Rounds
   %ul
-    %li{ :'ng-repeat' => 'round in vm.rounds' }
-      %a{:'ui-sref' => 'showTournament.showRound({ id: round.tournament.id, roundId: round.id })' }
+    %li{ ng_repeat: 'round in vm.rounds' }
+      %a{ ui_sref: 'showTournament.showRound({ id: round.tournament.id, roundId: round.id })' }
         {{round.name}}

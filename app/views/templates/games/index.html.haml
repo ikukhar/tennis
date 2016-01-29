@@ -1,61 +1,61 @@
 .panel.panel-default.panel-shadow
   .panel-body
-    %h3 {{ vm.title }}
+    %h3
+      {{ vm.title }}
 
     %form.form-vertical.select-filter-panel
-      .col-sm-3{ :'ng-if' =>  'vm.tournFilter'}
+      .col-sm-3{ ng_if:  'vm.tournFilter'}
         .form-group
           %label.control-label Tournament:
-          %ui-select{ :'ng-model' => "vm.selectedTourn",
-                      :'on-select' => 'vm.onSelectFilter(); vm.onSelectTournament(true)'}
+          %ui-select{ ng_model: 'vm.selectedTourn',
+                      on_select: 'vm.onSelectFilter(); vm.onSelectTournament(true)'}
             %ui-select-match
-              %span{ :'ng-bind' => '$select.selected.name' }
-              %a.btn.btn-xs.btn-link{ :'ng-click' => 'vm.rootScope.clearSelectFilter($event, $select); vm.selectedTourn = null; vm.selectedRound = null; vm.onSelectFilter(); vm.onSelectTournament(false)' }
+              %span{ ng_bind: '$select.selected.name' }
+              %a.btn.btn-xs.btn-link{ ng_click: 'vm.rootScope.clearSelectFilter($event, $select); vm.selectedTourn = null; vm.selectedRound = null; vm.onSelectFilter(); vm.onSelectTournament(false)' }
                 %i.ion-close
-            %ui-select-choices{ :repeat => 'item in (vm.tournFilter | filter: $select.search) track by item.id' }
-              %span{ :'ng-bind' => 'item.name' }
+            %ui-select-choices{ repeat: 'item in (vm.tournFilter | filter: $select.search) track by item.id' }
+              %span{ ng_bind: 'item.name' }
 
-      .col-sm-3{ :'ng-if' =>  'vm.tournFilter || vm.roundFilter'}
+      .col-sm-3{ ng_if: 'vm.tournFilter || vm.roundFilter'}
         .form-group
           %label.control-label Round:
-          %ui-select{ :'ng-model' => 'vm.selectedRound',
-                      :'on-select' => 'vm.onSelectFilter()',
-                      :'ng-disabled' =>  '!vm.roundFilter' }
+          %ui-select{ ng_model: 'vm.selectedRound',
+                      on_select: 'vm.onSelectFilter()',
+                      ng_disabled:  '!vm.roundFilter' }
             %ui-select-match
-              %span{ :'ng-bind' => '$select.selected.name' }
-              %a.btn.btn-xs.btn-link{ :'ng-click' => 'vm.rootScope.clearSelectFilter($event, $select); vm.selectedRound = null; vm.onSelectFilter()' }
+              %span{ ng_bind: '$select.selected.name' }
+              %a.btn.btn-xs.btn-link{ ng_click: 'vm.rootScope.clearSelectFilter($event, $select); vm.selectedRound = null; vm.onSelectFilter()' }
                 %i.ion-close
-            %ui-select-choices{ :repeat => 'item in (vm.roundFilter | filter: $select.search) track by item.id' }
-              %span{ :'ng-bind' => 'item.name' }
+            %ui-select-choices{ repeat: 'item in (vm.roundFilter | filter: $select.search) track by item.id' }
+              %span{ ng_bind: 'item.name' }
 
-      .col-sm-3{ :'ng-if' =>  'vm.statusFilter'}
+      .col-sm-3{ ng_if: 'vm.statusFilter'}
         .form-group
           %label.control-label Status:
-          %ui-select{ :'ng-model' => 'vm.selectedStatus',
-                      :'on-select' => 'vm.onSelectFilter()' }
+          %ui-select{ ng_model: 'vm.selectedStatus',
+                      on_select: 'vm.onSelectFilter()' }
             %ui-select-match
-              %span{ :'ng-bind' => "$select.selected.value" }
-              %a.btn.btn-xs.btn-link{ :'ng-click' => 'vm.rootScope.clearSelectFilter($event, $select); vm.selectedStatus = null; vm.onSelectFilter()' }
+              %span{ ng_bind: "$select.selected.value" }
+              %a.btn.btn-xs.btn-link{ ng_click: 'vm.rootScope.clearSelectFilter($event, $select); vm.selectedStatus = null; vm.onSelectFilter()' }
                 %i.ion-close
-            %ui-select-choices{ :repeat => 'item.value as (key, item) in vm.statusFilter | filter: { "value":$select.search }' }
-              %span{ :'ng-bind' => 'item.value' }
+            %ui-select-choices{ repeat: 'item.value as (key, item) in vm.statusFilter | filter: { "value":$select.search }' }
+              %span{ ng_bind: 'item.value' }
 
       .col-sm-3
         .form-group
           %label.control-label Search:
-          %input.form-control{ :'ng-model' => 'vm.search',
-                               :'ng-change' => 'vm.onSelectFilter()',
-                               :'ng-model-options' => '{ debounce: 500 }' }
+          %input.form-control{ ng_model: 'vm.search',
+                               ng_change: 'vm.onSelectFilter()',
+                               ng_model_options: '{ debounce: 500 }' }
 
     .clearfix
     %hr
-    -#%div{ :'ng-repeat' => 'game in vm.games | filter: vm.selectedFilter | filterBy: ["team1.name", "team2.name"]: search'  }
-    %div{ :'dir-paginate' => 'game in vm.games | itemsPerPage: vm.itemsPerPage',
-          :'total-items' => 'vm.total_count',
-          :'current-page' => 'vm.current_page' }
+    %div{ dir_paginate: 'game in vm.games | itemsPerPage: vm.itemsPerPage',
+          total_items: 'vm.total_count',
+          current_page: 'vm.current_page' }
       =render 'templates/games/singles_game'
     .clearfix
-    %dir-pagination-controls{ :'max-size' => 5,
-                              :'direction-links' => 'true',
-                              :'boundary-links' => 'true',
-                              :'on-page-change' => 'vm.onPagination(newPageNumber)' }
+    %dir-pagination-controls{ max_size: 5,
+                              direction_links: 'true',
+                              boundary_links: 'true',
+                              on_page_change: 'vm.onPagination(newPageNumber)' }

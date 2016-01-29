@@ -7,18 +7,20 @@
         %th.col-md-1 Sets
         %th.col-md-1
     %tbody
-      %tr{ :'ng-repeat' => 'round in vm.rounds' }
-        %td {{$index+1}}
-        %td {{round.name}}
+      %tr{ ng_repeat: 'round in vm.rounds' }
         %td
-          %input.form-control{ :'ng-model' => 'round.sets',
-                               :name => 'sets',
-                               :type => 'number' }
+          {{ $index+1 }}
         %td
-          %a.btn.btn-default{ :'ng-click' => 'vm.removeRound(round)' }
+          {{ round.name }}
+        %td
+          %input.form-control{ ng_model: 'round.sets',
+                               name: 'sets',
+                               type: 'number' }
+        %td
+          %a.btn.btn-default{ ng_click: 'vm.removeRound(round)' }
             %span.ion-trash-a
 
 .form-group.row
   .col-xs-2.col-xs-offset-4
-    =render_button 'submit', :text => 'Create', :'ng-click' => 'vm.create()'
+    =render_button 'submit', text: 'Create', ng_click: 'vm.create()'
   =render_button 'cancel'

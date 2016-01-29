@@ -2,14 +2,15 @@
   .panel-body
     .command-panel
       .pull-left
-        %h3 {{vm.tournament.name}}
+        %h3
+          {{vm.tournament.name}}
       .pull-right
-        .btn-group{ :'ng-show' => 'currentUser.admin' }
-          =render_button 'edit', :'ui-sref' => 'editTournament(vm.tournament)'
-          =render_button 'destroy', :'ng-click' => 'vm.destroy()'
+        .btn-group{ ng_show: 'currentUser.admin' }
+          =render_button 'edit', ui_sref: 'editTournament(vm.tournament)'
+          =render_button 'destroy', ng_click: 'vm.destroy()'
       .clearfix
 
 =render 'templates/rounds/index'
 =render 'templates/teams/index'
 
-%div{ :'ui-view' => 'games' }
+%div{ ui_view: 'games' }

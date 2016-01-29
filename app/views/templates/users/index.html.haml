@@ -6,12 +6,12 @@
           Users
       .pull-right
         .btn-group
-          =render_button 'new', :'ui-sref' => 'newUser'
+          =render_button 'new', ui_sref: 'newUser'
       .clearfix
     %hr
     %table.table.table-hover
       %tbody
-        %tr{ :"ng-repeat" => "user in vm.users" }
-          %td{ :style => "width:100%"}
-            %a{ :'ui-sref' => "showUser(user)" }
+        %tr{ ng_repeat: 'user in vm.users' }
+          %td{ style: 'width:100%' }
+            %a{ ui_sref: 'showUser(user)' }
               {{user.fullName}}

@@ -1,20 +1,20 @@
-.form-group.required{ :'ng-class' => "{ 'has-error': form.firstName.$touched && form.firstName.$invalid }" }
+.form-group.required{ ng_class: "{ 'has-error': form.firstName.$touched && form.firstName.$invalid }" }
   %label.control-label First name:
-  %input.form-control{ :'ng-model' => 'vm.user.firstName',
-                            :name => 'firstName',
-                            :required => true,
-                            :type => 'text'}
+  %input.form-control{ ng_model: 'vm.user.firstName',
+                       name: 'firstName',
+                       required: true,
+                       type: 'text'}
 
-.form-group.required{ :'ng-class' => "{ 'has-error': form.lastName.$touched && form.lastName.$invalid }" }
+.form-group.required{ ng_class: "{ 'has-error': form.lastName.$touched && form.lastName.$invalid }" }
   %label.control-label Last name:
-  %input.form-control{ :'ng-model' => 'vm.user.lastName',
-                            :name => 'lastName',
-                            :required => true,
-                            :type => 'text'}
+  %input.form-control{ ng_model: 'vm.user.lastName',
+                       name: 'lastName',
+                       required: true,
+                       type: 'text'}
 
-.form-group.required{ :'ng-class' => "{ 'has-error': form.email.$touched && form.email.$invalid }" }
+.form-group.required{ ng_class: "{ 'has-error': form.email.$touched && form.email.$invalid }" }
   %label.control-label Email:
-  %input.form-control{:'ng-model' => 'vm.user.email',
-                       :name => 'email',
-                       :required => true,
-                       :type => 'email'}
+  %input.form-control{ ng_model: 'vm.user.email',
+                       name: 'email',
+                       required: true,
+                       type: 'email'}

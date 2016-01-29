@@ -1,36 +1,36 @@
-#navbar-container{ :'ng-controller' => 'NavbarCtrl as vm' }
-  %nav.navbar.navbar-default.navbar-fixed-top{:role => :navigation}
+#navbar-container{ ng_controller: 'NavbarCtrl as vm' }
+  %nav.navbar.navbar-default.navbar-fixed-top{ role: :navigation}
     .container
       .row.col-md-10.col-md-offset-1
         #navbar
           .navbar-header
-            %a{  :"ui-sref" => "home", class: 'navbar-brand' }
+            %a{  ui_sref: 'home', class: 'navbar-brand' }
               Home
           %ul.nav.navbar-nav.pull-left
             %li
-              %a{ :"ui-sref" => "tournaments" } Tournaments
+              %a{ ui_sref: 'tournaments' } Tournaments
             %li
-              %a{ :"ui-sref" => "games" } Games
+              %a{ ui_sref: 'games' } Games
             %li
-              %a{ :"ui-sref" => "users" } Users
+              %a{ ui_sref: 'users' } Users
             %li
-              %a{ :"ui-sref" => "rating" } Rating
+              %a{ ui_sref: 'rating' } Rating
           %ul.nav.navbar-nav.pull-right
-            %li.dropdown{ :"ng-show" => "vm.isAuthenticated()" }
-              %a.dropdown-toggle{ :"data-toggle" => "dropdown", id: "dropdown-menu", :"ng-href" => '#' }
+            %li.dropdown{ ng_show: 'vm.isAuthenticated()' }
+              %a.dropdown-toggle{ data_toggle: 'dropdown', id: 'dropdown-menu', ng_href: '#' }
                 {{ currentUser.email }}
                 %span.caret
-              %ul.dropdown-menu{ role: "menu" }
+              %ul.dropdown-menu{ role: 'menu' }
                 %li
-                  %a{ :"ui-sref" => 'profile'}
+                  %a{ ui_sref: 'profile'}
                     My profile
                 %li
-                  %a{ :"ng-href" => '#', :"ng-click" => 'vm.logout()', id: 'logout' }
+                  %a{ ng_href: '#', ng_click: 'vm.logout()', id: 'logout' }
                     Logout
 
-            %li{ :"ng-show" => "!vm.isAuthenticated()" }
-              %a{ :"ui-sref" => "login" }
+            %li{ ng_show: '!vm.isAuthenticated()' }
+              %a{ ui_sref: 'login' }
                 Log In
-            %li{ :"ng-show" => "!vm.isAuthenticated()" }
-              %a{ :"ui-sref" => "signup" }
+            %li{ ng_show: '!vm.isAuthenticated()' }
+              %a{ ui_sref: 'signup' }
                 Sign Up

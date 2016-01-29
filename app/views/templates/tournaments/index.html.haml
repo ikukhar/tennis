@@ -1,48 +1,48 @@
 .panel.panel-default.panel-shadow
   .panel-body
-    //%ncy-breadcrumb
     .command-panel
       .pull-left
         %h3
           Tournaments
       .pull-right
-        .btn-group{ :'ng-show' => 'currentUser.admin' }
-          =render_button 'new', :'ui-sref' => 'newTournament.tournament'
+        .btn-group{ ng_show: 'currentUser.admin' }
+          =render_button 'new', ui_sref: 'newTournament.tournament'
       .clearfix
+
     %form.form-vertical.select-filter-panel
-      .col-sm-3{ :'ng-if' =>  'vm.yearFilter'}
+      .col-sm-3{ ng_if:  'vm.yearFilter'}
         .form-group
           %label.control-label Year:
-          %ui-select{ :'ng-model' => "vm.selectedYear" }
+          %ui-select{ ng_model: 'vm.selectedYear' }
             %ui-select-match
-              %span{ :'ng-bind' => "$select.selected" }
-              %a.btn.btn-xs.btn-link{ :'ng-click' => 'vm.rootScope.clearSelectFilter($event, $select);' }
+              %span{ ng_bind: '$select.selected' }
+              %a.btn.btn-xs.btn-link{ ng_click: 'vm.rootScope.clearSelectFilter($event, $select);' }
                 %i.ion-close
-            %ui-select-choices{ :repeat => "item in (vm.yearFilter | filter: $select.search)" }
-              %span{ :'ng-bind' => "item" }
+            %ui-select-choices{ repeat: 'item in (vm.yearFilter | filter: $select.search)' }
+              %span{ ng_bind: 'item' }
 
-      .col-sm-3{ :'ng-if' =>  'vm.statusFilter'}
+      .col-sm-3{ ng_if:  'vm.statusFilter'}
         .form-group
           %label.control-label Status:
-          %ui-select{ :'ng-model' => "vm.selectedStatus" }
+          %ui-select{ ng_model: 'vm.selectedStatus' }
             %ui-select-match
-              %span{ :'ng-bind' => "$select.selected.value" }
-              %a.btn.btn-xs.btn-link{ :'ng-click' => 'vm.rootScope.clearSelectFilter($event, $select)' }
+              %span{ ng_bind: '$select.selected.value' }
+              %a.btn.btn-xs.btn-link{ ng_click: 'vm.rootScope.clearSelectFilter($event, $select)' }
                 %i.ion-close
-            %ui-select-choices{ :repeat => "item.value as (key, item) in vm.statusFilter | filter: {'value':$select.search}" }
-              %span{ :'ng-bind' => "item.value" }
+            %ui-select-choices{ repeat: "item.value as (key, item) in vm.statusFilter | filter: {'value':$select.search}" }
+              %span{ ng_bind: 'item.value' }
 
       .col-sm-3
         .form-group
           %label.control-label Search:
-          %input.form-control{ :'ng-model' => 'search' }
+          %input.form-control{ ng_model: 'search' }
     .clearfix
     %hr
     .tournaments-container
-      .tournament{ :"ng-repeat" => 'tournament in vm.tournaments  | filter: vm.selectedFilter | filterBy: ["name"] : search' }
+      .tournament{ ng_repeat: 'tournament in vm.tournaments  | filter: vm.selectedFilter | filterBy: ["name"] : search' }
         .left
           .title
-            %a{ :'ui-sref' => "showTournament(tournament)" }
+            %a{ ui_sref: 'showTournament(tournament)' }
               {{tournament.name}}
           .data
             {{tournament.teamsType}}
