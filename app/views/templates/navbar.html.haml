@@ -17,7 +17,7 @@
               %a{ ui_sref: 'rating' } Rating
           %ul.nav.navbar-nav.pull-right
             %li.dropdown{ ng_show: 'vm.isAuthenticated()' }
-              %a.dropdown-toggle{ data_toggle: 'dropdown', id: 'dropdown-menu', ng_href: '#' }
+              %a.dropdown-toggle{ :'data-toggle' => 'dropdown', id: 'dropdown-menu', ng_href: '#' }
                 {{ currentUser.email }}
                 %span.caret
               %ul.dropdown-menu{ role: 'menu' }

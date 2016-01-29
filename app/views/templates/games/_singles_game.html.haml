@@ -20,7 +20,7 @@
           %div{ ng_show: '!game.edit' }
             {{set.team1}}
           %div{ ng_show: 'game.edit' }
-            %input.set-control{ ng_model: 'set.team1',
+            %input.form-control.set-control{ ng_model: 'set.team1',
                                 type: 'number' }
       .winner-icon{ ng_show: 'vm.rootScope.equals(game.winner, game.team1)' }
         %span.ion-checkmark
@@ -37,7 +37,7 @@
           %div{ ng_show: '!game.edit' }
             {{set.team2}}
           %div{ ng_show: 'game.edit' }
-            %input.set-control{ ng_model: 'set.team2',
+            %input.form-control.set-control{ ng_model: 'set.team2',
                                 type: 'number' }
       .winner-icon{ ng_show: 'vm.rootScope.equals(game.winner, game.team2)' }
         %span.ion-checkmark
