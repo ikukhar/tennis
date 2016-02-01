@@ -1,5 +1,11 @@
 a, a:hover {
+  text-decoration: none;
+}
+a {
   color: #0a78be;
+}
+a:hover {
+  color: #0AD0C0;
 }
 .form-control:focus {
   border-color: #0AD0C0;

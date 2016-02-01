@@ -17,10 +17,17 @@
     'angular-loading-bar',
     'angularUtils.directives.dirPagination'
   ]);
+//    myApp.config(['$compileProvider', function /*($compileProvider) {
+//        $compileProvider.debugInfoEnabled(false);
+//    }]);*/
 
   angular.module('app').config(
-    function($locationProvider, $httpProvider, NotificationProvider, $authProvider) {
+    function($locationProvider, $httpProvider, NotificationProvider, $authProvider, $compileProvider) {
       $locationProvider.html5Mode(true);
+
+      <% if Rails.env.production? %>
+        <%= '$compileProvider.debugInfoEnabled(false);' %>
+      <% end %>
 
       NotificationProvider.setOptions({
         startTop: 55
@@ -102,7 +109,9 @@
         if ($auth.isAuthenticated()) {
           $.ajax('api/users/'+$auth.getPayload().user_id, {async: false})
            .success(function (data) {
-             $rootScope.currentUser = data;
+             $rootScope.$apply(function() {
+                 $rootScope.currentUser = data;
+             })
          });
           // User.get($auth.getPayload()['user_id']).then(function(response){
           //   $rootScope.currentUser = response;

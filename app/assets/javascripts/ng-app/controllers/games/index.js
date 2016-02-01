@@ -61,14 +61,15 @@
 
       Game.query(query_filter)
         .then(function(response){
-          vm.games = response.data;
-          vm.total_count = response.totalCount;
+          vm.games = response;
+          vm.total_count = response.total_count;
       });
     };
     vm.getData();
 
 
     function update(game) {
+      console.log(game)
       game.winner = getWinner(game);
       game.finished = game.winner ? true : false
       game.update()

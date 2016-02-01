@@ -48,8 +48,8 @@ class Api::GamesController < ApplicationController
     games = query.limit(limit).offset(offset).includes(includes).all.order(:id)
     count = query.count
 
-    render json: { data: ActiveModel::ArraySerializer.new(games),
-                   total_count: count }
+    render json: { games: ActiveModel::ArraySerializer.new(games),
+                   total_count: count}
 
   end
 

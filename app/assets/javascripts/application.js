@@ -23,7 +23,6 @@
 //= require angularjs/rails/resource
 //= require angular-ui-notification
 //= require spin.js/spin.js
-/*//= require angular-spinner*/
 //= require satellizer
 //= require angular-animate
 //= require checklist-model
