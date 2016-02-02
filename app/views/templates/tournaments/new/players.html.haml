@@ -8,10 +8,16 @@
       Unelect all
   .list-container
     .form-group{ ng_repeat: 'user in vm.users' }
-      %input{ type: 'checkbox',
-              checklist_model: 'vm.selectedPlayers',
-              checklist_value: 'user' }
-        {{user.fullName}}
+      .checkbox
+        %label
+          %input{ type: 'checkbox',
+                  checklist_model: 'vm.selectedPlayers',
+                  checklist_value: 'user' }
+            {{user.fullName}}
+          %span.cr
+            %i.cr-icon.glyphicon.glyphicon-ok
+
+
 
   %h5 Selected: {{ vm.selectedPlayers.length }}
 
